@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+/* 🔥 Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease;
+}
+
+/* 🔥 Slide Up */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-slideUp {
+  animation: slideUp 0.7s ease;
+}
+
+/* 🔥 Slide From Left */
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-slideLeft {
+  animation: slideLeft 0.6s ease;
+}
+
+/* 🔥 Slide From Right */
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-slideRight {
+  animation: slideRight 0.6s ease;
+}
+
+/* 🔥 Scale In */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease;
+}
+
+/* 🔥 Glow Pulse */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 0px rgba(37, 99, 235, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(37, 99, 235, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(37, 99, 235, 0.4);
+  }
+}
+.animate-glow {
+  animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+/* 🔥 Hourglass swing */
+@keyframes hourglassSwing {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(15deg) scale(1.15);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  75% {
+    transform: rotate(-15deg) scale(1.15);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+.animate-hourglass {
+  animation: hourglassSwing 1.5s ease-in-out infinite;
+}

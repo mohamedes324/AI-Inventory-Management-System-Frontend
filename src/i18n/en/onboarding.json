@@ -1,0 +1,57 @@
+{
+  "setPassword": {
+    "title": "Set New Password",
+
+    "newPassword": "New Password",
+    "enterPassword": "Enter strong password",
+
+    "confirmPassword": "Confirm Password",
+    "confirmYourPassword": "Confirm your password",
+
+    "savePassword": "Save Password",
+
+    "required": "Password is required",
+    "weakPassword": "Must contain 8+ chars, upper, lower, number & symbol",
+    "confirmRequired": "Confirm your password",
+    "notMatch": "Passwords do not match"
+  },
+  
+  "uploadDocuments": {
+  "title": "Upload your document",
+  "description": "Please upload a clear photo of your ID, passport, or driving license.",
+
+  "uploadText": "Click or drag to upload your document",
+  "formats": "PNG, JPG or PDF",
+
+  "remove": "Remove",
+
+  "idPassport": "ID / Passport",
+  "clearPhoto": "Clear photo",
+  "fastReview": "Fast review",
+
+  "submit": "Submit for approval →",
+
+  "rightTitle": "Secure onboarding for every verified user.",
+  "rightDesc": "Upload once, review quickly, and keep your account ready for secure actions.",
+
+  "step1": "Step 1",
+  "step1Text": "Upload document",
+
+  "step2": "Step 2",
+  "step2Text": "Submit for approval"
+},
+"pending": {
+  "title": "Your request is under review",
+  "description": "We have received your documents successfully. Our team is currently reviewing your information.",
+  "step1": "Documents uploaded successfully",
+  "step2": "Verification in progress",
+  "step3": "You will be notified soon",
+  "note": "This usually takes a few minutes to a few hours."
+},
+"rejected": {
+  "title": "Your request was rejected",
+  "description": "Unfortunately, your documents were not approved.",
+  "reason": "The uploaded image is not clear. Please upload a valid and clear document.",
+  "retry": "Upload again"
+}
+}
