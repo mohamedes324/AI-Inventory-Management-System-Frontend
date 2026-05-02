@@ -1,84 +1,77 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Button from "@/shared/components/ui/Button";
-import Input from "@/shared/components/ui/Input";
-import { Mail, Lock } from "lucide-react";
-import { Package } from "lucide-react";
+import {
+  Button,
+  Input,
+  LanguageSwitcher,
+  FormWrapper,
+  Card,
+} from "@/shared/components/ui";
+import { Mail, Lock, Package, BarChart3, ArrowUpRight, TrendingUp } from "lucide-react";
 import { loginRequest } from "../api/login";
 import { useRequest } from "@/shared/hooks/useRequest";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
 import { initAuth } from "@/shared/utils/initAuth";
+import { toast } from "@/shared/store/toastStore";
 
 export default function Login() {
   const [form, setForm] = useState({
-    userName: "",
-    password: "",
+    userName: "super_admin",
+    password: "AdminPassword123!",
   });
 
   const navigate = useNavigate();
-  const { execute: login, loading, error } = useRequest(loginRequest);
+  const { execute: login, loading } = useRequest(loginRequest);
   const { t } = useTranslation();
-  
-// Login.jsx
 
+  const handleLogin = async (e) => {
+    try {
+      if (e) e.preventDefault();
+      await login(form);
+      await initAuth();
 
+      toast.success(t("auth:login.welcomeBack") || "Welcome Back!");
+      navigate("/redirect");
+    } catch (err) {
+      const message = err?.message || "Something went wrong";
+      toast.error(message);
+      console.log(err);
+    }
+  };
 
-const handleLogin = async (e) => {
-  try {
-    if (e) e.preventDefault();
-    // 1. عملية الـ Login بس عشان السيرفر يحط الـ Refresh Token في الكوكي
-    await login(form); 
-    // 2. ننادي initAuth وهي تتولى الباقي (التوكن، الـ Role، الـ Status، والـ Loading)
-    await initAuth();
+  const logo = (
+    <div className="flex items-center gap-3.5">
+      <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-primary-500/25 animate-scaleIn">
+        <Package size={24} />
+      </div>
+      <h1 className="font-bold text-xl tracking-tight text-gray-dark">
+        Inventory
+        <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+          Market
+        </span>
+      </h1>
+    </div>
+  );
 
-    // 3. لما تخلص، الستور هيكون كامل، والـ redirect هيشتغل صح
-    navigate("/redirect");  
-  } catch (err) {
-    console.log(err);
-  }
-};
+  return (
+    <div className="min-h-screen flex">
+      {/* ═══════════ LEFT SIDE — Login Form ═══════════ */}
+      <div className="w-full lg:w-[48%] flex flex-col items-center justify-center bg-gray-light px-6 lg:px-16 py-12 relative">
 
-return (
-  <div className="min-h-screen flex">
-    {/* LEFT SIDE */}
-    <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-light px-6 lg:px-16">
-      <div className="w-full max-w-md animate-slideLeft bg-white p-8 rounded-2xl shadow-sm">
-        
-        {/* Language Switch */}
-        <button onClick={() => i18n.changeLanguage("en")}>English</button>
-        <button onClick={() => i18n.changeLanguage("ar")}>عربي</button>
+        <LanguageSwitcher className="absolute top-7 end-7 z-20" />
 
-        {/* Logo */}
-        <div className="flex items-center gap-3 mb-10">
-          <div className="w-10 h-10 bg-primary-500 rounded-xl flex items-center justify-center text-white shadow-md">
-            <Package size={20} />
-          </div>
-          <h1 className="font-semibold text-lg tracking-wide">
-            Inventory<span className="text-primary-500">Market</span>
-          </h1>
-        </div>
-
-        {/* Title */}
-        <h2 className="text-3xl font-semibold mb-2">
-          {t("auth:login.title")}
-        </h2>
-
-        <p className="text-gray text-sm mb-8">
-          {t("auth:login.description")}
-        </p>
-
-        {/* Form */}
-        <div className="flex flex-col gap-5">
+        <FormWrapper
+          title={t("auth:login.title")}
+          description={t("auth:login.description")}
+          logo={logo}
+        >
           <Input
             label={t("auth:login.email")}
             placeholder="admin@inventorymarket.com"
             icon={<Mail size={18} />}
             value={form.userName}
-            onChange={(e) =>
-              setForm({ ...form, userName: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, userName: e.target.value })}
           />
 
           <Input
@@ -87,70 +80,95 @@ return (
             placeholder={t("auth:login.enterPassword")}
             icon={<Lock size={18} />}
             value={form.password}
-            onChange={(e) =>
-              setForm({ ...form, password: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
 
-          {error && (
-            <div className="text-error text-sm text-center">
-              {typeof error === "string" ? error : error.message}
-            </div>
-          )}
-
-          {/* Button */}
           <Button
             fullWidth
             size="lg"
-            className="shadow-md"
             onClick={handleLogin}
             loading={loading}
             disabled={!form.userName || !form.password}
           >
             {t("auth:login.signIn")}
           </Button>
-        </div>
+        </FormWrapper>
+
       </div>
-    </div>
 
-    {/* RIGHT SIDE */}
-    <div className="hidden lg:flex w-1/2 relative overflow-hidden">
-      <img
-        src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d"
-        alt="warehouse"
-        className="w-full h-full object-cover"
-      />
+      {/* ═══════════ RIGHT SIDE — Visual Showcase ═══════════ */}
+      <div className="hidden lg:flex w-[52%] relative overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d"
+          alt="warehouse"
+          className="w-full h-full object-cover"
+        />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-primary-500/50 to-transparent"></div>
+        {/* Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-700/90 via-primary-600/70 to-secondary-500/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-dark/30 via-transparent to-primary-700/20" />
 
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="bg-white rounded-xl shadow-xl p-6 w-80 animate-slideUp">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="bg-primary-500 text-white p-2 rounded-lg">📊</div>
-            <div>
-              <h3 className="font-semibold">
-                {t("auth:login.metricsTitle")}
-              </h3>
-              <p className="text-sm text-gray">
-                {t("auth:login.metricsSub")}
-              </p>
+        {/* Decorative Orbs */}
+        <div className="absolute top-24 right-24 w-72 h-72 bg-secondary-500/20 rounded-full blur-3xl animate-float" />
+        <div
+          className="absolute bottom-32 left-16 w-64 h-64 bg-primary-500/15 rounded-full blur-3xl animate-float"
+          style={{ animationDelay: "1.5s" }}
+        />
+
+        {/* Content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-12 z-10">
+          <div className="text-center mb-10 animate-fadeIn">
+            <h2 className="text-4xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+              Smart Inventory<br />Management
+            </h2>
+            <p className="text-white/70 text-lg max-w-sm mx-auto leading-relaxed">
+              AI-powered insights for your supply chain
+            </p>
+          </div>
+
+          {/* Floating Metrics Card */}
+          <Card variant="glass" padding="lg" className="animate-float w-80 shadow-2xl border-white/20">
+            <div className="flex items-center gap-3.5 mb-5">
+              <div className="bg-gradient-to-br from-primary-500 to-primary-600 text-white p-2.5 rounded-xl shadow-lg shadow-primary-500/25">
+                <BarChart3 size={20} />
+              </div>
+              <div>
+                <h3 className="font-bold text-gray-dark text-[15px]">
+                  {t("auth:login.metricsTitle")}
+                </h3>
+                <p className="text-sm text-gray">
+                  {t("auth:login.metricsSub")}
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="flex justify-between text-sm mb-2">
-            <span>{t("auth:login.activeSkus")}</span>
-            <span className="font-semibold">14,204</span>
-          </div>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center text-sm bg-gray-light/70 rounded-xl px-4 py-3">
+                <span className="text-gray">{t("auth:login.activeSkus")}</span>
+                <span className="font-bold text-gray-dark">14,204</span>
+              </div>
+              <div className="flex justify-between items-center text-sm bg-gray-light/70 rounded-xl px-4 py-3">
+                <span className="text-gray">{t("auth:login.stockHealth")}</span>
+                <span className="inline-flex items-center gap-1 bg-secondary-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm">
+                  <ArrowUpRight size={12} />
+                  98.5%
+                </span>
+              </div>
+            </div>
+          </Card>
 
-          <div className="flex justify-between text-sm">
-            <span>{t("auth:login.stockHealth")}</span>
-            <span className="bg-secondary-500 text-white px-2 py-1 rounded-md text-xs">
-              ↑ 98.5%
+          {/* Floating Badge */}
+          <div
+            className="animate-float mt-6 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2.5 border border-white/20 flex items-center gap-2"
+            style={{ animationDelay: "1s" }}
+          >
+            <TrendingUp size={16} className="text-secondary-500" />
+            <span className="text-white/90 text-sm font-medium">
+              Real-time Analytics
             </span>
           </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

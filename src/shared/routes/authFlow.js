@@ -12,8 +12,8 @@ export const statusRedirectMap = {
 
 // 🧩 role → home
 export const roleHomeMap = {
-    [ROLES.ADMIN]: "/admin/home",
-    [ROLES.MANAGER]: "/manager/home",
-    [ROLES.CASHIER]: "/cashier/home",
-    [ROLES.INVENTORY_STAFF]: "/inventory/home",
+    [ROLES.ADMIN]: "/dashboard",
+    [ROLES.MANAGER]: "/dashboard",
+    [ROLES.CASHIER]: "/dashboard",
+    [ROLES.INVENTORY_STAFF]: "/dashboard",
 };

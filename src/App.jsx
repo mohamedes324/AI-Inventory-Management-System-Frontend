@@ -3,6 +3,8 @@ import AppRouter from "./app/router";
 import { initAuth } from "@/shared/utils/initAuth";
 import { useAuthStore } from "@/shared/store/authStore";
 import { useTranslation } from "react-i18next";
+import { ToastContainer } from "@/shared/components/ui/Toast";
+import { Loader } from "@/shared/components/ui";
 
 function App() {
   // بنسحب حالة التحميل من الستور
@@ -15,15 +17,18 @@ function App() {
   // ✋ أهم خطوة: لو لسه بنحمل بيانات الـ Auth، ما تفتحش الـ Router
   if (isAuthLoading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        {/* حط هنا الـ Spinner بتاعك */}
-        <p>{t("auth:isAuthLoading.title")}</p>
-
+      <div className="flex h-screen items-center justify-center bg-gray-light">
+        <Loader size="lg" />
       </div>
     );
   }
 
-  return <AppRouter />;
+  return (
+    <>
+      <AppRouter />
+      <ToastContainer />
+    </>
+  );
 }
 
 export default App;

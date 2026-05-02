@@ -1,190 +1,311 @@
-import { useState } from "react";
-import Button from "@/shared/components/ui/Button";
-import { useTranslation } from "react-i18next";
+import { useState, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  LanguageSwitcher,
+  Card,
+  LogoutButton,
+} from "@/shared/components/ui";
+import {
+  Upload,
+  FileCheck2,
+  X,
+  Zap,
+  FileImage,
+  ImageIcon,
+  Package,
+} from "lucide-react";
 import { uploadDocumentRequest } from "../api/uploadDocument";
 import { useRequest } from "@/shared/hooks/useRequest";
+import { useTranslation } from "react-i18next";
+import { toast } from "@/shared/store/toastStore";
+import { initAuth } from "@/shared/utils/initAuth";
+
+const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg", "application/pdf"];
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 export default function UploadDocuments() {
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const inputRef = useRef(null);
+
+  const navigate = useNavigate();
+  const { execute: upload, loading } = useRequest(uploadDocumentRequest);
   const { t } = useTranslation();
 
-  const [preview, setPreview] = useState(null);
-  const [currentStep, setCurrentStep] = useState(1);
-  const [showPreview, setShowPreview] = useState(false);
-  const [file, setFile] = useState(null);
-  const { execute: upload, loading, error } = useRequest(uploadDocumentRequest);
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
+  // ── File Validation ──
+  const validateFile = useCallback(
+    (selectedFile) => {
+      if (!ALLOWED_TYPES.includes(selectedFile.type)) {
+        toast.error(t("onboarding:uploadDocuments.errorFormat"));
+        return false;
+      }
+      if (selectedFile.size > MAX_SIZE) {
+        toast.error(t("onboarding:uploadDocuments.errorSize"));
+        return false;
+      }
+      return true;
+    },
+    [t]
+  );
 
-    setFile(selectedFile); // 👈 ده المهم
-    setPreview(URL.createObjectURL(selectedFile));
-    setCurrentStep(2);
-  };
+  // ── Handle File Selection ──
+  const handleFile = useCallback(
+    (selectedFile) => {
+      if (!selectedFile || !validateFile(selectedFile)) return;
+      setFile(selectedFile);
+      if (selectedFile.type.startsWith("image/")) {
+        setPreview(URL.createObjectURL(selectedFile));
+      } else {
+        setPreview(null);
+      }
+    },
+    [validateFile]
+  );
+
+  const handleFileChange = (e) => handleFile(e.target.files[0]);
 
   const handleRemove = () => {
+    setFile(null);
     setPreview(null);
-    setCurrentStep(1);
+    if (inputRef.current) inputRef.current.value = "";
   };
 
-  const handleSubmit = async () => {
-    if (!file) return;
+  // ── Drag & Drop ──
+  const handleDragOver = (e) => { e.preventDefault(); setIsDragging(true); };
+  const handleDragLeave = (e) => { e.preventDefault(); setIsDragging(false); };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    handleFile(e.dataTransfer.files[0]);
+  };
 
+  // ── Submit ──
+  const handleSubmit = async () => {
+    if (!file) { toast.error(t("onboarding:uploadDocuments.errorNoFile")); return; }
     try {
       await upload(file);
-      console.log("Uploaded successfully");
+      toast.success(t("onboarding:uploadDocuments.success"));
+      await initAuth();
+      navigate("/redirect");
     } catch (err) {
-      console.log(err);
+      toast.error(err?.message || "Upload failed");
     }
   };
 
-return (
-  <div
-    className="min-h-screen flex items-center justify-center px-4 md:px-6 animate-fadeIn bg-gray-light"
-  >
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 w-full max-w-6xl">
-      {/* LEFT */}
-      <div className="bg-white p-5 md:p-6 rounded-2xl shadow-lg animate-slideUp order-2 md:order-1">
-        <h2 className="text-base md:text-lg font-semibold mb-2 animate-slideLeft">
-          {t("onboarding:uploadDocuments.title")}
-        </h2>
+  const formatSize = (bytes) => {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+  };
 
-        <p className="text-sm text-gray-500 mb-6 animate-slideRight">
-          {t("onboarding:uploadDocuments.description")}
-        </p>
+  return (
+    <div className="min-h-screen bg-gray-light flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
+      {/* Background orbs */}
+      <div className="absolute top-[-15%] right-[-10%] w-[500px] h-[500px] bg-primary-500/5 rounded-full blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-[-15%] left-[-10%] w-[500px] h-[500px] bg-secondary-500/5 rounded-full blur-[130px] pointer-events-none" />
 
-        {/* Upload */}
-        {!preview ? (
-          <label className="border-2 border-dashed border-gray-300 rounded-xl p-8 md:p-12 h-[200px] md:h-[260px] flex flex-col items-center justify-center cursor-pointer hover:border-primary-500 transition animate-scaleIn">
-            <div className="text-3xl md:text-4xl mb-3">📤</div>
+      {/* Language Switcher + Logout — top end */}
+      <div className="absolute top-8 end-8 z-20 flex items-center gap-2">
+        <LogoutButton variant="icon" />
+        <LanguageSwitcher />
+      </div>
 
-            <p className="font-medium text-gray-700 text-center text-sm md:text-base">
-              {t("onboarding:uploadDocuments.uploadText")}
-            </p>
+      {/* Main Card */}
+      <div className="w-full max-w-lg animate-slideUp">
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-3.5 mb-8 animate-fadeIn">
+          <div className="w-11 h-11 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-primary-500/25">
+            <Package size={22} />
+          </div>
+          <h1 className="font-bold text-xl tracking-tight text-gray-dark">
+            Inventory
+            <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
+              Market
+            </span>
+          </h1>
+        </div>
 
-            <p className="text-xs text-gray-400 mt-2">
-              {t("onboarding:uploadDocuments.formats")}
-            </p>
+        <Card className="animate-slideUp shadow-xl shadow-gray-dark/5">
+          <div className="p-8 flex flex-col gap-6">
+            {/* Heading */}
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-dark tracking-tight mb-2">
+                {t("onboarding:uploadDocuments.title")}
+              </h2>
+              <p className="text-gray text-[15px] leading-relaxed">
+                {t("onboarding:uploadDocuments.description")}
+              </p>
+            </div>
 
-            <input
-              type="file"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-          </label>
-        ) : (
-          <div className="flex flex-col items-center gap-3 animate-scaleIn">
+            {/* ── Drop Zone / File Preview ── */}
+            {!file ? (
+              <label
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                className={`
+                  relative flex flex-col items-center justify-center w-full
+                  rounded-2xl border-2 border-dashed cursor-pointer
+                  transition-all duration-500 group overflow-hidden
+                  h-64
+                  ${
+                    isDragging
+                      ? "border-primary-500 bg-primary-50/70 scale-[1.01] shadow-lg shadow-primary-500/10"
+                      : "border-gray/25 bg-gray-light/60 hover:border-primary-400 hover:bg-primary-50/30 hover:scale-[1.005]"
+                  }
+                `}
+              >
+                {/* Dot grid background */}
+                <div
+                  className="absolute inset-0 opacity-[0.04] pointer-events-none"
+                  style={{
+                    backgroundImage: `radial-gradient(circle, var(--color-primary-500, #6366f1) 1px, transparent 1px)`,
+                    backgroundSize: "22px 22px",
+                  }}
+                />
+
+                {/* Upload icon */}
+                <div
+                  className={`
+                    w-20 h-20 rounded-3xl flex items-center justify-center mb-5
+                    transition-all duration-500
+                    ${
+                      isDragging
+                        ? "bg-primary-500 text-white scale-110 shadow-2xl shadow-primary-500/40"
+                        : "bg-white text-primary-500 shadow-md group-hover:bg-primary-50 group-hover:scale-105 group-hover:shadow-primary-500/10"
+                    }
+                  `}
+                >
+                  <Upload
+                    size={36}
+                    strokeWidth={1.8}
+                    className={isDragging ? "animate-bounce" : ""}
+                  />
+                </div>
+
+                <p className="font-bold text-gray-dark text-lg mb-1.5">
+                  {isDragging
+                    ? t("onboarding:uploadDocuments.activeDropText")
+                    : t("onboarding:uploadDocuments.dragTitle")}
+                </p>
+                <p className="text-gray/60 text-sm mb-4">
+                  {t("onboarding:uploadDocuments.dragSubtitle")}
+                </p>
+                <span className="text-xs font-medium text-gray/40 bg-white/80 px-4 py-1.5 rounded-full border border-gray/10">
+                  {t("onboarding:uploadDocuments.formats")}
+                </span>
+
+                <input
+                  ref={inputRef}
+                  type="file"
+                  className="hidden"
+                  accept=".png,.jpg,.jpeg,.pdf"
+                  onChange={handleFileChange}
+                />
+              </label>
+            ) : (
+              /* ── File Preview ── */
+              <div className="rounded-2xl border border-gray/10 bg-gray-light/50 overflow-hidden animate-slideUp">
+                {preview ? (
+                  <div
+                    className="h-52 flex items-center justify-center cursor-pointer group overflow-hidden bg-white"
+                    onClick={() => setShowPreview(true)}
+                  >
+                    <img
+                      src={preview}
+                      alt="preview"
+                      className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                ) : (
+                  <div className="h-52 bg-gradient-to-br from-primary-50 to-primary-100/40 flex flex-col items-center justify-center">
+                    <FileImage size={52} className="text-primary-300 mb-3" />
+                    <span className="text-sm text-primary-400 font-medium">PDF Document</span>
+                  </div>
+                )}
+
+                {/* File info */}
+                <div className="flex items-center justify-between px-5 py-4 bg-white border-t border-gray/5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-secondary-500/10 flex items-center justify-center">
+                      <FileCheck2 size={20} className="text-secondary-500" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-dark truncate max-w-[220px]">
+                        {file.name}
+                      </p>
+                      <p className="text-xs text-gray/50 mt-0.5">{formatSize(file.size)}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleRemove}
+                    className="w-9 h-9 rounded-xl bg-error/8 flex items-center justify-center text-error/70 hover:bg-error/15 hover:text-error transition-all duration-200"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ── Info Badges ── */}
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { icon: <ImageIcon size={14} />, label: t("onboarding:uploadDocuments.idPassport") },
+                { icon: <FileCheck2 size={14} />, label: t("onboarding:uploadDocuments.clearPhoto") },
+                { icon: <Zap size={14} />,       label: t("onboarding:uploadDocuments.fastReview") },
+              ].map((badge) => (
+                <div
+                  key={badge.label}
+                  className="flex items-center justify-center gap-2 bg-gray-light rounded-xl py-2.5 px-2 text-xs font-medium text-gray border border-gray/8"
+                >
+                  <span className="text-primary-500 shrink-0">{badge.icon}</span>
+                  <span className="truncate">{badge.label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* ── Submit Button ── */}
+            <Button
+              fullWidth
+              size="lg"
+              onClick={handleSubmit}
+              loading={loading}
+              disabled={!file}
+            >
+              {loading
+                ? t("onboarding:uploadDocuments.submitting")
+                : t("onboarding:uploadDocuments.submit")}
+            </Button>
+          </div>
+        </Card>
+      </div>
+
+      {/* ── Full-Screen Image Preview Modal ── */}
+      {showPreview && preview && (
+        <div
+          className="fixed inset-0 bg-gray-dark/80 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn"
+          onClick={() => setShowPreview(false)}
+        >
+          <div
+            className="relative animate-scaleIn"
+            onClick={(e) => e.stopPropagation()}
+          >
             <img
               src={preview}
-              alt="preview"
-              onClick={() => setShowPreview(true)}
-              className="w-full h-[200px] md:h-[260px] object-contain rounded-xl bg-gray-100 cursor-pointer"
+              alt="full preview"
+              className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl"
             />
-
             <button
-              onClick={handleRemove}
-              className="text-error text-sm hover:underline"
+              onClick={() => setShowPreview(false)}
+              className="absolute -top-3 -right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-xl hover:scale-110 transition-transform text-gray-dark"
             >
-              {t("onboarding:uploadDocuments.remove")}
+              <X size={18} />
             </button>
           </div>
-        )}
-
-        {/* Info */}
-        <div className="grid grid-cols-3 gap-2 md:gap-3 mt-6 text-[10px] md:text-xs">
-          <div className="bg-gray-50 p-2 md:p-3 rounded-lg text-center">
-            📄 {t("onboarding:uploadDocuments.idPassport")}
-          </div>
-          <div className="bg-gray-50 p-2 md:p-3 rounded-lg text-center">
-            📷 {t("onboarding:uploadDocuments.clearPhoto")}
-          </div>
-          <div className="bg-gray-50 p-2 md:p-3 rounded-lg text-center">
-            ⚡ {t("onboarding:uploadDocuments.fastReview")}
-          </div>
         </div>
-
-        {/* Button */}
-        <div className="mt-6">
-          <Button
-            fullWidth
-            onClick={handleSubmit}
-            disabled={!file}
-            loading={loading}
-          >
-            {t("onboarding:uploadDocuments.submit")}
-          </Button>
-          {error && (
-            <div className="text-error text-sm text-center mt-3 animate-fadeIn">
-              {error.message}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* RIGHT */}
-      <div className="flex-col justify-center animate-slideRight text-center md:text-left hidden md:flex">
-        <h1 className="text-2xl md:text-3xl font-bold mb-4">
-          {t("onboarding:uploadDocuments.rightTitle")}
-        </h1>
-
-        <p className="text-gray-500 mb-6 text-sm md:text-base">
-          {t("onboarding:uploadDocuments.rightDesc")}
-        </p>
-
-        <div className="flex flex-col md:flex-row gap-3 md:gap-4">
-          <div
-            className={`flex-1 p-3 md:p-4 rounded-xl transition ${
-              currentStep === 1
-                ? "bg-gradient-to-r from-primary-500/20 to-primary-500/10 scale-105 animate-glow"
-                : "bg-white opacity-70"
-            }`}
-          >
-            <div className="text-xs md:text-sm font-semibold mb-1">
-              {t("onboarding:uploadDocuments.step1")}
-            </div>
-            {t("onboarding:uploadDocuments.step1Text")}
-          </div>
-
-          <div
-            className={`flex-1 p-3 md:p-4 rounded-xl transition ${
-              currentStep === 2
-                ? "bg-gradient-to-r from-primary-500/20 to-primary-500/10 scale-105 animate-glow"
-                : "bg-white opacity-70"
-            }`}
-          >
-            <div className="text-xs md:text-sm font-semibold mb-1">
-              {t("onboarding:uploadDocuments.step2")}
-            </div>
-            {t("onboarding:uploadDocuments.step2Text")}
-          </div>
-        </div>
-      </div>
+      )}
     </div>
-
-    {/* Preview */}
-    {showPreview && (
-      <div
-        className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 animate-fadeIn"
-        onClick={() => setShowPreview(false)}
-      >
-        <div
-          className="relative animate-scaleIn"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <img
-            src={preview}
-            alt="full-preview"
-            className="max-w-[90vw] max-h-[85vh] rounded-xl"
-          />
-
-          <button
-            onClick={() => setShowPreview(false)}
-            className="absolute top-2 right-2 bg-white rounded-full px-3 py-1 shadow hover:scale-110 transition"
-          >
-            ✕
-          </button>
-        </div>
-      </div>
-    )}
-  </div>
-);
+  );
 }

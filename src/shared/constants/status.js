@@ -1,8 +1,8 @@
 export const STATUS = {
-  PENDING_CHANGE_PASSWORD: "PendingChangePassword",
-  PENDING_IDENTITY_UPLOAD: "PendingIdentityUpload",
-  PENDING_ADMIN_REVIEW: "PendingAdminReview",
-  REJECTED: "Rejected",
-  ACTIVE: "Active",
-  DELETED: "Deleted",
+  PENDING_CHANGE_PASSWORD: "PendingChangePassword", //0
+  PENDING_IDENTITY_UPLOAD: "PendingIdentityUpload", //1
+  PENDING_ADMIN_REVIEW: "PendingAdminReview", // 2
+  REJECTED: "Rejected", // 3
+  ACTIVE: "Active", // 4
+  DELETED: "Deleted", // 5
 };

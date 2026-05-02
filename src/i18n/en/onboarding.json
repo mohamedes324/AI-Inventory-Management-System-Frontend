@@ -1,52 +1,75 @@
 {
   "setPassword": {
     "title": "Set New Password",
+    "description": "Create a strong, unique password to secure your account.",
 
+    "currentPassword": "Current Password",
     "newPassword": "New Password",
     "enterPassword": "Enter strong password",
 
     "confirmPassword": "Confirm Password",
-    "confirmYourPassword": "Confirm your password",
+    "confirmYourPassword": "Confirm your new password",
 
-    "savePassword": "Save Password",
+    "savePassword": "Set Password",
+    "success": "Password updated successfully!",
 
     "required": "Password is required",
-    "weakPassword": "Must contain 8+ chars, upper, lower, number & symbol",
-    "confirmRequired": "Confirm your password",
-    "notMatch": "Passwords do not match"
+    "notMatch": "Passwords do not match",
+    "confirmRequired": "Please confirm your password",
+
+    "ruleLength":    "At least 6 characters",
+    "ruleUppercase": "One uppercase letter (A–Z)",
+    "ruleLowercase": "One lowercase letter (a–z)",
+    "ruleSpecial":   "One special character (@, #, $…)",
+    "ruleNumber":    "One numeric digit (0–9)",
+    "passwordsMatch": "Passwords match",
+    "passwordsNoMatch": "Passwords do not match"
   },
   
   "uploadDocuments": {
-  "title": "Upload your document",
-  "description": "Please upload a clear photo of your ID, passport, or driving license.",
+    "title": "Upload Your Document",
+    "description": "Upload a clear photo of your ID to verify your identity and activate your account.",
 
-  "uploadText": "Click or drag to upload your document",
-  "formats": "PNG, JPG or PDF",
+    "dragTitle": "Drag & Drop your file here",
+    "dragSubtitle": "or click to browse from your device",
+    "formats": "Supports: PNG, JPG, PDF — Max 5MB",
+    "activeDropText": "Drop your file here...",
 
-  "remove": "Remove",
+    "remove": "Remove file",
+    "changeFile": "Change file",
+    "fileReady": "File ready for upload",
 
-  "idPassport": "ID / Passport",
-  "clearPhoto": "Clear photo",
-  "fastReview": "Fast review",
+    "idPassport": "ID / Passport",
+    "clearPhoto": "Clear Photo",
+    "fastReview": "Fast Review",
 
-  "submit": "Submit for approval →",
+    "submit": "Submit for Approval",
+    "submitting": "Uploading...",
+    "success": "Document uploaded successfully!",
+    "errorNoFile": "Please select a file first",
+    "errorSize": "File size must be under 5MB",
+    "errorFormat": "Only PNG, JPG, and PDF files are allowed",
 
-  "rightTitle": "Secure onboarding for every verified user.",
-  "rightDesc": "Upload once, review quickly, and keep your account ready for secure actions.",
-
-  "step1": "Step 1",
-  "step1Text": "Upload document",
-
-  "step2": "Step 2",
-  "step2Text": "Submit for approval"
-},
+    "showcaseTitle": "Verified Identity,\nSecure Access",
+    "showcaseDesc": "Complete your verification to unlock full platform capabilities.",
+    "showcaseBadge": "Identity Verification",
+    "featureSecure": "Encrypted Upload",
+    "featureSecureDesc": "Your documents are encrypted end-to-end",
+    "featureFast": "Quick Review",
+    "featureFastDesc": "Verified within minutes by our team",
+    "featureStatus": "Verification Pipeline Active"
+  },
 "pending": {
   "title": "Your request is under review",
+  "subtitle": "Almost there!",
   "description": "We have received your documents successfully. Our team is currently reviewing your information.",
   "step1": "Documents uploaded successfully",
   "step2": "Verification in progress",
   "step3": "You will be notified soon",
-  "note": "This usually takes a few minutes to a few hours."
+  "note": "This usually takes a few minutes to a few hours.",
+  "estimatedTime": "Estimated time",
+  "estimatedValue": "A few minutes – a few hours",
+  "secureNote": "Your data is encrypted & secure"
 },
 "rejected": {
   "title": "Your request was rejected",

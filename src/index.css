@@ -3,114 +3,123 @@
 @tailwind utilities;
 
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   🎨 ANIMATION DESIGN SYSTEM — CSS Variable-Driven Architecture
+   ═══════════════════════════════════════════════════════════════════════════
+   All animation tokens are defined here as CSS Custom Properties.
+   Color values are pulled from the centralized palette (colors.js)
+   via Tailwind's theme() function, ensuring a Single Source of Truth.
 
-/* 🔥 Fade In */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-.animate-fadeIn {
-  animation: fadeIn 0.6s ease;
-}
+   Keyframes & animation shorthands are registered in tailwind.config.mjs
+   under theme.extend.keyframes / theme.extend.animation, enabling
+   Tailwind utility classes (e.g. animate-fadeIn, hover:animate-halo).
+   ═══════════════════════════════════════════════════════════════════════════ */
 
-/* 🔥 Slide Up */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.animate-slideUp {
-  animation: slideUp 0.7s ease;
-}
+@layer base {
+  :root {
+    /* ─── ⏱  Timing Tokens ─── */
+    --anim-speed-fast:    0.3s;
+    --anim-speed-normal:  0.6s;
+    --anim-speed-slow:    0.9s;
+    --anim-speed-glacial: 1.5s;
 
-/* 🔥 Slide From Left */
-@keyframes slideLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-.animate-slideLeft {
-  animation: slideLeft 0.6s ease;
-}
+    /* ─── 🎛  Easing Curves ─── */
+    --anim-curve:         ease-out;
+    --anim-curve-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+    --anim-curve-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
 
-/* 🔥 Slide From Right */
-@keyframes slideRight {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
+    /* ─── 📐 Distance & Scale Tokens ─── */
+    --slide-distance:     40px;
+    --float-distance:     8px;
+    --scale-from:         0.9;
+
+    /* ─── 🎨 Theme Colors — Single Source of Truth ───
+         These map directly to the active palette defined in colors.js
+         and imported into tailwind.config.mjs. Changing a value in
+         colors.js automatically updates every animation that uses
+         these variables. */
+    --color-primary-500:   theme('colors.primary.500');
+    --color-primary-600:   theme('colors.primary.600');
+    --color-primary-700:   theme('colors.primary.700');
+    --color-secondary-500: theme('colors.secondary.500');
+    --color-secondary-600: theme('colors.secondary.600');
+    --color-gray-light:    theme('colors.gray.light');
+    --color-gray-default:  theme('colors.gray.DEFAULT');
+    --color-gray-dark:     theme('colors.gray.dark');
+    --color-error:         theme('colors.error');
+    --color-warning:       theme('colors.warning');
+
+    /* ─── ✨ Animation-Specific Color Tokens ───
+         Override these per-component to change glow/shimmer colors
+         without modifying global keyframes.
+         Example:  .my-card { --glow-color: var(--color-secondary-500); } */
+    --glow-color:          var(--color-primary-500);
+    --shimmer-base:        var(--color-gray-light);
+    --shimmer-highlight:   rgba(255, 255, 255, 0.7);
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-.animate-slideRight {
-  animation: slideRight 0.6s ease;
 }
 
-/* 🔥 Scale In */
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   🧩 GLOBAL COMPONENT UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════
+   Reusable style primitives for layout & visual consistency.
+   Usage:  <div class="glass-card">…</div>
+           <div class="form-container">…</div>
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* ── Glassmorphism Card ──
+     Semi-transparent card with frosted-glass effect.
+     Override --glass-bg and --glass-border per-component if needed. */
+  .glass-card {
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.06),
+      0 2px 8px rgba(0, 0, 0, 0.04);
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+
+  /* ── Form Container ──
+     Standardized wrapper for all forms (Login, Register, Settings).
+     Ensures consistent padding, radius, and elevation. */
+  .form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow:
+      0 20px 60px -15px rgba(0, 0, 0, 0.08),
+      0 4px 12px rgba(0, 0, 0, 0.03);
+    border: 1px solid color-mix(in srgb, var(--color-gray-default) 12%, transparent);
   }
-}
-.animate-scaleIn {
-  animation: scaleIn 0.5s ease;
+
+  .form-container--compact {
+    padding: 1.25rem 1.5rem;
+  }
 }
 
-/* 🔥 Glow Pulse */
-@keyframes glowPulse {
-  0% {
-    box-shadow: 0 0 0px rgba(37, 99, 235, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(37, 99, 235, 0.9);
-  }
-  100% {
-    box-shadow: 0 0 0px rgba(37, 99, 235, 0.4);
-  }
-}
-.animate-glow {
-  animation: glowPulse 1.5s ease-in-out infinite;
-}
 
-/* 🔥 Hourglass swing */
-@keyframes hourglassSwing {
-  0% {
-    transform: rotate(0deg) scale(1);
+/* ═══════════════════════════════════════════════════════════════════════════
+   ✨ SHIMMER UTILITY — Skeleton Loading Effect
+   ═══════════════════════════════════════════════════════════════════════════
+   Tailwind's animate-shimmer sets the animation shorthand, but the shimmer
+   also needs a sweeping gradient background. This utility adds it.
+   Usage:  <div class="animate-shimmer h-4 rounded" />
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--shimmer-base) 25%,
+      var(--shimmer-highlight) 50%,
+      var(--shimmer-base) 75%
+    );
+    background-size: 200% 100%;
   }
-  25% {
-    transform: rotate(15deg) scale(1.15);
-  }
-  50% {
-    transform: rotate(0deg) scale(1);
-  }
-  75% {
-    transform: rotate(-15deg) scale(1.15);
-  }
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-.animate-hourglass {
-  animation: hourglassSwing 1.5s ease-in-out infinite;
 }

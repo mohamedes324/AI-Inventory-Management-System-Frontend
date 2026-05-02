@@ -1,3 +1,17 @@
+/**
+ * @component ProtectedRoute
+ * @description Authentication guard wrapper for private pages.
+ * Checks accessToken, role, and status from the auth store.
+ * Redirects unauthenticated users to /login, and users with
+ * mismatched role/status to /redirect.
+ *
+ * @prop {ReactNode} children - Protected page content
+ * @prop {string[]} roles - Allowed roles (e.g. ["Admin", "Manager"])
+ * @prop {string[]} pageStatus - Allowed account statuses
+ *
+ * @example
+ *   <Route element={<ProtectedRoute roles={["Admin"]}><Dashboard /></ProtectedRoute>} />
+ */
 import { Navigate } from "react-router-dom";
 import { useAuthStore } from "@/shared/store/authStore";
 // import { getUserRoleFromToken } from "@/shared/utils/jwt";
@@ -11,7 +25,6 @@ export default function ProtectedRoute({ children, roles, pageStatus }) {
   // 2️⃣ فحص تسجيل الدخول
   if (!accessToken) return <Navigate to="/login" />;
 
-  // 3️⃣ فحص الصلاحيات (Role)
   if (roles && !roles.includes(role)) {
     console.warn("🚫 Role mismatch, redirecting...");
     return <Navigate to="/redirect" replace />;

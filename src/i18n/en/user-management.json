@@ -1,0 +1,114 @@
+{
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "pendingAccounts": "Pending Accounts",
+    "usersManagement": "Users Management",
+    "products": "Products",
+    "orders": "Orders",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "logout": "Logout"
+  },
+  "pendingAccounts": {
+    "title": "Pending Accounts",
+    "description": "Review and manage new user registrations awaiting admin approval.",
+
+    "colUser": "User",
+    "colRole": "Role",
+    "colStatus": "Status",
+    "colJoined": "Joined",
+    "colDocument": "Document",
+    "colActions": "Actions",
+
+    "noUsers": "No pending accounts",
+    "noUsersDesc": "All caught up! There are no users waiting for review right now.",
+    "noDocument": "No document",
+    "viewDocument": "View Document",
+    "viewIdPhoto": "View ID Photo",
+    "closeModal": "Close",
+
+    "approve": "Approve",
+    "reject": "Reject",
+    "approving": "Approving...",
+    "rejecting": "Rejecting...",
+
+    "approveSuccess": "User approved successfully",
+    "rejectSuccess": "User rejected successfully",
+    "approveError": "Failed to approve user",
+    "rejectError": "Failed to reject user",
+
+    "rejectModalTitle": "Reject User",
+    "rejectModalDesc": "Please provide a reason for rejecting this user.",
+    "rejectReasonLabel": "Rejection Reason",
+    "rejectReasonPlaceholder": "Enter reason...",
+    "rejectReasonRequired": "Reason is required to reject the user",
+    "cancel": "Cancel",
+    "confirmReject": "Confirm Reject",
+
+    "statusPendingAdminReview": "Pending Review",
+    "statusPendingIdentityUpload": "Awaiting Documents",
+    "statusActive": "Active",
+    "statusRejected": "Rejected",
+
+    "roleAdmin": "Admin",
+    "roleCashier": "Cashier",
+    "roleInventoryStaff": "Inventory Staff",
+    "roleManager": "Manager",
+
+    "pendingCount": "{{count}} pending",
+    "refreshing": "Refreshing..."
+  },
+  "allUsers": {
+    "title": "All Users",
+    "description": "View and manage all registered users in the system.",
+
+    "colUser": "User",
+    "colRole": "Role",
+    "colStatus": "Status",
+    "colJoined": "Joined",
+    "colDocument": "Document",
+    "colActions": "Actions",
+
+    "noUsers": "No users found",
+    "noUsersDesc": "There are no registered users in the system yet.",
+    "noResults": "No matching users",
+    "noResultsDesc": "Try adjusting your search query.",
+    "clearSearch": "Clear search",
+    "noDocument": "No document",
+    "viewDocument": "View Document",
+    "closeModal": "Close",
+    "refresh": "Refresh",
+    "searchPlaceholder": "Search users...",
+    "totalCount": "{{count}} users",
+
+    "statusActive": "Active",
+    "statusPendingReview": "Pending Review",
+    "statusAwaitingDocuments": "Awaiting Documents",
+    "statusRejected": "Rejected",
+    "statusPendingPassword": "Pending Password",
+    "statusDeleted": "Deleted",
+
+    "roleAdmin": "Admin",
+    "roleCashier": "Cashier",
+    "roleInventoryStaff": "Inventory Staff",
+    "roleManager": "Manager",
+
+    "delete": "Delete",
+    "restore": "Restore",
+    "deleting": "Deleting...",
+    "restoring": "Restoring...",
+    "cancel": "Cancel",
+
+    "deleteModalTitle": "Delete User",
+    "deleteModalDesc": "Are you sure you want to delete this user? This action can be reversed later.",
+    "confirmDelete": "Confirm Delete",
+    "deleteSuccess": "User deleted successfully",
+    "deleteError": "Failed to delete user",
+
+    "restoreModalTitle": "Restore User",
+    "restoreModalDesc": "Are you sure you want to restore this user? They will regain access to the system.",
+    "confirmRestore": "Confirm Restore",
+    "restoreSuccess": "User restored successfully",
+    "restoreError": "Failed to restore user"
+  }
+}

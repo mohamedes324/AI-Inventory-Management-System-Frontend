@@ -1,12 +1,12 @@
 import { ROLES } from "@/shared/constants/roles";
 import { STATUS } from "@/shared/constants/status";
-
 import SetPassword from "@/features/onboarding/pages/SetPassword";
 import UploadDocuments from "@/features/onboarding/pages/UploadDocuments";
 import Pending from "@/features/onboarding/pages/Pending";
 import Rejected from "@/features/onboarding/pages/Rejected";
-import PendingAccounts from "@/features/admin/pages/PendingAccounts";
-import DashboardPage from "@/features/dashboard/pages/Dashboard";
+import PendingAccounts from "@/features/user-management/pages/PendingAccounts";
+import AllUsers from "@/features/user-management/pages/AllUsers";
+import AdminDashboard from "@/features/dashboard/pages/AdminDashboard";
 import Register from "@/features/auth/pages/Register";
 
 export const routeConfig = [
@@ -23,8 +23,14 @@ export const routeConfig = [
     status: [STATUS.ACTIVE],
   },
   {
+    path: "/users-management",
+    element: <AllUsers />,
+    roles: [ROLES.ADMIN, ROLES.MANAGER],
+    status: [STATUS.ACTIVE],
+  },
+  {
     path: "/dashboard",
-    element: <DashboardPage />,
+    element: <AdminDashboard />,
     roles: [
       ROLES.ADMIN,
       ROLES.MANAGER,
@@ -45,7 +51,7 @@ export const routeConfig = [
     path: "/upload-documents",
     element: <UploadDocuments />,
     roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF],
-    status: [STATUS.PENDING_IDENTITY_UPLOAD],
+    status: [STATUS.REJECTED , STATUS.PENDING_IDENTITY_UPLOAD],
   },
   {
     path: "/pending",

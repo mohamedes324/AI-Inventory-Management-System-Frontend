@@ -1,0 +1,114 @@
+{
+  "sidebar": {
+    "dashboard": "لوحة التحكم",
+    "pendingAccounts": "الحسابات المعلقة",
+    "usersManagement": "إدارة المستخدمين",
+    "products": "المنتجات",
+    "orders": "الطلبات",
+    "collapse": "طي",
+    "expand": "توسيع",
+    "logout": "تسجيل الخروج"
+  },
+  "pendingAccounts": {
+    "title": "الحسابات المعلقة",
+    "description": "راجع وأدِر تسجيلات المستخدمين الجدد في انتظار موافقة المشرف.",
+
+    "colUser": "المستخدم",
+    "colRole": "الدور",
+    "colStatus": "الحالة",
+    "colJoined": "تاريخ الانضمام",
+    "colDocument": "المستند",
+    "colActions": "الإجراءات",
+
+    "noUsers": "لا يوجد حسابات معلقة",
+    "noUsersDesc": "أنجزت كل شيء! لا يوجد مستخدمون في انتظار المراجعة الآن.",
+    "noDocument": "لا يوجد مستند",
+    "viewDocument": "عرض المستند",
+    "viewIdPhoto": "عرض صورة الهوية",
+    "closeModal": "إغلاق",
+
+    "approve": "قبول",
+    "reject": "رفض",
+    "approving": "جاري القبول...",
+    "rejecting": "جاري الرفض...",
+
+    "approveSuccess": "تمت الموافقة على المستخدم بنجاح",
+    "rejectSuccess": "تم رفض المستخدم بنجاح",
+    "approveError": "فشل في قبول المستخدم",
+    "rejectError": "فشل في رفض المستخدم",
+
+    "rejectModalTitle": "رفض المستخدم",
+    "rejectModalDesc": "يرجى تقديم سبب لرفض هذا المستخدم.",
+    "rejectReasonLabel": "سبب الرفض",
+    "rejectReasonPlaceholder": "أدخل السبب...",
+    "rejectReasonRequired": "السبب مطلوب لرفض المستخدم",
+    "cancel": "إلغاء",
+    "confirmReject": "تأكيد الرفض",
+
+    "statusPendingAdminReview": "قيد المراجعة",
+    "statusPendingIdentityUpload": "في انتظار المستندات",
+    "statusActive": "نشط",
+    "statusRejected": "مرفوض",
+
+    "roleAdmin": "مشرف",
+    "roleCashier": "كاشير",
+    "roleInventoryStaff": "موظف مخزون",
+    "roleManager": "مدير",
+
+    "pendingCount": "{{count}} معلق",
+    "refreshing": "جاري التحديث..."
+  },
+  "allUsers": {
+    "title": "جميع المستخدمين",
+    "description": "عرض وإدارة جميع المستخدمين المسجلين في النظام.",
+
+    "colUser": "المستخدم",
+    "colRole": "الدور",
+    "colStatus": "الحالة",
+    "colJoined": "تاريخ الانضمام",
+    "colDocument": "المستند",
+    "colActions": "الإجراءات",
+
+    "noUsers": "لا يوجد مستخدمون",
+    "noUsersDesc": "لا يوجد مستخدمون مسجلون في النظام حتى الآن.",
+    "noResults": "لا يوجد نتائج مطابقة",
+    "noResultsDesc": "حاول تعديل كلمة البحث.",
+    "clearSearch": "مسح البحث",
+    "noDocument": "لا يوجد مستند",
+    "viewDocument": "عرض المستند",
+    "closeModal": "إغلاق",
+    "refresh": "تحديث",
+    "searchPlaceholder": "ابحث عن مستخدمين...",
+    "totalCount": "{{count}} مستخدم",
+
+    "statusActive": "نشط",
+    "statusPendingReview": "قيد المراجعة",
+    "statusAwaitingDocuments": "في انتظار المستندات",
+    "statusRejected": "مرفوض",
+    "statusPendingPassword": "في انتظار كلمة المرور",
+    "statusDeleted": "محذوف",
+
+    "roleAdmin": "مشرف",
+    "roleCashier": "كاشير",
+    "roleInventoryStaff": "موظف مخزون",
+    "roleManager": "مدير",
+
+    "delete": "حذف",
+    "restore": "استعادة",
+    "deleting": "جاري الحذف...",
+    "restoring": "جاري الاستعادة...",
+    "cancel": "إلغاء",
+
+    "deleteModalTitle": "حذف المستخدم",
+    "deleteModalDesc": "هل أنت متأكد من حذف هذا المستخدم؟ يمكن التراجع عن هذا الإجراء لاحقاً.",
+    "confirmDelete": "تأكيد الحذف",
+    "deleteSuccess": "تم حذف المستخدم بنجاح",
+    "deleteError": "فشل في حذف المستخدم",
+
+    "restoreModalTitle": "استعادة المستخدم",
+    "restoreModalDesc": "هل أنت متأكد من استعادة هذا المستخدم؟ سيستعيد صلاحيات الوصول للنظام.",
+    "confirmRestore": "تأكيد الاستعادة",
+    "restoreSuccess": "تم استعادة المستخدم بنجاح",
+    "restoreError": "فشل في استعادة المستخدم"
+  }
+}

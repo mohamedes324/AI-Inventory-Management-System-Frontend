@@ -7,8 +7,8 @@ import enIsAuthLoading from "@/i18n/en/auth.json";
 import arIsAuthLoading from "@/i18n/ar/auth.json";
 import enOnboarding from "@/i18n/en/onboarding.json";
 import arOnboarding from "@/i18n/ar/onboarding.json";
-import enAdmin from "@/i18n/en/admin.json";
-import arAdmin from "@/i18n/ar/admin.json";
+import enAdmin from "@/i18n/en/user-management.json";
+import arAdmin from "@/i18n/ar/user-management.json";
 
 i18n
   .use(initReactI18next)
