@@ -29,7 +29,7 @@ export default function Avatar({
 
   const statusColors = {
     online: "bg-secondary-500",
-    offline: "bg-gray",
+    offline: "bg-text-disabled",
     busy: "bg-error",
   };
 
@@ -54,7 +54,7 @@ export default function Avatar({
         <img
           src={src}
           alt={name}
-          className={`${sizeClasses[size]} rounded-full object-cover ring-2 ring-white shadow-sm`}
+          className={`${sizeClasses[size]} rounded-full object-cover ring-2 ring-background-card shadow-sm`}
         />
       ) : (
         <div
@@ -62,7 +62,7 @@ export default function Avatar({
             ${sizeClasses[size]}
             rounded-full flex items-center justify-center
             bg-gradient-to-br from-primary-500 to-primary-600
-            text-white font-semibold ring-2 ring-white shadow-sm
+            text-text-inverse font-semibold ring-2 ring-background-card shadow-sm
           `}
         >
           {initials || "?"}
@@ -76,7 +76,7 @@ export default function Avatar({
             absolute bottom-0 right-0
             ${statusSizes[size]}
             ${statusColors[status]}
-            rounded-full ring-2 ring-white
+            rounded-full ring-2 ring-background-card
           `}
         />
       )}

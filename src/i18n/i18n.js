@@ -9,6 +9,14 @@ import enOnboarding from "@/i18n/en/onboarding.json";
 import arOnboarding from "@/i18n/ar/onboarding.json";
 import enAdmin from "@/i18n/en/user-management.json";
 import arAdmin from "@/i18n/ar/user-management.json";
+import enCategories from "@/i18n/en/categories.json";
+import arCategories from "@/i18n/ar/categories.json";
+import enProducts from "@/i18n/en/products.json";
+import arProducts from "@/i18n/ar/products.json";
+import enStockBatches from "@/i18n/en/stock-batches.json";
+import arStockBatches from "@/i18n/ar/stock-batches.json";
+import enSuppliers from "@/i18n/en/suppliers.json";
+import arSuppliers from "@/i18n/ar/suppliers.json";
 
 i18n
   .use(initReactI18next)
@@ -19,12 +27,20 @@ i18n
         onboarding: enOnboarding,
         admin: enAdmin,
         isAuthLoading: enIsAuthLoading,
+        categories: enCategories,
+        products: enProducts,
+        stockBatches: enStockBatches,
+        suppliers: enSuppliers,
       },
       ar: {
         auth: arAuth,
         onboarding: arOnboarding,
         admin: arAdmin,
         isAuthLoading: arIsAuthLoading,
+        categories: arCategories,
+        products: arProducts,
+        stockBatches: arStockBatches,
+        suppliers: arSuppliers,
       },
     },
     lng: localStorage.getItem("lang") || "ar",

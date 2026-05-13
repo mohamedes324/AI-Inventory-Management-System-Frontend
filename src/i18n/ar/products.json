@@ -1,0 +1,116 @@
+{
+  "page": {
+    "title": "المنتجات",
+    "description": "عرض وإدارة منتجات المخزون.",
+    "addProduct": "إضافة منتج",
+    "noProducts": "لا توجد منتجات بعد",
+    "noProductsDesc": "ابدأ بإضافة أول منتج إلى المخزون.",
+    "totalCount": "{{count}} منتج",
+    "searchCount": "{{count}} نتيجة",
+    "noSearchResults": "لا توجد منتجات مطابقة",
+    "noSearchResultsDesc": "جرب تعديل كلمات البحث.",
+    "refresh": "تحديث"
+  },
+  "table": {
+    "colName": "اسم المنتج",
+    "colSku": "رمز SKU",
+    "colCategory": "الفئة",
+    "colPrice": "السعر",
+    "colStock": "الكمية",
+    "colReorder": "نقطة الإعادة",
+    "colStatus": "الحالة",
+    "colActions": "الإجراءات"
+  },
+  "status": {
+    "outOfStock": "نفد المخزون",
+    "lowStock": "مخزون منخفض",
+    "inStock": "متوفر"
+  },
+  "actions": {
+    "edit": "تعديل المنتج",
+    "updatePrice": "تحديث السعر",
+    "updateReorder": "تحديث نقطة الإعادة",
+    "delete": "حذف المنتج"
+  },
+  "fields": {
+    "name": "اسم المنتج",
+    "namePlaceholder": "أدخل اسم المنتج",
+    "sku": "رمز SKU",
+    "skuPlaceholder": "أدخل رمز SKU",
+    "price": "سعر البيع",
+    "reorderPoint": "نقطة إعادة الطلب",
+    "category": "الفئة",
+    "categoryPlaceholder": "اختر فئة"
+  },
+  "searchPlaceholder": "ابحث عن منتج...",
+  "searching": "جاري البحث...",
+  "addModal": {
+    "title": "إضافة منتج",
+    "description": "أدخل تفاصيل المنتج الجديد.",
+    "submit": "إنشاء المنتج"
+  },
+  "editModal": {
+    "title": "تعديل المنتج",
+    "submit": "حفظ التعديلات"
+  },
+  "priceModal": {
+    "title": "تحديث السعر",
+    "label": "سعر البيع الجديد",
+    "submit": "تحديث السعر"
+  },
+  "reorderModal": {
+    "title": "تحديث نقطة الإعادة",
+    "label": "نقطة الإعادة الجديدة",
+    "submit": "تحديث"
+  },
+  "deleteDialog": {
+    "title": "حذف المنتج",
+    "description": "هل أنت متأكد من حذف \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+    "confirm": "تأكيد الحذف"
+  },
+  "details": {
+    "backToProducts": "العودة للمنتجات",
+    "infoTitle": "معلومات المنتج",
+    "infoSubtitle": "تفاصيل وسمات المنتج الكاملة.",
+    "stockQuantity": "كمية المخزون",
+    "notFound": "المنتج غير موجود"
+  },
+  "batches": {
+    "title": "دفعات المخزون",
+    "count": "{{count}} دفعة",
+    "empty": "لم يتم تحميل دفعات",
+    "noBatches": "لا توجد دفعات مخزون لهذا المنتج.",
+    "batchLabel": "الدفعة #{{number}}",
+    "qty": "الكمية",
+    "quantity": "الكمية",
+    "expiry": "تاريخ الانتهاء",
+    "status": "الحالة",
+    "manageInventory": "إدارة المخزون"
+  },
+  "validation": {
+    "nameRequired": "اسم المنتج مطلوب",
+    "skuRequired": "رمز SKU مطلوب",
+    "priceRequired": "يرجى إدخال سعر صحيح",
+    "reorderRequired": "يرجى إدخال نقطة إعادة صحيحة",
+    "categoryRequired": "يرجى اختيار فئة"
+  },
+  "toasts": {
+    "fetchError": "فشل في تحميل المنتجات",
+    "createSuccess": "تم إنشاء المنتج بنجاح!",
+    "createError": "فشل في إنشاء المنتج",
+    "updateSuccess": "تم تحديث المنتج بنجاح!",
+    "updateError": "فشل في تحديث المنتج",
+    "priceSuccess": "تم تحديث السعر بنجاح!",
+    "priceError": "فشل في تحديث السعر",
+    "reorderSuccess": "تم تحديث نقطة الإعادة!",
+    "reorderError": "فشل في تحديث نقطة الإعادة",
+    "deleteSuccess": "تم حذف المنتج بنجاح!",
+    "deleteError": "فشل في حذف المنتج"
+  },
+  "common": {
+    "cancel": "إلغاء"
+  },
+  "sidebar": {
+    "products": "المنتجات"
+  }
+}

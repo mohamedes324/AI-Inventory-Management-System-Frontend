@@ -17,7 +17,7 @@ function App() {
   // ✋ أهم خطوة: لو لسه بنحمل بيانات الـ Auth، ما تفتحش الـ Router
   if (isAuthLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gray-light">
+      <div className="flex h-screen items-center justify-center bg-background-app">
         <Loader size="lg" />
       </div>
     );

@@ -31,7 +31,7 @@ export default function SearchInput({
   return (
     <div className={`relative ${className}`}>
       {/* Search Icon */}
-      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray">
+      <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted">
         <Search size={18} />
       </div>
 
@@ -42,11 +42,11 @@ export default function SearchInput({
         onChange={onChange}
         placeholder={placeholder}
         className="
-          w-full rounded-xl border border-gray/20 bg-white
-          pl-11 pr-10 py-2.5 outline-none text-sm text-gray-dark
-          placeholder:text-gray/50
+          w-full rounded-xl border border-border-primary bg-background-input
+          pl-11 pr-10 py-2.5 outline-none text-sm text-text-primary
+          placeholder:text-text-muted
           transition-all duration-200
-          focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20
+          focus:border-border-focus focus:ring-2 focus:ring-primary-500/20
         "
         {...props}
       />
@@ -58,8 +58,8 @@ export default function SearchInput({
           onClick={onClear}
           className="
             absolute right-3 top-1/2 -translate-y-1/2
-            text-gray hover:text-gray-dark transition-colors
-            p-0.5 rounded-full hover:bg-gray-light
+            text-text-muted hover:text-text-primary transition-colors
+            p-0.5 rounded-full hover:bg-background-hover
           "
         >
           <X size={16} />

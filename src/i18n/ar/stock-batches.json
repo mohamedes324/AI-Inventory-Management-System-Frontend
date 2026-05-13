@@ -1,0 +1,57 @@
+{
+  "title": "دفعات المخزون",
+  "pageTitle": "دفعات المخزون",
+  "count": "{{count}} دفعة",
+  "empty": "لم يتم تحميل دفعات",
+  "noBatches": "لا توجد دفعات مخزون لهذا المنتج.",
+  "andMore": "+{{count}} دفعات أخرى",
+  "manageInventory": "إدارة المخزون",
+  "backToProduct": "العودة للمنتج",
+  "status": {
+    "active": "نشط",
+    "expired": "منتهي الصلاحية",
+    "consumed": "مستهلك"
+  },
+  "batch": {
+    "label": "الدفعة #{{number}}",
+    "units": "وحدة",
+    "quantity": "الكمية",
+    "unitCost": "تكلفة الوحدة",
+    "batchId": "رقم الدفعة",
+    "purchaseDate": "تاريخ الشراء",
+    "expiryDate": "تاريخ الانتهاء",
+    "supplier": "المورد",
+    "status": "الحالة"
+  },
+  "actions": {
+    "edit": "تعديل",
+    "delete": "حذف"
+  },
+  "editModal": {
+    "title": "تعديل دفعة المخزون",
+    "expiryDate": "تاريخ الانتهاء",
+    "remainingQuantity": "الكمية المتبقية",
+    "unitCost": "تكلفة الوحدة",
+    "submit": "حفظ التعديلات"
+  },
+  "deleteDialog": {
+    "title": "حذف دفعة المخزون",
+    "description": "هل أنت متأكد من حذف الدفعة #{{id}}؟ لا يمكن التراجع عن هذا الإجراء.",
+    "confirm": "تأكيد الحذف"
+  },
+  "validation": {
+    "expiryRequired": "تاريخ الانتهاء مطلوب",
+    "quantityRequired": "يرجى إدخال كمية صحيحة",
+    "costRequired": "يرجى إدخال تكلفة صحيحة"
+  },
+  "common": {
+    "cancel": "إلغاء"
+  },
+  "toasts": {
+    "fetchError": "فشل في تحميل دفعات المخزون",
+    "updateSuccess": "تم تحديث الدفعة بنجاح!",
+    "updateError": "فشل في تحديث الدفعة",
+    "deleteSuccess": "تم حذف الدفعة بنجاح!",
+    "deleteError": "فشل في حذف الدفعة"
+  }
+}

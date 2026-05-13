@@ -41,18 +41,17 @@ export default function Input({
 
   const statusStyles = {
     default:
-      "border-gray/30 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20",
+      "border-border-primary focus:border-primary-400 focus:ring-2 focus:ring-primary-500/15 focus:shadow-[0_0_0_4px_rgba(34,197,94,0.06)]",
     error:
-      "border-error focus:border-error focus:ring-2 focus:ring-error/20",
+      "border-error/60 focus:border-error focus:ring-2 focus:ring-error/15 focus:shadow-[0_0_0_4px_rgba(239,68,68,0.06)]",
     success:
-      "border-secondary-500 focus:border-secondary-500 focus:ring-2 focus:ring-secondary-500/20",
+      "border-secondary-500/60 focus:border-secondary-400 focus:ring-2 focus:ring-secondary-500/15 focus:shadow-[0_0_0_4px_rgba(6,182,212,0.06)]",
   };
 
   return (
     <div className="flex flex-col gap-1 w-full relative pb-5">
-      {/* Label */}
       {label && (
-        <label className="text-sm font-medium text-gray-dark">
+        <label className="text-sm font-semibold text-text-secondary tracking-tight">
           {label}
         </label>
       )}
@@ -61,7 +60,7 @@ export default function Input({
         {/* LEFT / RIGHT ICON */}
         {icon && (
           <div
-            className={`absolute top-1/2 -translate-y-1/2 text-gray ${
+            className={`absolute top-1/2 -translate-y-1/2 text-text-muted ${
               isRTL ? "right-3.5" : "left-3.5"
             }`}
           >
@@ -75,9 +74,10 @@ export default function Input({
           placeholder={placeholder}
           dir={isRTL ? "rtl" : "ltr"}
           className={`
-            w-full rounded-xl border bg-white px-4.5 py-3 outline-none
-            transition-all duration-200 text-sm text-gray-dark placeholder:text-gray/50
-            ${icon ? (isRTL ? "pr-11 pl-10" : "pl-11 pr-10") : ""}
+            w-full rounded-xl border bg-background-input py-3 outline-none
+            transition-all duration-200 text-sm text-text-primary placeholder:text-text-muted/60
+            shadow-[inset_0_1px_2px_rgba(0,0,0,0.15)]
+            ${icon ? (isRTL ? "pr-11 pl-10" : "pl-11 pr-10") : "px-4"}
             ${statusStyles[error ? "error" : status]}
             ${className}
           `}
@@ -89,7 +89,7 @@ export default function Input({
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className={`absolute top-1/2 -translate-y-1/2 text-gray hover:text-gray-dark transition-colors ${
+            className={`absolute top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary transition-colors ${
               isRTL ? "left-3.5" : "right-3.5"
             }`}
           >

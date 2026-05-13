@@ -18,44 +18,76 @@
 @layer base {
   :root {
     /* ─── ⏱  Timing Tokens ─── */
-    --anim-speed-fast:    0.3s;
-    --anim-speed-normal:  0.6s;
-    --anim-speed-slow:    0.9s;
+    --anim-speed-fast: 0.3s;
+    --anim-speed-normal: 0.6s;
+    --anim-speed-slow: 0.9s;
     --anim-speed-glacial: 1.5s;
 
     /* ─── 🎛  Easing Curves ─── */
-    --anim-curve:         ease-out;
-    --anim-curve-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
-    --anim-curve-bounce:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --anim-curve: ease-out;
+    --anim-curve-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --anim-curve-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
     /* ─── 📐 Distance & Scale Tokens ─── */
-    --slide-distance:     40px;
-    --float-distance:     8px;
-    --scale-from:         0.9;
+    --slide-distance: 40px;
+    --float-distance: 8px;
+    --scale-from: 0.9;
 
     /* ─── 🎨 Theme Colors — Single Source of Truth ───
          These map directly to the active palette defined in colors.js
          and imported into tailwind.config.mjs. Changing a value in
          colors.js automatically updates every animation that uses
          these variables. */
-    --color-primary-500:   theme('colors.primary.500');
-    --color-primary-600:   theme('colors.primary.600');
-    --color-primary-700:   theme('colors.primary.700');
+    --color-primary-500: theme('colors.primary.500');
+    --color-primary-600: theme('colors.primary.600');
+    --color-primary-700: theme('colors.primary.700');
     --color-secondary-500: theme('colors.secondary.500');
     --color-secondary-600: theme('colors.secondary.600');
-    --color-gray-light:    theme('colors.gray.light');
-    --color-gray-default:  theme('colors.gray.DEFAULT');
-    --color-gray-dark:     theme('colors.gray.dark');
-    --color-error:         theme('colors.error');
-    --color-warning:       theme('colors.warning');
+    --color-gray-light: theme('colors.gray.light');
+    --color-gray-default: theme('colors.gray.DEFAULT');
+    --color-gray-dark: theme('colors.gray.dark');
+    --color-error: theme('colors.error');
+    --color-warning: theme('colors.warning');
+
+    /* ─── 🏗 Semantic Surface Tokens ───
+         Map directly to the palette's semantic tokens.
+         Used in CSS classes (form-container, etc.) */
+    --color-bg-app: theme('colors.background.app');
+    --color-bg-card: theme('colors.background.card');
+    --color-bg-elevated: theme('colors.background.elevated');
+    --color-bg-sidebar: theme('colors.background.sidebar');
+    --color-bg-input: theme('colors.background.input');
+    --color-bg-hover: theme('colors.background.hover');
+
+    --color-text-primary: theme('colors.text.primary');
+    --color-text-secondary: theme('colors.text.secondary');
+    --color-text-muted: theme('colors.text.muted');
+    --color-text-inverse: theme('colors.text.inverse');
+
+    --color-border-primary: theme('colors.border.primary');
+    --color-border-secondary: theme('colors.border.secondary');
+    --color-border-focus: theme('colors.border.focus');
 
     /* ─── ✨ Animation-Specific Color Tokens ───
          Override these per-component to change glow/shimmer colors
          without modifying global keyframes.
          Example:  .my-card { --glow-color: var(--color-secondary-500); } */
-    --glow-color:          var(--color-primary-500);
-    --shimmer-base:        var(--color-gray-light);
-    --shimmer-highlight:   rgba(255, 255, 255, 0.7);
+    --glow-color: var(--color-primary-500);
+    --shimmer-base: var(--color-bg-hover);
+    --shimmer-highlight: rgba(255, 255, 255, 0.05);
+
+    /* ─── 🧊 Elevation Shadows (dark-optimized) ─── */
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-elevated: 0 8px 32px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.12);
+    --shadow-modal: 0 20px 60px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.15);
+    --shadow-glow-primary: 0 0 20px rgba(34, 197, 94, 0.15), 0 0 60px rgba(34, 197, 94, 0.05);
+    --shadow-glow-secondary: 0 0 20px rgba(6, 182, 212, 0.15), 0 0 60px rgba(6, 182, 212, 0.05);
+  }
+
+  /* ─── Base body styling ─── */
+  body {
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-app);
   }
 }
 
@@ -69,37 +101,348 @@
    ═══════════════════════════════════════════════════════════════════════════ */
 
 @layer components {
+
   /* ── Glassmorphism Card ──
      Semi-transparent card with frosted-glass effect.
      Override --glass-bg and --glass-border per-component if needed. */
   .glass-card {
-    --glass-bg: rgba(255, 255, 255, 0.65);
-    --glass-border: rgba(255, 255, 255, 0.25);
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.08);
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--glass-border);
     border-radius: 1.25rem;
     box-shadow:
-      0 8px 32px rgba(0, 0, 0, 0.06),
-      0 2px 8px rgba(0, 0, 0, 0.04);
+      0 8px 32px rgba(0, 0, 0, 0.12),
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
   /* ── Form Container ──
      Standardized wrapper for all forms (Login, Register, Settings).
      Ensures consistent padding, radius, and elevation. */
   .form-container {
-    background: white;
+    background: var(--color-bg-card);
     padding: 2rem;
     border-radius: 1.5rem;
-    box-shadow:
-      0 20px 60px -15px rgba(0, 0, 0, 0.08),
-      0 4px 12px rgba(0, 0, 0, 0.03);
-    border: 1px solid color-mix(in srgb, var(--color-gray-default) 12%, transparent);
+    box-shadow: var(--shadow-modal);
+    border: 1px solid var(--color-border-primary);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 40%
+    );
   }
 
   .form-container--compact {
     padding: 1.25rem 1.5rem;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     👤 CREATE USER PAGE — Split-Layout Design System
+     ═══════════════════════════════════════════════════════════════════════
+     Modern SaaS-style split layout: decorative gradient panel (left)
+     + elevated form card (right). Collapses gracefully on mobile.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Page Container — Horizontal Split ── */
+  .create-user-page {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* ── Left: Decorative Visual Panel ── */
+  .create-user-visual {
+    position: relative;
+    display: none;
+    width: 380px;
+    min-width: 320px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: linear-gradient(145deg,
+        var(--color-primary-700) 0%,
+        var(--color-primary-500) 50%,
+        color-mix(in srgb, var(--color-primary-500) 70%, var(--color-secondary-500)) 100%);
+  }
+
+  /* Mesh pattern overlay for depth */
+  .create-user-visual__mesh {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
+  }
+
+  /* Central hero content in visual panel */
+  .create-user-visual__hero {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+  }
+
+  /* Glowing icon ring */
+  .create-user-visual__icon-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+      0 0 40px rgba(255, 255, 255, 0.1),
+      0 0 80px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* ── Right: Form Panel ── */
+  .create-user-form-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background: var(--color-bg-app);
+  }
+
+  /* ── Form Card ── */
+  .create-user-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--color-bg-card);
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-border-primary);
+  }
+
+  /* Card Header — integrated icon + text */
+  .create-user-card__header {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+  }
+
+  .create-user-card__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary-500) 30%, transparent);
+  }
+
+  /* Subtle divider between header and form */
+  .create-user-card__divider {
+    height: 1px;
+    margin: 1.25rem 0;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--color-border-primary) 50%,
+        transparent);
+  }
+
+  /* ── Responsive: show visual panel on larger screens ── */
+  @media (min-width: 1024px) {
+    .create-user-visual {
+      display: block;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .create-user-visual {
+      width: 420px;
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     📂 CATEGORIES PAGE — Card Grid Design System
+     ═══════════════════════════════════════════════════════════════════════
+     Modern SaaS-style card grid for browsing product categories.
+     Responsive: 1 col → 2 → 3 → 4 columns. Hover reveals actions.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Page Container ── */
+  .categories-page {
+    padding: 1.5rem;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ── Page Header ── */
+  .categories-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .categories-header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .categories-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* ── Search Input ── */
+  .categories-search {
+    position: relative;
+    flex: 1;
+    max-width: 280px;
+  }
+
+  .categories-search__icon {
+    position: absolute;
+    top: 50%;
+    left: 0.875rem;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  [dir="rtl"] .categories-search__icon {
+    left: auto;
+    right: 0.875rem;
+  }
+
+  .categories-search__input {
+    width: 100%;
+    padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+    border: 1px solid var(--color-border-primary);
+    border-radius: 0.75rem;
+    font-size: 0.8125rem;
+    background: var(--color-bg-input);
+    color: var(--color-text-primary);
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  [dir="rtl"] .categories-search__input {
+    padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  }
+
+  .categories-search__input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .categories-search__input:focus {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-border-focus) 12%, transparent);
+  }
+
+  /* ── Card Grid — Responsive Columns ── */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 640px) {
+    .categories-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  /* ── Modal Upload Zone ── */
+  .category-modal__upload-zone {
+    width: 100%;
+    height: 160px;
+    border: 2px dashed var(--color-border-secondary);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .category-modal__upload-zone:hover {
+    border-color: var(--color-border-focus);
+    background: color-mix(in srgb, var(--color-primary-500) 4%, transparent);
+  }
+
+  /* ── Modal Image Preview ── */
+  .category-modal__preview-container {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border-primary);
+  }
+
+  .category-modal__preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .category-modal__preview-container:hover .category-modal__preview-image {
+    transform: scale(1.03);
+  }
+
+  .category-modal__preview-actions {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.375rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  [dir="rtl"] .category-modal__preview-actions {
+    right: auto;
+    left: 0.5rem;
+  }
+
+  .category-modal__preview-container:hover .category-modal__preview-actions {
+    opacity: 1;
+  }
+
+  .category-modal__preview-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
   }
 }
 
@@ -114,12 +457,10 @@
 
 @layer utilities {
   .animate-shimmer {
-    background: linear-gradient(
-      90deg,
-      var(--shimmer-base) 25%,
-      var(--shimmer-highlight) 50%,
-      var(--shimmer-base) 75%
-    );
+    background: linear-gradient(90deg,
+        var(--shimmer-base) 25%,
+        var(--shimmer-highlight) 50%,
+        var(--shimmer-base) 75%);
     background-size: 200% 100%;
   }
 }

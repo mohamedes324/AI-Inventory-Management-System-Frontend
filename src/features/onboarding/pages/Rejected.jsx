@@ -26,10 +26,10 @@ export default function Rejected() {
       }
     };
     loadReason();
-  }, [fetchReason]);
+  }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 animate-fadeIn bg-gray-light relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center px-4 animate-fadeIn bg-background-app relative overflow-hidden">
       {/* Background Orbs */}
       <div className="absolute top-[-15%] right-[-10%] w-[400px] h-[400px] bg-primary-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-15%] left-[-10%] w-[400px] h-[400px] bg-secondary-500/5 rounded-full blur-[120px] pointer-events-none" />
@@ -40,20 +40,20 @@ export default function Rejected() {
         <LanguageSwitcher />
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md text-center animate-scaleIn">
+      <div className="bg-background-card rounded-2xl shadow-xl border border-border-primary p-8 w-full max-w-md text-center animate-scaleIn">
         
         {/* Icon */}
         <div className="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-5 animate-pulse bg-error">
-          <span className="text-white text-2xl">❌</span>
+          <span className="text-text-inverse text-2xl">❌</span>
         </div>
 
         {/* Title */}
-        <h1 className="text-xl font-semibold mb-3 text-gray-dark">
+        <h1 className="text-xl font-semibold mb-3 text-text-primary">
           {t("onboarding:rejected.title")}
         </h1>
 
         {/* Description */}
-        <p className="text-sm mb-4 text-gray">
+        <p className="text-sm mb-4 text-text-secondary">
           {t("onboarding:rejected.description")}
         </p>
 

@@ -23,7 +23,7 @@ export default function LanguageSwitcher({ className = "" }) {
 
   return (
     <div className={className}>
-      <div className="flex items-center gap-1 bg-white/80 backdrop-blur-sm rounded-full p-1 shadow-sm border border-gray/10">
+      <div className="flex items-center gap-1 bg-background-card/80 backdrop-blur-sm rounded-full p-1 shadow-sm border border-border-primary">
         {languages.map(({ code, label, icon }) => {
           const isActive = currentLang === code;
           return (
@@ -36,8 +36,8 @@ export default function LanguageSwitcher({ className = "" }) {
                 transition-all duration-300
                 ${
                   isActive
-                    ? "bg-primary-500 text-white shadow-lg shadow-primary-500/30"
-                    : "text-gray hover:text-gray-dark hover:bg-gray-light"
+                    ? "bg-primary-500 text-text-inverse shadow-lg shadow-primary-500/30"
+                    : "text-text-muted hover:text-text-primary hover:bg-background-hover"
                 }
               `}
             >

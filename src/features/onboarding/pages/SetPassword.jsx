@@ -72,7 +72,7 @@ export default function SetPassword() {
       <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-primary-500/25">
         <Package size={24} />
       </div>
-      <h1 className="font-bold text-xl tracking-tight text-gray-dark">
+      <h1 className="font-bold text-xl tracking-tight text-text-primary">
         Inventory
         <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
           Market
@@ -82,7 +82,7 @@ export default function SetPassword() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-light flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
+    <div className="min-h-screen bg-background-app flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary-500/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary-500/5 rounded-full blur-[120px] pointer-events-none" />

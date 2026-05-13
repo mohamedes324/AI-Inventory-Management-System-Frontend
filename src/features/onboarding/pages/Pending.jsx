@@ -24,7 +24,7 @@ export default function Pending() {
   const { t } = useTranslation();
 
   return (
-    <div className="h-screen bg-gray-light flex flex-col items-center justify-center px-4 relative overflow-hidden">
+    <div className="h-screen bg-background-app flex flex-col items-center justify-center px-4 relative overflow-hidden">
 
       {/* ── Background Orbs ── */}
       <div className="absolute top-[-15%] right-[-10%] w-[400px] h-[400px] bg-primary-500/5 rounded-full blur-[120px] pointer-events-none" />
@@ -44,7 +44,7 @@ export default function Pending() {
           <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary-500/25">
             <Package size={18} />
           </div>
-          <h1 className="font-bold text-lg tracking-tight text-gray-dark">
+          <h1 className="font-bold text-lg tracking-tight text-text-primary">
             Inventory
             <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
               Market
@@ -53,7 +53,7 @@ export default function Pending() {
         </div>
 
         {/* Card */}
-        <Card className="animate-slideUp shadow-xl shadow-gray-dark/5" padding="none">
+        <Card className="animate-slideUp shadow-xl shadow-background-app/30" padding="none">
           <div className="px-6 py-5 flex flex-col items-center gap-4">
 
             {/* ── Floating Hourglass Icon ── */}
@@ -66,13 +66,13 @@ export default function Pending() {
 
             {/* ── Heading ── */}
             <div className="text-center animate-fadeIn">
-              <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-primary-500 bg-primary-50 px-3 py-1 rounded-full border border-primary-100 mb-2.5">
+              <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-primary-400 bg-primary-500/10 px-3 py-1 rounded-full border border-primary-500/20 mb-2.5">
                 {t("onboarding:pending.subtitle")}
               </span>
-              <h2 className="text-lg font-bold text-gray-dark tracking-tight mb-1">
+              <h2 className="text-lg font-bold text-text-primary tracking-tight mb-1">
                 {t("onboarding:pending.title")}
               </h2>
-              <p className="text-gray text-[13px] leading-relaxed max-w-xs mx-auto">
+              <p className="text-text-secondary text-[13px] leading-relaxed max-w-xs mx-auto">
                 {t("onboarding:pending.description")}
               </p>
             </div>
@@ -97,10 +97,10 @@ export default function Pending() {
                           w-8 h-8 rounded-lg flex items-center justify-center shrink-0
                           transition-all duration-300 shadow-sm
                           ${isCompleted
-                            ? "bg-secondary-500 text-white shadow-secondary-500/20"
+                            ? "bg-secondary-500 text-text-inverse shadow-secondary-500/20"
                             : isActive
-                              ? "bg-primary-500 text-white shadow-primary-500/20 animate-glow"
-                              : "bg-gray-light text-gray border border-gray/10"
+                              ? "bg-primary-500 text-text-inverse shadow-primary-500/20 animate-glow"
+                              : "bg-background-hover text-text-muted border border-border-primary"
                           }
                         `}
                       >
@@ -109,7 +109,7 @@ export default function Pending() {
                       {idx < STEPS.length - 1 && (
                         <div
                           className={`w-0.5 h-5 rounded-full transition-colors duration-500 ${
-                            isCompleted ? "bg-secondary-300" : "bg-gray/15"
+                            isCompleted ? "bg-secondary-300" : "bg-border-primary"
                           }`}
                         />
                       )}
@@ -120,10 +120,10 @@ export default function Pending() {
                       <p
                         className={`text-[13px] font-semibold leading-tight ${
                           isCompleted
-                            ? "text-secondary-700"
+                            ? "text-secondary-400"
                             : isActive
-                              ? "text-gray-dark"
-                              : "text-gray"
+                              ? "text-text-primary"
+                              : "text-text-muted"
                         }`}
                       >
                         {t(`onboarding:pending.${step.key}`)}
@@ -136,17 +136,17 @@ export default function Pending() {
 
             {/* ── Estimated Time Badge ── */}
             <div
-              className="w-full flex items-center gap-2.5 bg-primary-50/60 border border-primary-100 rounded-xl px-4 py-3 animate-fadeIn"
+              className="w-full flex items-center gap-2.5 bg-primary-500/8 border border-primary-500/15 rounded-xl px-4 py-3 animate-fadeIn"
               style={{ animationDelay: "500ms", animationFillMode: "both" }}
             >
-              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm border border-primary-100">
+              <div className="w-8 h-8 rounded-lg bg-background-elevated flex items-center justify-center shadow-sm border border-border-primary">
                 <Clock size={14} className="text-primary-500" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[10px] font-medium text-primary-400 uppercase tracking-wide">
+                <p className="text-[10px] font-medium text-primary-400/70 uppercase tracking-wide">
                   {t("onboarding:pending.estimatedTime")}
                 </p>
-                <p className="text-[13px] font-bold text-primary-700">
+                <p className="text-[13px] font-bold text-primary-400">
                   {t("onboarding:pending.estimatedValue")}
                 </p>
               </div>
@@ -154,7 +154,7 @@ export default function Pending() {
 
             {/* ── Note ── */}
             <p
-              className="text-[11px] text-gray text-center leading-relaxed max-w-xs animate-fadeIn"
+              className="text-[11px] text-text-muted text-center leading-relaxed max-w-xs animate-fadeIn"
               style={{ animationDelay: "650ms", animationFillMode: "both" }}
             >
               {t("onboarding:pending.note")}
@@ -169,7 +169,7 @@ export default function Pending() {
           style={{ animationDelay: "800ms", animationFillMode: "both" }}
         >
           <ShieldCheck size={12} className="text-secondary-500" />
-          <span className="text-[11px] font-medium text-gray">
+          <span className="text-[11px] font-medium text-text-muted">
             {t("onboarding:pending.secureNote")}
           </span>
         </div>

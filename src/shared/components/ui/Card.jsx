@@ -33,7 +33,7 @@ export default function Card({
 
   const variantClasses = {
     default:
-      "bg-white rounded-2xl shadow-lg shadow-gray-dark/5 border border-gray/5",
+      "bg-background-card rounded-2xl shadow-[var(--shadow-card)] border border-border-primary ring-1 ring-inset ring-white/[0.03]",
     glass: "glass-card",
   };
 
@@ -43,7 +43,7 @@ export default function Card({
         ${variantClasses[variant]}
         ${paddingClasses[padding]}
         ${animate ? "animate-slideUp" : ""}
-        ${hoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-xl" : ""}
+        ${hoverable ? "transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elevated)] hover:border-border-secondary" : ""}
         ${className}
       `}
       {...props}

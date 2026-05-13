@@ -1,0 +1,43 @@
+{
+  "title": "Categories",
+  "description": "Browse and manage product categories.",
+  "searchPlaceholder": "Search categories...",
+  "addCategory": "Add Category",
+  "editCategory": "Edit Category",
+  "deleteCategory": "Delete",
+  "updateImage": "Update Image",
+  "viewProducts": "View Products",
+  "categoryName": "Category Name",
+  "enterCategoryName": "Enter category name",
+  "categoryImage": "Category Image",
+  "uploadImage": "Click to upload image",
+  "viewImage": "View full image",
+  "removeImage": "Remove image",
+  "cancel": "Cancel",
+  "save": "Save",
+  "create": "Create",
+
+  "noCategories": "No categories yet",
+  "noCategoriesDesc": "Start by adding your first product category.",
+  "noResults": "No matching categories",
+  "noResultsDesc": "Try adjusting your search query.",
+  "clearSearch": "Clear search",
+
+  "createSuccess": "Category created successfully!",
+  "createError": "Failed to create category",
+  "updateSuccess": "Category updated successfully!",
+  "updateError": "Failed to update category",
+  "deleteSuccess": "Category deleted successfully!",
+  "deleteError": "Failed to delete category",
+  "imageUpdateSuccess": "Category image updated!",
+  "imageUpdateError": "Failed to update category image",
+  "fetchError": "Failed to load categories",
+
+  "deleteModalTitle": "Delete Category",
+  "deleteModalDesc": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+  "confirmDelete": "Confirm Delete",
+
+  "sidebar": {
+    "categories": "Categories"
+  }
+}

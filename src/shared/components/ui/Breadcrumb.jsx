@@ -30,7 +30,7 @@ export default function Breadcrumb({ items = [], className = "" }) {
           <div key={idx} className="flex items-center gap-1.5">
             {/* Separator */}
             {idx > 0 && (
-              <ChevronRight size={14} className="text-gray/40 shrink-0" />
+              <ChevronRight size={14} className="text-text-muted/40 shrink-0" />
             )}
 
             {/* Segment */}
@@ -38,8 +38,8 @@ export default function Breadcrumb({ items = [], className = "" }) {
               <span
                 className={`${
                   isLast
-                    ? "font-semibold text-gray-dark"
-                    : "text-gray"
+                    ? "font-semibold text-text-primary"
+                    : "text-text-muted"
                 }`}
               >
                 {item.label}
@@ -47,14 +47,14 @@ export default function Breadcrumb({ items = [], className = "" }) {
             ) : item.href ? (
               <a
                 href={item.href}
-                className="text-gray hover:text-primary-500 transition-colors duration-200"
+                className="text-text-muted hover:text-primary-500 transition-colors duration-200"
               >
                 {item.label}
               </a>
             ) : (
               <button
                 onClick={item.onClick}
-                className="text-gray hover:text-primary-500 transition-colors duration-200"
+                className="text-text-muted hover:text-primary-500 transition-colors duration-200"
               >
                 {item.label}
               </button>

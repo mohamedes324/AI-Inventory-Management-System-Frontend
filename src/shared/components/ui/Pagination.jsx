@@ -60,8 +60,8 @@ export default function Pagination({
         disabled={currentPage === 1}
         className={`${btnBase} ${
           currentPage === 1
-            ? "text-gray/30 cursor-not-allowed"
-            : "text-gray hover:bg-gray-light hover:text-gray-dark"
+            ? "text-text-muted/30 cursor-not-allowed"
+            : "text-text-muted hover:bg-background-hover hover:text-text-primary"
         }`}
       >
         <ChevronLeft size={18} />
@@ -70,7 +70,7 @@ export default function Pagination({
       {/* ── Page Numbers ── */}
       {pages.map((page, idx) =>
         page === "…" ? (
-          <span key={`ellipsis-${idx}`} className="w-9 text-center text-gray/50 text-sm">
+          <span key={`ellipsis-${idx}`} className="w-9 text-center text-text-muted/50 text-sm">
             …
           </span>
         ) : (
@@ -79,8 +79,8 @@ export default function Pagination({
             onClick={() => onPageChange(page)}
             className={`${btnBase} ${
               page === currentPage
-                ? "bg-primary-500 text-white shadow-md shadow-primary-500/25"
-                : "text-gray hover:bg-gray-light hover:text-gray-dark"
+                ? "bg-primary-500 text-text-inverse shadow-md shadow-primary-500/25"
+                : "text-text-muted hover:bg-background-hover hover:text-text-primary"
             }`}
           >
             {page}
@@ -94,8 +94,8 @@ export default function Pagination({
         disabled={currentPage === totalPages}
         className={`${btnBase} ${
           currentPage === totalPages
-            ? "text-gray/30 cursor-not-allowed"
-            : "text-gray hover:bg-gray-light hover:text-gray-dark"
+            ? "text-text-muted/30 cursor-not-allowed"
+            : "text-text-muted hover:bg-background-hover hover:text-text-primary"
         }`}
       >
         <ChevronRight size={18} />

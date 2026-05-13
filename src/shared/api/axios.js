@@ -6,6 +6,8 @@ import { handleError } from "../utils/errorHandler";
 let isRefreshing = false;
 let failedQueue = [];
 
+export const baseURL = "https://localhost:5000/"
+
 export const api = axios.create({
   baseURL: "https://localhost:5000/api",
   withCredentials: true,

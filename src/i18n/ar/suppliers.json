@@ -1,0 +1,69 @@
+{
+  "page": {
+    "title": "الموردون",
+    "description": "إدارة شبكة الموردين.",
+    "addSupplier": "إضافة مورد",
+    "noSuppliers": "لا يوجد موردون بعد",
+    "noSuppliersDesc": "ابدأ بإضافة أول مورد.",
+    "totalCount": "{{count}} مورد",
+    "refresh": "تحديث"
+  },
+  "table": {
+    "name": "الاسم",
+    "phone": "الهاتف",
+    "contact": "جهة الاتصال",
+    "address": "العنوان",
+    "rating": "التقييم",
+    "actions": "الإجراءات",
+    "loading": "جاري تحميل الموردين...",
+    "deleted": "محذوف"
+  },
+  "fields": {
+    "name": "اسم المورد",
+    "namePlaceholder": "أدخل اسم المورد",
+    "phone": "رقم الهاتف",
+    "phonePlaceholder": "أدخل رقم الهاتف",
+    "contact": "معلومات الاتصال",
+    "contactPlaceholder": "البريد أو اسم جهة الاتصال",
+    "address": "العنوان",
+    "addressPlaceholder": "أدخل العنوان"
+  },
+  "actions": {
+    "delete": "حذف",
+    "restore": "استعادة"
+  },
+  "addModal": {
+    "title": "إضافة مورد",
+    "description": "أدخل بيانات المورد الجديد.",
+    "submit": "إنشاء المورد"
+  },
+  "deleteDialog": {
+    "title": "حذف المورد",
+    "description": "هل أنت متأكد من حذف \"{{name}}\"؟ يمكن التراجع لاحقاً.",
+    "confirm": "تأكيد الحذف"
+  },
+  "restoreDialog": {
+    "title": "استعادة المورد",
+    "description": "هل أنت متأكد من استعادة \"{{name}}\"؟",
+    "confirm": "تأكيد الاستعادة"
+  },
+  "validation": {
+    "nameRequired": "اسم المورد مطلوب",
+    "phoneRequired": "رقم الهاتف مطلوب"
+  },
+  "common": {
+    "cancel": "إلغاء"
+  },
+  "sidebar": {
+    "suppliers": "الموردون"
+  },
+  "toasts": {
+    "fetchError": "فشل في تحميل الموردين",
+    "createSuccess": "تم إنشاء المورد بنجاح!",
+    "createError": "فشل في إنشاء المورد",
+    "deleteSuccess": "تم حذف المورد بنجاح!",
+    "deleteError": "فشل في حذف المورد",
+    "restoreSuccess": "تم استعادة المورد بنجاح!",
+    "restoreError": "فشل في استعادة المورد"
+  }
+}

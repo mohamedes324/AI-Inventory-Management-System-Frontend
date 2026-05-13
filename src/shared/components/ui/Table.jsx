@@ -35,7 +35,7 @@ export default function Table({
   /* ── Loading State ── */
   if (loading) {
     return (
-      <div className={`bg-white rounded-2xl border border-gray/10 p-6 ${className}`}>
+      <div className={`bg-background-card rounded-2xl border border-border-primary p-6 ${className}`}>
         <Loader variant="shimmer" lines={6} />
       </div>
     );
@@ -44,23 +44,23 @@ export default function Table({
   /* ── Empty State ── */
   if (!data.length) {
     return (
-      <div className={`bg-white rounded-2xl border border-gray/10 p-8 ${className}`}>
+      <div className={`bg-background-card rounded-2xl border border-border-primary p-8 ${className}`}>
         <EmptyState message="No data found" />
       </div>
     );
   }
 
   return (
-    <div className={`bg-white rounded-2xl border border-gray/10 overflow-hidden ${className}`}>
+    <div className={`bg-background-card rounded-2xl border border-border-primary overflow-hidden shadow-[var(--shadow-card)] ring-1 ring-inset ring-white/[0.03] ${className}`}>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           {/* ── Header ── */}
           <thead>
-            <tr className="border-b border-gray/10 bg-gray-light/50">
+            <tr className="border-b border-border-secondary bg-background-sidebar/80">
               {columns.map((col) => (
                 <th
                   key={col.key}
-                  className="text-left px-5 py-3.5 font-semibold text-gray-dark text-xs uppercase tracking-wider"
+                  className="text-left px-5 py-3.5 font-semibold text-text-muted text-[11px] uppercase tracking-widest"
                 >
                   {col.label}
                 </th>
@@ -75,14 +75,14 @@ export default function Table({
                 key={row.id ?? rowIdx}
                 onClick={() => onRowClick?.(row)}
                 className={`
-                  border-b border-gray/5 transition-colors duration-150
+                  border-b border-border-primary/20 transition-all duration-150
                   ${onRowClick ? "cursor-pointer" : ""}
-                  ${striped && rowIdx % 2 === 1 ? "bg-gray-light/30" : ""}
-                  hover:bg-primary-500/5
+                  ${striped && rowIdx % 2 === 1 ? "bg-background-app/20" : ""}
+                  hover:bg-primary-500/[0.04]
                 `}
               >
                 {columns.map((col) => (
-                  <td key={col.key} className="px-5 py-3.5 text-gray-dark">
+                  <td key={col.key} className="px-5 py-3.5 text-text-primary">
                     {col.render ? col.render(row[col.key], row) : row[col.key]}
                   </td>
                 ))}

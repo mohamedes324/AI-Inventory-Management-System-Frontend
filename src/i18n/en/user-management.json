@@ -1,6 +1,7 @@
 {
   "sidebar": {
     "dashboard": "Dashboard",
+    "createUser": "Create User",
     "pendingAccounts": "Pending Accounts",
     "usersManagement": "Users Management",
     "products": "Products",
@@ -110,5 +111,29 @@
     "confirmRestore": "Confirm Restore",
     "restoreSuccess": "User restored successfully",
     "restoreError": "Failed to restore user"
+  },
+  "createUserPage": {
+    "title": "Create User",
+    "description": "Add a new user to the system",
+    "userName": "Username",
+    "enterUserName": "Enter username",
+    "fullName": "Full Name",
+    "enterFullName": "Enter full name",
+    "email": "Email",
+    "enterEmail": "Enter email",
+    "phone": "Phone Number",
+    "enterPhone": "Enter phone number",
+    "role": "Role",
+    "cashier": "Cashier",
+    "inventoryStaff": "Inventory Staff",
+    "admin": "Admin",
+    "manager": "Manager",
+    "createAccount": "Create Account",
+    "fillAllFields": "Please fill all fields",
+    "usernameTaken": "Username is already taken",
+    "emailTaken": "Email is already registered",
+    "phoneTaken": "Phone number is already registered",
+    "checking": "Checking...",
+    "success": "Account created successfully!"
   }
 }

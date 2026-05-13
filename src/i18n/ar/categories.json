@@ -1,0 +1,41 @@
+{
+  "title": "الأقسام",
+  "description": "تصفح وإدارة أقسام المنتجات.",
+  "searchPlaceholder": "ابحث عن قسم...",
+  "addCategory": "إضافة قسم",
+  "editCategory": "تعديل القسم",
+  "deleteCategory": "حذف",
+  "updateImage": "تحديث الصورة",
+  "viewProducts": "عرض المنتجات",
+  "categoryName": "اسم القسم",
+  "enterCategoryName": "أدخل اسم القسم",
+  "categoryImage": "صورة القسم",
+  "uploadImage": "انقر لرفع صورة",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "create": "إنشاء",
+
+  "noCategories": "لا يوجد أقسام بعد",
+  "noCategoriesDesc": "ابدأ بإضافة أول قسم لمنتجاتك.",
+  "noResults": "لا يوجد نتائج مطابقة",
+  "noResultsDesc": "حاول تعديل كلمة البحث.",
+  "clearSearch": "مسح البحث",
+
+  "createSuccess": "تم إنشاء القسم بنجاح!",
+  "createError": "فشل في إنشاء القسم",
+  "updateSuccess": "تم تحديث القسم بنجاح!",
+  "updateError": "فشل في تحديث القسم",
+  "deleteSuccess": "تم حذف القسم بنجاح!",
+  "deleteError": "فشل في حذف القسم",
+  "imageUpdateSuccess": "تم تحديث صورة القسم!",
+  "imageUpdateError": "فشل في تحديث صورة القسم",
+  "fetchError": "فشل في تحميل الأقسام",
+
+  "deleteModalTitle": "حذف القسم",
+  "deleteModalDesc": "هل أنت متأكد من حذف \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+  "confirmDelete": "تأكيد الحذف",
+
+  "sidebar": {
+    "categories": "الأقسام"
+  }
+}

@@ -45,7 +45,7 @@ export default function Login() {
       <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-primary-500/25 animate-scaleIn">
         <Package size={24} />
       </div>
-      <h1 className="font-bold text-xl tracking-tight text-gray-dark">
+      <h1 className="font-bold text-xl tracking-tight text-text-primary">
         Inventory
         <span className="bg-gradient-to-r from-primary-500 to-primary-600 bg-clip-text text-transparent">
           Market
@@ -57,7 +57,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* ═══════════ LEFT SIDE — Login Form ═══════════ */}
-      <div className="w-full lg:w-[48%] flex flex-col items-center justify-center bg-gray-light px-6 lg:px-16 py-12 relative">
+      <div className="w-full lg:w-[48%] flex flex-col items-center justify-center bg-background-app px-6 lg:px-16 py-12 relative">
 
         <LanguageSwitcher className="absolute top-7 end-7 z-20" />
 
@@ -106,7 +106,7 @@ export default function Login() {
 
         {/* Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-700/90 via-primary-600/70 to-secondary-500/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-dark/30 via-transparent to-primary-700/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background-app/30 via-transparent to-primary-700/20" />
 
         {/* Decorative Orbs */}
         <div className="absolute top-24 right-24 w-72 h-72 bg-secondary-500/20 rounded-full blur-3xl animate-float" />
@@ -133,22 +133,22 @@ export default function Login() {
                 <BarChart3 size={20} />
               </div>
               <div>
-                <h3 className="font-bold text-gray-dark text-[15px]">
+                <h3 className="font-bold text-text-primary text-[15px]">
                   {t("auth:login.metricsTitle")}
                 </h3>
-                <p className="text-sm text-gray">
+                <p className="text-sm text-text-muted">
                   {t("auth:login.metricsSub")}
                 </p>
               </div>
             </div>
 
             <div className="space-y-3">
-              <div className="flex justify-between items-center text-sm bg-gray-light/70 rounded-xl px-4 py-3">
-                <span className="text-gray">{t("auth:login.activeSkus")}</span>
-                <span className="font-bold text-gray-dark">14,204</span>
+              <div className="flex justify-between items-center text-sm bg-background-app/70 rounded-xl px-4 py-3">
+                <span className="text-text-muted">{t("auth:login.activeSkus")}</span>
+                <span className="font-bold text-text-primary">14,204</span>
               </div>
-              <div className="flex justify-between items-center text-sm bg-gray-light/70 rounded-xl px-4 py-3">
-                <span className="text-gray">{t("auth:login.stockHealth")}</span>
+              <div className="flex justify-between items-center text-sm bg-background-app/70 rounded-xl px-4 py-3">
+                <span className="text-text-muted">{t("auth:login.stockHealth")}</span>
                 <span className="inline-flex items-center gap-1 bg-secondary-500 text-white px-3 py-1 rounded-lg text-xs font-semibold shadow-sm">
                   <ArrowUpRight size={12} />
                   98.5%

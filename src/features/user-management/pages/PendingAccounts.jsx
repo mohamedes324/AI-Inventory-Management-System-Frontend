@@ -46,10 +46,10 @@ const STATUS_MAP = {
 };
 
 const STATUS_STYLES = {
-  amber: "bg-amber-50 text-amber-700 border-amber-200",
-  blue:  "bg-blue-50  text-blue-700  border-blue-200",
-  green: "bg-secondary-50 text-secondary-700 border-secondary-200",
-  red:   "bg-error/8  text-error     border-error/20",
+  amber: "bg-warning-bg text-warning-text border-warning-border",
+  blue:  "bg-info-bg text-info-text border-info-border",
+  green: "bg-success-bg text-success-text border-success-border",
+  red:   "bg-error-bg text-error-text border-error-border",
 };
 
 /** Map backend role string → i18n key */
@@ -85,10 +85,10 @@ function StatusBadge({ status, t }) {
 // ── Skeleton Row ──────────────────────────────────────────────────────────────
 function SkeletonRow() {
   return (
-    <tr className="animate-pulse border-b border-gray/5">
+    <tr className="animate-pulse border-b border-border-primary/30">
       {[40, 28, 24, 28, 20, 36].map((w, i) => (
         <td key={i} className="px-5 py-4">
-          <div className={`h-4 bg-gray/10 rounded-lg w-${w}`} />
+          <div className={`h-4 bg-background-hover rounded-lg w-${w}`} />
         </td>
       ))}
     </tr>
@@ -154,7 +154,7 @@ function UserRow({ user, idx, t, onApprove, onReject, actionLoading, onPreview }
 
   return (
     <tr
-      className="border-b border-gray/5 hover:bg-primary-50/30 transition-colors duration-200 group animate-fadeIn"
+      className="border-b border-border-primary/30 hover:bg-primary-500/5 transition-colors duration-200 group animate-fadeIn"
       style={{ animationDelay: `${(idx ?? 0) * 60}ms` }}
     >
       {/* User */}
@@ -162,15 +162,15 @@ function UserRow({ user, idx, t, onApprove, onReject, actionLoading, onPreview }
         <div className="flex items-center gap-3">
           <Avatar name={userName} size="md" />
           <div>
-            <p className="font-semibold text-gray-dark text-[14px] leading-tight">{userName}</p>
-            <p className="text-xs text-gray/50 mt-0.5 font-mono">{userId?.slice(0, 8)}…</p>
+            <p className="font-semibold text-text-primary text-[14px] leading-tight">{userName}</p>
+            <p className="text-xs text-text-muted mt-0.5 font-mono">{userId?.slice(0, 8)}…</p>
           </div>
         </div>
       </td>
 
       {/* Role */}
       <td className="px-5 py-4">
-        <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-gray-dark bg-primary-50 px-3 py-1 rounded-lg border border-primary-100">
+        <span className="inline-flex items-center gap-1.5 text-[13px] font-medium text-primary-400 bg-primary-500/10 px-3 py-1 rounded-lg border border-primary-500/20">
           <ShieldCheck size={13} className="text-primary-500" />
           {roleLabel}
         </span>
@@ -183,8 +183,8 @@ function UserRow({ user, idx, t, onApprove, onReject, actionLoading, onPreview }
 
       {/* Joined */}
       <td className="px-5 py-4">
-        <span className="flex items-center gap-1.5 text-[13px] text-gray">
-          <Clock size={13} className="text-gray/40" />
+        <span className="flex items-center gap-1.5 text-[13px] text-text-secondary">
+          <Clock size={13} className="text-text-muted" />
           {formatDate(createdAt)}
         </span>
       </td>
@@ -206,7 +206,7 @@ function UserRow({ user, idx, t, onApprove, onReject, actionLoading, onPreview }
             <IdCard size={12} />
           </button>
         ) : (
-          <span className="text-xs text-gray/40 italic">
+          <span className="text-xs text-text-muted italic">
             {t("pendingAccounts.noDocument")}
           </span>
         )}
@@ -334,16 +334,16 @@ export default function PendingAccounts() {
   return (
     <Layout>
       {/* ── Top Bar ── */}
-      <header className="shrink-0 bg-white border-b border-gray/8 px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm animate-fadeIn">
+      <header className="shrink-0 bg-background-card border-b border-border-primary px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm animate-fadeIn">
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white shadow-lg shadow-primary-500/25 shrink-0">
             <Users size={22} />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-dark tracking-tight">
+            <h1 className="text-xl font-bold text-text-primary tracking-tight">
               {t("pendingAccounts.title")}
             </h1>
-            <p className="text-gray/60 text-sm mt-0.5">
+            <p className="text-text-muted text-sm mt-0.5">
               {t("pendingAccounts.description")}
             </p>
           </div>
@@ -352,8 +352,8 @@ export default function PendingAccounts() {
         <div className="flex items-center w-full sm:w-auto justify-between sm:justify-start gap-4">
           {/* Count badge */}
           {users.length > 0 && !loading && (
-            <span className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200 text-amber-700 text-xs font-bold px-3 py-1.5 rounded-full animate-fadeIn">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span className="inline-flex items-center gap-1.5 bg-warning-bg border border-warning-border text-warning-text text-xs font-bold px-3 py-1.5 rounded-full animate-fadeIn">
+              <span className="w-2 h-2 rounded-full bg-warning-text animate-pulse" />
               {t("pendingAccounts.pendingCount", { count: users.length })}
             </span>
           )}
@@ -362,7 +362,7 @@ export default function PendingAccounts() {
           <button
             onClick={loadUsers}
             disabled={loading}
-            className="w-9 h-9 shrink-0 rounded-xl border border-gray/15 bg-white flex items-center justify-center text-gray hover:text-primary-500 hover:border-primary-300 transition-all duration-200 disabled:opacity-50"
+            className="w-9 h-9 shrink-0 rounded-xl border border-border-primary bg-background-card flex items-center justify-center text-text-muted hover:text-primary-500 hover:border-primary-300 transition-all duration-200 disabled:opacity-50"
             title={t("pendingAccounts.refreshing")}
           >
             <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
@@ -374,12 +374,12 @@ export default function PendingAccounts() {
       <main className="flex-1 overflow-auto px-4 sm:px-8 py-6">
         {/* Loading skeletons */}
         {loading && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray/5 overflow-hidden animate-fadeIn overflow-x-auto">
+          <div className="bg-background-card rounded-2xl shadow-sm border border-border-primary overflow-hidden animate-fadeIn overflow-x-auto">
             <table className="w-full min-w-[800px]">
-              <thead className="border-b border-gray/8 bg-gray-light/60">
+              <thead className="border-b border-border-primary bg-background-app/60">
                 <tr>
                   {columns.map((col) => (
-                    <th key={col} className="px-5 py-3.5 text-start text-xs font-bold text-gray/50 uppercase tracking-wider">
+                    <th key={col} className="px-5 py-3.5 text-start text-xs font-bold text-text-muted uppercase tracking-wider">
                       {t(`pendingAccounts.${col}`)}
                     </th>
                   ))}
@@ -396,7 +396,7 @@ export default function PendingAccounts() {
         {!loading && users.length === 0 && (
           <div className="h-full flex items-center justify-center py-24 animate-fadeIn">
             <EmptyState
-              icon={<Users size={36} className="text-gray/40" />}
+              icon={<Users size={36} className="text-text-muted" />}
               message={t("pendingAccounts.noUsers")}
               description={t("pendingAccounts.noUsersDesc")}
               action={
@@ -411,14 +411,14 @@ export default function PendingAccounts() {
 
         {/* Table */}
         {!loading && users.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray/5 overflow-hidden animate-slideUp overflow-x-auto">
+          <div className="bg-background-card rounded-2xl shadow-sm border border-border-primary overflow-hidden animate-slideUp overflow-x-auto">
             <table className="w-full min-w-[800px]">
-              <thead className="border-b border-gray/8 bg-gray-light/60">
+              <thead className="border-b border-border-primary bg-background-app/60">
                 <tr>
                   {columns.map((col) => (
                     <th
                       key={col}
-                      className="px-5 py-3.5 text-start text-xs font-bold text-gray/60 uppercase tracking-wider"
+                      className="px-5 py-3.5 text-start text-xs font-bold text-text-muted uppercase tracking-wider"
                     >
                       {t(`pendingAccounts.${col}`)}
                     </th>
@@ -456,34 +456,34 @@ export default function PendingAccounts() {
       {/* ── Reject Modal ── */}
       {rejectModalUser && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gray-dark/60 backdrop-blur-sm animate-fadeIn p-4" 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background-app/70 backdrop-blur-sm animate-fadeIn p-4" 
           onClick={closeRejectModal}
         >
           <div 
-            className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-slideUp"
+            className="bg-background-card rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-slideUp"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-6">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-lg font-bold text-gray-dark">{t("pendingAccounts.rejectModalTitle")}</h3>
+                <h3 className="text-lg font-bold text-text-primary">{t("pendingAccounts.rejectModalTitle")}</h3>
                 <button 
                   onClick={closeRejectModal}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-light text-gray hover:text-error hover:bg-error/10 transition-colors"
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-background-hover text-text-muted hover:text-error hover:bg-error/10 transition-colors"
                 >
                   <XCircle size={18} />
                 </button>
               </div>
-              <p className="text-sm text-gray">{t("pendingAccounts.rejectModalDesc")}</p>
+              <p className="text-sm text-text-secondary">{t("pendingAccounts.rejectModalDesc")}</p>
               
               <div className="mt-5">
-                <label className="block text-sm font-medium text-gray-dark mb-1.5">
+                <label className="block text-sm font-medium text-text-primary mb-1.5">
                   {t("pendingAccounts.rejectReasonLabel")} <span className="text-error">*</span>
                 </label>
                 <textarea
-                  className={`w-full rounded-xl border p-3 text-sm focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full rounded-xl border p-3 text-sm bg-background-input text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 transition-all ${
                     rejectError 
                       ? 'border-error focus:ring-error/20' 
-                      : 'border-gray/20 focus:border-primary-500 focus:ring-primary-500/20'
+                      : 'border-border-primary focus:border-border-focus focus:ring-primary-500/20'
                   }`}
                   rows="4"
                   placeholder={t("pendingAccounts.rejectReasonPlaceholder")}
@@ -497,18 +497,18 @@ export default function PendingAccounts() {
               </div>
             </div>
             
-            <div className="px-6 py-4 bg-gray-light/50 border-t border-gray/5 flex items-center justify-end gap-3">
+            <div className="px-6 py-4 bg-background-hover/50 border-t border-border-primary flex items-center justify-end gap-3">
               <button
                 onClick={closeRejectModal}
                 disabled={actionLoading === rejectModalUser.userId}
-                className="px-4 py-2 text-sm font-medium text-gray hover:text-gray-dark transition-colors"
+                className="px-4 py-2 text-sm font-medium text-text-muted hover:text-text-primary transition-colors"
               >
                 {t("pendingAccounts.cancel")}
               </button>
               <button
                 onClick={confirmReject}
                 disabled={actionLoading === rejectModalUser.userId}
-                className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold bg-error text-white hover:bg-error/90 disabled:opacity-50 transition-all shadow-sm shadow-error/20"
+                className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold bg-error text-text-inverse hover:bg-error/90 disabled:opacity-50 transition-all shadow-sm shadow-error/20"
               >
                 {actionLoading === rejectModalUser.userId && <RefreshCw size={14} className="animate-spin" />}
                 {t("pendingAccounts.confirmReject")}

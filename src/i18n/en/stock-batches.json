@@ -1,0 +1,57 @@
+{
+  "title": "Stock Batches",
+  "pageTitle": "Stock Batches",
+  "count": "{{count}} batches",
+  "empty": "No batches loaded",
+  "noBatches": "No stock batches found for this product.",
+  "andMore": "+{{count}} more batches",
+  "manageInventory": "Manage Inventory",
+  "backToProduct": "Back to Product",
+  "status": {
+    "active": "Active",
+    "expired": "Expired",
+    "consumed": "Consumed"
+  },
+  "batch": {
+    "label": "Batch #{{number}}",
+    "units": "units",
+    "quantity": "Quantity",
+    "unitCost": "Unit Cost",
+    "batchId": "Batch ID",
+    "purchaseDate": "Purchase Date",
+    "expiryDate": "Expiry Date",
+    "supplier": "Supplier",
+    "status": "Status"
+  },
+  "actions": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "editModal": {
+    "title": "Edit Stock Batch",
+    "expiryDate": "Expiry Date",
+    "remainingQuantity": "Remaining Quantity",
+    "unitCost": "Unit Cost",
+    "submit": "Save Changes"
+  },
+  "deleteDialog": {
+    "title": "Delete Stock Batch",
+    "description": "Are you sure you want to delete Batch #{{id}}? This action cannot be undone.",
+    "confirm": "Confirm Delete"
+  },
+  "validation": {
+    "expiryRequired": "Expiry date is required",
+    "quantityRequired": "Valid quantity is required",
+    "costRequired": "Valid unit cost is required"
+  },
+  "common": {
+    "cancel": "Cancel"
+  },
+  "toasts": {
+    "fetchError": "Failed to load stock batches",
+    "updateSuccess": "Batch updated successfully!",
+    "updateError": "Failed to update batch",
+    "deleteSuccess": "Batch deleted successfully!",
+    "deleteError": "Failed to delete batch"
+  }
+}

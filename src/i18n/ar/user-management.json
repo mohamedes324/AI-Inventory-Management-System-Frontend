@@ -1,6 +1,7 @@
 {
   "sidebar": {
     "dashboard": "لوحة التحكم",
+    "createUser": "إنشاء مستخدم",
     "pendingAccounts": "الحسابات المعلقة",
     "usersManagement": "إدارة المستخدمين",
     "products": "المنتجات",
@@ -110,5 +111,29 @@
     "confirmRestore": "تأكيد الاستعادة",
     "restoreSuccess": "تم استعادة المستخدم بنجاح",
     "restoreError": "فشل في استعادة المستخدم"
+  },
+  "createUserPage": {
+    "title": "إنشاء مستخدم",
+    "description": "إضافة مستخدم جديد إلى النظام",
+    "userName": "اسم المستخدم",
+    "enterUserName": "أدخل اسم المستخدم",
+    "fullName": "الاسم الكامل",
+    "enterFullName": "أدخل الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "enterEmail": "أدخل البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "enterPhone": "أدخل رقم الهاتف",
+    "role": "الدور",
+    "cashier": "كاشير",
+    "inventoryStaff": "موظف مخزن",
+    "admin": "مسؤول",
+    "manager": "مدير",
+    "createAccount": "إنشاء حساب",
+    "fillAllFields": "من فضلك املأ كل الحقول",
+    "usernameTaken": "اسم المستخدم مأخوذ بالفعل",
+    "emailTaken": "البريد الإلكتروني مسجّل بالفعل",
+    "phoneTaken": "رقم الهاتف مسجّل بالفعل",
+    "checking": "جاري التحقق...",
+    "success": "تم إنشاء الحساب بنجاح!"
   }
 }

@@ -1,0 +1,116 @@
+{
+  "page": {
+    "title": "Products",
+    "description": "View and manage inventory products.",
+    "addProduct": "Add Product",
+    "noProducts": "No products yet",
+    "noProductsDesc": "Start by adding your first product to the inventory.",
+    "totalCount": "{{count}} products",
+    "searchCount": "{{count}} results",
+    "noSearchResults": "No matching products",
+    "noSearchResultsDesc": "Try adjusting your search query.",
+    "refresh": "Refresh"
+  },
+  "table": {
+    "colName": "Product Name",
+    "colSku": "SKU",
+    "colCategory": "Category",
+    "colPrice": "Price",
+    "colStock": "Stock Qty",
+    "colReorder": "Reorder Pt",
+    "colStatus": "Status",
+    "colActions": "Actions"
+  },
+  "status": {
+    "outOfStock": "Out Of Stock",
+    "lowStock": "Low Stock",
+    "inStock": "In Stock"
+  },
+  "actions": {
+    "edit": "Edit Product",
+    "updatePrice": "Update Price",
+    "updateReorder": "Update Reorder Point",
+    "delete": "Delete Product"
+  },
+  "fields": {
+    "name": "Product Name",
+    "namePlaceholder": "Enter product name",
+    "sku": "SKU",
+    "skuPlaceholder": "Enter SKU code",
+    "price": "Selling Price",
+    "reorderPoint": "Reorder Point",
+    "category": "Category",
+    "categoryPlaceholder": "Select a category"
+  },
+  "searchPlaceholder": "Search products...",
+  "searching": "Searching...",
+  "addModal": {
+    "title": "Add Product",
+    "description": "Fill in the details to create a new product.",
+    "submit": "Create Product"
+  },
+  "editModal": {
+    "title": "Edit Product",
+    "submit": "Save Changes"
+  },
+  "priceModal": {
+    "title": "Update Price",
+    "label": "New Selling Price",
+    "submit": "Update Price"
+  },
+  "reorderModal": {
+    "title": "Update Reorder Point",
+    "label": "New Reorder Point",
+    "submit": "Update"
+  },
+  "deleteDialog": {
+    "title": "Delete Product",
+    "description": "Are you sure you want to delete \"{{name}}\"? This action cannot be undone.",
+    "confirm": "Confirm Delete"
+  },
+  "details": {
+    "backToProducts": "Back to Products",
+    "infoTitle": "Product Information",
+    "infoSubtitle": "Complete product details and attributes.",
+    "stockQuantity": "Stock Quantity",
+    "notFound": "Product not found"
+  },
+  "batches": {
+    "title": "Stock Batches",
+    "count": "{{count}} batches",
+    "empty": "No batches loaded",
+    "noBatches": "No stock batches found for this product.",
+    "batchLabel": "Batch #{{number}}",
+    "qty": "Qty",
+    "quantity": "Quantity",
+    "expiry": "Expiry Date",
+    "status": "Status",
+    "manageInventory": "Manage Inventory"
+  },
+  "validation": {
+    "nameRequired": "Product name is required",
+    "skuRequired": "SKU is required",
+    "priceRequired": "Valid price is required",
+    "reorderRequired": "Valid reorder point is required",
+    "categoryRequired": "Please select a category"
+  },
+  "toasts": {
+    "fetchError": "Failed to load products",
+    "createSuccess": "Product created successfully!",
+    "createError": "Failed to create product",
+    "updateSuccess": "Product updated successfully!",
+    "updateError": "Failed to update product",
+    "priceSuccess": "Price updated successfully!",
+    "priceError": "Failed to update price",
+    "reorderSuccess": "Reorder point updated!",
+    "reorderError": "Failed to update reorder point",
+    "deleteSuccess": "Product deleted successfully!",
+    "deleteError": "Failed to delete product"
+  },
+  "common": {
+    "cancel": "Cancel"
+  },
+  "sidebar": {
+    "products": "Products"
+  }
+}

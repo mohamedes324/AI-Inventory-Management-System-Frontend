@@ -19,7 +19,7 @@ export default function Layout({ children }) {
   }, [location.pathname, closeMobileDrawer]);
 
   return (
-    <div className="h-screen bg-gray-light flex font-sans">
+    <div className="h-screen bg-background-app flex font-sans">
 
       {/* ── Sidebar ── */}
       <Sidebar
@@ -35,7 +35,7 @@ export default function Layout({ children }) {
           isCollapsed={isCollapsed}
           toggleCollapse={toggleCollapse}
         />
-        <main className="flex-1 overflow-auto bg-gray-light">
+        <main className="flex-1 overflow-auto bg-background-app">
           {children || <Outlet />}
         </main>
       </div>

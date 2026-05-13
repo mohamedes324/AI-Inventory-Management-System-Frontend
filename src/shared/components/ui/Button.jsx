@@ -39,13 +39,13 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      "bg-primary-500 text-white hover:bg-primary-600 shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40",
+      "bg-gradient-to-b from-primary-500 to-primary-600 text-text-inverse hover:from-primary-400 hover:to-primary-600 shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/30 ring-1 ring-primary-400/20",
     secondary:
-      "bg-secondary-500 text-white hover:bg-secondary-600 shadow-lg shadow-secondary-500/25 hover:shadow-xl hover:shadow-secondary-500/40",
+      "bg-gradient-to-b from-secondary-500 to-secondary-600 text-text-inverse hover:from-secondary-400 hover:to-secondary-600 shadow-lg shadow-secondary-500/20 hover:shadow-xl hover:shadow-secondary-500/30 ring-1 ring-secondary-400/20",
     ghost:
-      "bg-transparent text-gray hover:text-gray-dark hover:bg-gray-light border border-gray/20 hover:border-gray/40",
+      "bg-background-elevated/50 text-text-secondary hover:text-text-primary hover:bg-background-elevated border border-border-primary hover:border-border-secondary hover:shadow-sm",
     danger:
-      "bg-error text-white hover:bg-red-700 shadow-lg shadow-error/25 hover:shadow-xl hover:shadow-error/40",
+      "bg-gradient-to-b from-error to-error/80 text-text-inverse hover:from-error/90 hover:to-error/70 shadow-lg shadow-error/20 hover:shadow-xl hover:shadow-error/30 ring-1 ring-error/20",
   };
 
   // Halo is on by default for primary & secondary, off for ghost & danger
@@ -70,7 +70,7 @@ export default function Button({
     >
       {loading ? (
         <div className="flex items-center gap-2">
-          <span className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+          <span className="w-5 h-5 border-3 border-text-inverse/30 border-t-text-inverse rounded-full animate-spin" />
           <span>{children}</span>
         </div>
       ) : (

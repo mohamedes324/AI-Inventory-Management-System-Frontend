@@ -61,7 +61,7 @@ export default function ImageModal({ isOpen, src, alt = "", onClose, closeLabel 
       className="
         fixed inset-0 z-50
         flex items-center justify-center
-        bg-gray-dark/70 backdrop-blur-sm
+        bg-background-app/70 backdrop-blur-sm
         animate-fadeIn
       "
     >
@@ -81,7 +81,7 @@ export default function ImageModal({ isOpen, src, alt = "", onClose, closeLabel 
         <img
           src={src}
           alt={alt}
-          className="block max-w-full max-h-[80vh] w-auto h-auto object-contain bg-gray-dark/5"
+          className="block max-w-full max-h-[80vh] w-auto h-auto object-contain bg-background-card"
           draggable="false"
         />
 
@@ -94,8 +94,8 @@ export default function ImageModal({ isOpen, src, alt = "", onClose, closeLabel 
             absolute top-3 end-3
             flex items-center justify-center
             w-9 h-9 rounded-full
-            bg-gray-dark/60 hover:bg-gray-dark/90
-            text-white
+            bg-background-elevated/80 hover:bg-background-elevated
+            text-text-primary
             backdrop-blur-sm
             transition-all duration-200
             hover:scale-110
@@ -109,11 +109,11 @@ export default function ImageModal({ isOpen, src, alt = "", onClose, closeLabel 
         <div className="
           absolute bottom-0 inset-x-0
           px-4 py-2.5
-          bg-gradient-to-t from-gray-dark/70 to-transparent
+          bg-gradient-to-t from-background-app/70 to-transparent
           flex items-center gap-2
         ">
-          <ZoomIn size={14} className="text-white/70 shrink-0" />
-          <span className="text-white/80 text-xs font-medium truncate">{alt}</span>
+          <ZoomIn size={14} className="text-text-muted shrink-0" />
+          <span className="text-text-secondary text-xs font-medium truncate">{alt}</span>
         </div>
       </div>
     </div>
