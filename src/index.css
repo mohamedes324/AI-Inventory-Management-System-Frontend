@@ -89,6 +89,59 @@
     color: var(--color-text-primary);
     background-color: var(--color-bg-app);
   }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     🎚 PREMIUM SCROLLBAR — Theme-Aware
+     ═══════════════════════════════════════════════════════════════════════
+     Uses semantic CSS variables so scrollbar colors automatically match
+     whichever palette is active. Dark palettes → dark scrollbar,
+     light palettes → light scrollbar. No manual switching required.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Scrollbar tokens (derived from palette) ── */
+  :root {
+    --scrollbar-width: 8px;
+    --scrollbar-track: var(--color-bg-app);
+    --scrollbar-thumb: var(--color-border-secondary);
+    --scrollbar-thumb-hover: var(--color-text-muted);
+    --scrollbar-thumb-radius: 9999px;
+  }
+
+  /* ── Firefox ── */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  /* ── WebKit (Chrome, Edge, Safari) ── */
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    height: var(--scrollbar-width);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: var(--scrollbar-thumb-radius);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: var(--scrollbar-thumb-radius);
+    border: 2px solid var(--scrollbar-track);
+    transition: background 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--color-border-focus);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
+  }
 }
 
 

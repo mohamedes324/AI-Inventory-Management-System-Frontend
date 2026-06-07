@@ -2,15 +2,14 @@
  * @component BatchCardDetails
  * @description Expanded details panel for a stock batch.
  * Visually separate from the outer BatchCard.
- * Contains: Quantity, Unit Cost, Purchase Date, Expiry Date, Supplier, Status.
+ * Contains: Quantity, Unit Cost, Purchase Date, Expiry Date, Supplier, Discount Percentage.
  * Edit/Delete actions live here only.
  */
 import { useTranslation } from "react-i18next";
 import {
-  Calendar, DollarSign, Package, Truck, Activity, Pencil, Trash2,
+  Calendar, DollarSign, Package, Truck, Percent, Pencil, Trash2,
 } from "lucide-react";
 import { formatDate } from "../utils/formatDate";
-import { getBatchStatus } from "../utils/getBatchStatus";
 
 function DetailTile({ icon: Icon, iconBg, label, value }) {
   return (
@@ -30,13 +29,6 @@ function DetailTile({ icon: Icon, iconBg, label, value }) {
 
 export default function BatchCardDetails({ batch, canManage = false, onEdit, onDelete }) {
   const { t } = useTranslation("stockBatches");
-  const { key: statusKey } = getBatchStatus(batch);
-
-  const STATUS_LABEL = {
-    active: t("status.active"),
-    expired: t("status.expired"),
-    consumed: t("status.consumed"),
-  };
 
   return (
     <div className="mx-4 mb-4 rounded-xl bg-background-app/60 border border-border-primary/25 p-4 animate-fadeIn">
@@ -73,10 +65,10 @@ export default function BatchCardDetails({ batch, canManage = false, onEdit, onD
           value={batch.supplierId ? `Supplier #${batch.supplierId}` : "—"}
         />
         <DetailTile
-          icon={Activity}
-          iconBg="bg-primary-500/10 text-primary-400"
-          label={t("batch.status")}
-          value={STATUS_LABEL[statusKey] || statusKey}
+          icon={Percent}
+          iconBg="bg-secondary-500/10 text-secondary-400"
+          label={t("batch.discountPercentage")}
+          value={`${batch.discountPercentage ?? 0}%`}
         />
       </div>
 

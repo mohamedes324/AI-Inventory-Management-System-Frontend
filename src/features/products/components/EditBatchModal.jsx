@@ -6,7 +6,7 @@
  */
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { X, Pencil, Calendar, Package, DollarSign } from "lucide-react";
+import { X, Pencil, Calendar, Package, DollarSign, Percent } from "lucide-react";
 import { Input, Button } from "@/shared/components/ui";
 
 export default function EditBatchModal({ isOpen, onClose, onSubmit, loading, batch }) {
@@ -14,6 +14,7 @@ export default function EditBatchModal({ isOpen, onClose, onSubmit, loading, bat
   const [expiryDate, setExpiryDate] = useState("");
   const [remainingQuantity, setRemainingQuantity] = useState("");
   const [unitCost, setUnitCost] = useState("");
+  const [discountPercentage, setDiscountPercentage] = useState("");
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -23,11 +24,13 @@ export default function EditBatchModal({ isOpen, onClose, onSubmit, loading, bat
       setExpiryDate(expiry);
       setRemainingQuantity(batch.remainingQuantity?.toString() || "");
       setUnitCost(batch.unitCost?.toString() || "");
+      setDiscountPercentage(batch.discountPercentage?.toString() || "0");
     }
     if (!isOpen) {
       setExpiryDate("");
       setRemainingQuantity("");
       setUnitCost("");
+      setDiscountPercentage("");
       setErrors({});
     }
   }, [isOpen, batch]);
@@ -37,6 +40,10 @@ export default function EditBatchModal({ isOpen, onClose, onSubmit, loading, bat
     if (!expiryDate) errs.expiryDate = t("validation.expiryRequired");
     if (!remainingQuantity || Number(remainingQuantity) < 0) errs.remainingQuantity = t("validation.quantityRequired");
     if (!unitCost || Number(unitCost) <= 0) errs.unitCost = t("validation.costRequired");
+    if (discountPercentage !== "" && discountPercentage != null) {
+      const disc = Number(discountPercentage);
+      if (isNaN(disc) || disc < 0 || disc > 100) errs.discountPercentage = t("validation.discountInvalid");
+    }
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -49,9 +56,12 @@ export default function EditBatchModal({ isOpen, onClose, onSubmit, loading, bat
     const isoDate = new Date(expiryDate).toISOString();
 
     onSubmit(batch.id, {
-      expiryDate: isoDate,
+      expireDate: isoDate,
       remainingQuantity: Number(remainingQuantity),
       unitCost: Number(unitCost),
+      discountPercentage: discountPercentage !== "" && discountPercentage != null
+        ? Number(discountPercentage)
+        : 0,
     });
   };
 
@@ -149,6 +159,23 @@ export default function EditBatchModal({ isOpen, onClose, onSubmit, loading, bat
               }}
               error={errors.unitCost}
               icon={<DollarSign size={18} />}
+            />
+
+            {/* Discount Percentage */}
+            <Input
+              label={t("editModal.discountPercentage")}
+              type="number"
+              placeholder="0"
+              min="0"
+              max="100"
+              step="0.01"
+              value={discountPercentage}
+              onChange={(e) => {
+                setDiscountPercentage(e.target.value);
+                if (errors.discountPercentage) setErrors((p) => ({ ...p, discountPercentage: "" }));
+              }}
+              error={errors.discountPercentage}
+              icon={<Percent size={18} />}
             />
 
             {/* Actions */}

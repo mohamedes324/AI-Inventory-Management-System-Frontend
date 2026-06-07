@@ -1,12 +1,14 @@
 /**
  * @page Suppliers
- * @description Suppliers management page with table, create modal, delete/restore.
+ * @description Suppliers management page with table, pagination, and create modal.
+ * Uses paginated GET /api/Suppliers endpoint with fixed pageSize of 10.
  */
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Truck, Plus, RefreshCw } from "lucide-react";
+import { Truck, Plus, RefreshCw, XCircle, Trash2, RotateCcw } from "lucide-react";
 import Layout from "@/shared/components/Layout";
 import { Button, EmptyState } from "@/shared/components/ui";
+import Pagination from "@/shared/components/ui/Pagination";
 import { useRequest } from "@/shared/hooks/useRequest";
 import { toast } from "@/shared/store/toastStore";
 
@@ -17,72 +19,92 @@ import { restoreSupplier } from "../api/restoreSupplier";
 
 import SupplierTable from "../components/SupplierTable";
 import AddSupplierModal from "../components/AddSupplierModal";
-import ConfirmDialog from "../components/ConfirmDialog";
+
+const PAGE_SIZE = 10;
 
 export default function Suppliers() {
   const { t } = useTranslation("suppliers");
 
   const [suppliers, setSuppliers] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState(null);
-  const [restoreTarget, setRestoreTarget] = useState(null);
   const [actionLoading, setActionLoading] = useState(null);
+  const [confirmModal, setConfirmModal] = useState(null);
 
   const { execute: fetchSuppliers, loading: fetching } = useRequest(getSuppliers);
   const { execute: execCreate, loading: creating } = useRequest(createSupplier);
+  const { execute: runDelete } = useRequest(deleteSupplier);
+  const { execute: runRestore } = useRequest(restoreSupplier);
 
   const fetchRef = useRef(fetchSuppliers);
   fetchRef.current = fetchSuppliers;
 
-  const refresh = useCallback(async () => {
+  const refresh = useCallback(async (page = currentPage) => {
     try {
-      const data = await fetchRef.current();
-      setSuppliers(Array.isArray(data) ? data : []);
+      const data = await fetchRef.current(page, PAGE_SIZE);
+      setSuppliers(data.items || []);
+      setCurrentPage(data.page || 1);
+      setTotalPages(data.totalPages || 1);
+      setTotalCount(data.totalCount || 0);
+      setHasNextPage(data.hasNextPage || false);
+      setHasPreviousPage(data.hasPreviousPage || false);
     } catch {
       toast.error(t("toasts.fetchError"));
     }
-  }, [t]);
+  }, [t, currentPage]);
 
   useEffect(() => {
-    refresh();
+    refresh(1);
   }, []);
+
+  const handlePageChange = (page) => {
+    refresh(page);
+  };
 
   const handleCreate = async (data) => {
     try {
       await execCreate(data);
       toast.success(t("toasts.createSuccess"));
       setAddOpen(false);
-      refresh();
+      refresh(1);
     } catch {
       toast.error(t("toasts.createError"));
     }
   };
 
-  const handleDelete = async () => {
-    if (!deleteTarget) return;
-    setActionLoading(deleteTarget.id);
-    try {
-      await deleteSupplier(deleteTarget.id);
-      toast.success(t("toasts.deleteSuccess"));
-      setDeleteTarget(null);
-      refresh();
-    } catch {
-      toast.error(t("toasts.deleteError"));
-    } finally {
-      setActionLoading(null);
-    }
+  const openConfirmModal = (supplier, type) => {
+    setConfirmModal({ supplier, type });
   };
 
-  const handleRestore = async () => {
-    if (!restoreTarget) return;
-    setActionLoading(restoreTarget.id);
+  const closeConfirmModal = () => {
+    setConfirmModal(null);
+  };
+
+  const handleConfirmAction = async () => {
+    const { supplier, type } = confirmModal;
+    const supplierId = supplier.supplierId;
+
+    setActionLoading(supplierId);
     try {
-      await restoreSupplier(restoreTarget.id);
-      toast.success(t("toasts.restoreSuccess"));
-      setRestoreTarget(null);
-      refresh();
+      if (type === "delete") {
+        await runDelete(supplierId);
+        toast.success(t("toasts.deleteSuccess"));
+      } else {
+        await runRestore(supplierId);
+        toast.success(t("toasts.restoreSuccess"));
+      }
+      closeConfirmModal();
+      refresh(currentPage);
     } catch {
-      toast.error(t("toasts.restoreError"));
+      toast.error(
+        type === "delete"
+          ? t("toasts.deleteError")
+          : t("toasts.restoreError")
+      );
     } finally {
       setActionLoading(null);
     }
@@ -103,13 +125,13 @@ export default function Suppliers() {
         </div>
 
         <div className="flex items-center w-full sm:w-auto gap-3">
-          {suppliers.length > 0 && !fetching && (
+          {totalCount > 0 && !fetching && (
             <span className="hidden sm:inline-flex items-center gap-1.5 bg-primary-500/10 border border-primary-500/20 text-primary-500 text-xs font-bold px-3 py-1.5 rounded-full">
-              {t("page.totalCount", { count: suppliers.length })}
+              {t("page.totalCount", { count: totalCount })}
             </span>
           )}
           <button
-            onClick={refresh}
+            onClick={() => refresh(currentPage)}
             disabled={fetching}
             className="w-9 h-9 shrink-0 rounded-xl border border-border-primary bg-background-card flex items-center justify-center text-text-muted hover:text-primary-500 hover:border-primary-300 transition-all duration-200 disabled:opacity-50"
             title={t("page.refresh")}
@@ -144,13 +166,27 @@ export default function Suppliers() {
             />
           </div>
         ) : (
-          <SupplierTable
-            suppliers={suppliers}
-            loading={fetching}
-            actionLoading={actionLoading}
-            onDelete={setDeleteTarget}
-            onRestore={setRestoreTarget}
-          />
+          <div className="space-y-4">
+            <SupplierTable
+              suppliers={suppliers}
+              loading={fetching}
+              onAction={openConfirmModal}
+              actionLoading={actionLoading}
+            />
+
+            {/* ── Pagination ── */}
+            {totalPages > 1 && (
+              <div className="animate-fadeIn" style={{ animationDelay: "200ms" }}>
+                <Pagination
+                  page={currentPage}
+                  totalPages={totalPages}
+                  hasNextPage={hasNextPage}
+                  hasPreviousPage={hasPreviousPage}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </div>
         )}
       </main>
 
@@ -161,26 +197,86 @@ export default function Suppliers() {
         onSubmit={handleCreate}
         loading={creating}
       />
-      <ConfirmDialog
-        isOpen={Boolean(deleteTarget)}
-        onClose={() => setDeleteTarget(null)}
-        onConfirm={handleDelete}
-        loading={actionLoading === deleteTarget?.id}
-        title={t("deleteDialog.title")}
-        description={t("deleteDialog.description", { name: deleteTarget?.name })}
-        confirmLabel={t("deleteDialog.confirm")}
-        variant="danger"
-      />
-      <ConfirmDialog
-        isOpen={Boolean(restoreTarget)}
-        onClose={() => setRestoreTarget(null)}
-        onConfirm={handleRestore}
-        loading={actionLoading === restoreTarget?.id}
-        title={t("restoreDialog.title")}
-        description={t("restoreDialog.description", { name: restoreTarget?.name })}
-        confirmLabel={t("restoreDialog.confirm")}
-        variant="restore"
-      />
+
+      {/* ── Confirmation Modal ── */}
+      {confirmModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background-app/70 backdrop-blur-sm animate-fadeIn p-4"
+          onClick={closeConfirmModal}
+        >
+          <div
+            className="bg-background-card rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-slideUp"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-lg font-bold text-text-primary">
+                  {confirmModal.type === "delete"
+                    ? t("deleteDialog.title")
+                    : t("restoreDialog.title")}
+                </h3>
+                <button
+                  onClick={closeConfirmModal}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-background-hover text-text-muted hover:text-error hover:bg-error/10 transition-colors"
+                >
+                  <XCircle size={18} />
+                </button>
+              </div>
+
+              <p className="text-sm text-text-secondary mt-1">
+                {confirmModal.type === "delete"
+                  ? t("deleteDialog.description", { name: confirmModal.supplier.supplierName || confirmModal.supplier.name })
+                  : t("restoreDialog.description", { name: confirmModal.supplier.supplierName || confirmModal.supplier.name })}
+              </p>
+
+              {/* Supplier info preview */}
+              <div className="mt-4 p-3 bg-background-hover/60 rounded-xl flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary-500/10 text-primary-500 flex items-center justify-center font-bold text-sm shrink-0 border border-primary-500/25">
+                  {(confirmModal.supplier.supplierName || confirmModal.supplier.name || "?").charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <p className="font-semibold text-text-primary text-sm">
+                    {confirmModal.supplier.supplierName || confirmModal.supplier.name}
+                  </p>
+                  <p className="text-xs text-text-muted">{confirmModal.supplier.phoneNumber || "—"}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 py-4 bg-background-hover/50 border-t border-border-primary flex items-center justify-end gap-3">
+              <button
+                onClick={closeConfirmModal}
+                disabled={actionLoading === confirmModal.supplier.supplierId}
+                className="px-4 py-2 text-sm font-medium text-text-muted hover:text-text-primary transition-colors"
+              >
+                {t("common.cancel")}
+              </button>
+
+              {confirmModal.type === "delete" ? (
+                <button
+                  onClick={handleConfirmAction}
+                  disabled={actionLoading === confirmModal.supplier.supplierId}
+                  className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold bg-error text-text-inverse hover:bg-error/90 disabled:opacity-50 transition-all shadow-sm shadow-error/20"
+                >
+                  {actionLoading === confirmModal.supplier.supplierId && <RefreshCw size={14} className="animate-spin" />}
+                  <Trash2 size={14} />
+                  {t("actions.delete")}
+                </button>
+              ) : (
+                <button
+                  onClick={handleConfirmAction}
+                  disabled={actionLoading === confirmModal.supplier.supplierId}
+                  className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-bold bg-secondary-500 text-text-inverse hover:bg-secondary-600 disabled:opacity-50 transition-all shadow-sm shadow-secondary-500/20"
+                >
+                  {actionLoading === confirmModal.supplier.supplierId && <RefreshCw size={14} className="animate-spin" />}
+                  <RotateCcw size={14} />
+                  {t("actions.restore")}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </Layout>
   );
 }

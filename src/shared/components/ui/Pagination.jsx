@@ -16,13 +16,19 @@
  *   />
  */
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Pagination({
-  currentPage = 1,
+  page = 1,
   totalPages = 1,
+  hasNextPage = false,
+  hasPreviousPage = false,
   onPageChange,
   className = "",
 }) {
+  const { t, i18n } = useTranslation("suppliers");
+  const isRtl = i18n.language === "ar";
+
   if (totalPages <= 1) return null;
 
   /**
@@ -37,7 +43,7 @@ export default function Pagination({
       if (
         i === 1 ||
         i === totalPages ||
-        (i >= currentPage - delta && i <= currentPage + delta)
+        (i >= page - delta && i <= page + delta)
       ) {
         pages.push(i);
       } else if (pages[pages.length - 1] !== "…") {
@@ -49,56 +55,63 @@ export default function Pagination({
 
   const pages = getPageNumbers();
 
-  const btnBase =
-    "flex items-center justify-center w-9 h-9 rounded-xl text-sm font-medium transition-all duration-200";
+  const prevLabel = t("pagination.previous", "Previous");
+  const nextLabel = t("pagination.next", "Next");
 
   return (
-    <nav className={`flex items-center justify-center gap-1.5 ${className}`}>
+    <nav className={`flex items-center justify-center gap-3 ${className}`} dir={isRtl ? "rtl" : "ltr"}>
       {/* ── Prev ── */}
       <button
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-        className={`${btnBase} ${
-          currentPage === 1
+        type="button"
+        onClick={() => onPageChange(page - 1)}
+        disabled={!hasPreviousPage}
+        className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+          !hasPreviousPage
             ? "text-text-muted/30 cursor-not-allowed"
-            : "text-text-muted hover:bg-background-hover hover:text-text-primary"
+            : "text-text-muted hover:bg-background-hover hover:text-text-primary active:scale-95"
         }`}
       >
-        <ChevronLeft size={18} />
+        <ChevronLeft size={16} className={isRtl ? "rotate-180" : ""} />
+        <span>{prevLabel}</span>
       </button>
 
       {/* ── Page Numbers ── */}
-      {pages.map((page, idx) =>
-        page === "…" ? (
-          <span key={`ellipsis-${idx}`} className="w-9 text-center text-text-muted/50 text-sm">
-            …
-          </span>
-        ) : (
-          <button
-            key={page}
-            onClick={() => onPageChange(page)}
-            className={`${btnBase} ${
-              page === currentPage
-                ? "bg-primary-500 text-text-inverse shadow-md shadow-primary-500/25"
-                : "text-text-muted hover:bg-background-hover hover:text-text-primary"
-            }`}
-          >
-            {page}
-          </button>
-        )
-      )}
+      <div className="flex items-center gap-1">
+        {pages.map((p, idx) =>
+          p === "…" ? (
+            <span key={`ellipsis-${idx}`} className="w-9 text-center text-text-muted/50 text-sm">
+              …
+            </span>
+          ) : (
+            <button
+              key={p}
+              type="button"
+              onClick={() => onPageChange(p)}
+              className={`flex items-center justify-center w-9 h-9 rounded-xl text-sm font-bold transition-all duration-200 ${
+                p === page
+                  ? "bg-primary-500 text-white shadow-md shadow-primary-500/25 scale-105"
+                  : "text-text-muted hover:bg-background-hover hover:text-text-primary active:scale-95"
+              }`}
+            >
+              {p}
+            </button>
+          )
+        )}
+      </div>
 
       {/* ── Next ── */}
       <button
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-        className={`${btnBase} ${
-          currentPage === totalPages
+        type="button"
+        onClick={() => onPageChange(page + 1)}
+        disabled={!hasNextPage}
+        className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+          !hasNextPage
             ? "text-text-muted/30 cursor-not-allowed"
-            : "text-text-muted hover:bg-background-hover hover:text-text-primary"
+            : "text-text-muted hover:bg-background-hover hover:text-text-primary active:scale-95"
         }`}
       >
-        <ChevronRight size={18} />
+        <span>{nextLabel}</span>
+        <ChevronRight size={16} className={isRtl ? "rotate-180" : ""} />
       </button>
     </nav>
   );

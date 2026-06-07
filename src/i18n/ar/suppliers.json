@@ -30,7 +30,9 @@
   },
   "actions": {
     "delete": "حذف",
-    "restore": "استعادة"
+    "restore": "استعادة",
+    "deleting": "جاري الحذف...",
+    "restoring": "جاري الاستعادة..."
   },
   "addModal": {
     "title": "إضافة مورد",
@@ -65,5 +67,37 @@
     "deleteError": "فشل في حذف المورد",
     "restoreSuccess": "تم استعادة المورد بنجاح!",
     "restoreError": "فشل في استعادة المورد"
+  },
+  "pagination": {
+    "previous": "السابق",
+    "next": "التالي"
+  },
+  "details": {
+    "notFound": "المورد غير موجود",
+    "backToSuppliers": "العودة إلى الموردين",
+    "infoTitle": "معلومات المورد",
+    "infoSubtitle": "الملف الكامل وبيانات الاتصال للمورد.",
+    "totalRating": "التقييم الإجمالي",
+    "ratingCount": "عدد التقييمات",
+    "avgRating": "متوسط التقييم"
+  },
+  "purchaseOrders": {
+    "title": "أوامر الشراء",
+    "subtitle": "جميع الطلبات المرتبطة بهذا المورد.",
+    "orderLabel": "طلب #{{id}}",
+    "orderId": "رقم الطلب",
+    "orderDate": "تاريخ الطلب",
+    "status": "الحالة",
+    "finalTotal": "الإجمالي",
+    "supplierName": "المورد",
+    "noOrders": "لا توجد أوامر شراء لهذا المورد.",
+    "noItems": "لا توجد عناصر في هذا الطلب.",
+    "items": {
+      "product": "المنتج",
+      "quantity": "الكمية",
+      "unitCost": "تكلفة الوحدة",
+      "expiryDate": "تاريخ الانتهاء",
+      "total": "الإجمالي"
+    }
   }
 }

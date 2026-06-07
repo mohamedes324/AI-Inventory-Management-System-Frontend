@@ -16,12 +16,15 @@
     "label": "الدفعة #{{number}}",
     "units": "وحدة",
     "quantity": "الكمية",
+    "originalQuantity": "الكمية الأصلية",
+    "remainingQuantity": "الكمية المتبقية",
     "unitCost": "تكلفة الوحدة",
     "batchId": "رقم الدفعة",
     "purchaseDate": "تاريخ الشراء",
     "expiryDate": "تاريخ الانتهاء",
     "supplier": "المورد",
-    "status": "الحالة"
+    "status": "الحالة",
+    "discountPercentage": "نسبة الخصم"
   },
   "actions": {
     "edit": "تعديل",
@@ -32,6 +35,7 @@
     "expiryDate": "تاريخ الانتهاء",
     "remainingQuantity": "الكمية المتبقية",
     "unitCost": "تكلفة الوحدة",
+    "discountPercentage": "نسبة الخصم",
     "submit": "حفظ التعديلات"
   },
   "deleteDialog": {
@@ -42,7 +46,8 @@
   "validation": {
     "expiryRequired": "تاريخ الانتهاء مطلوب",
     "quantityRequired": "يرجى إدخال كمية صحيحة",
-    "costRequired": "يرجى إدخال تكلفة صحيحة"
+    "costRequired": "يرجى إدخال تكلفة صحيحة",
+    "discountInvalid": "يجب أن تكون نسبة الخصم بين 0 و 100"
   },
   "common": {
     "cancel": "إلغاء"

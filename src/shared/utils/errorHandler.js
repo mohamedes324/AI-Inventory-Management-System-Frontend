@@ -7,7 +7,15 @@ export const handleError = (error) => {
       return "You are not authorized to view this page";
     }
 
-    return data?.detail || data?.title || "Something went wrong";
+    // Handle ASP.NET validation errors: { errors: { field: [messages] } }
+    if (data?.errors && typeof data.errors === "object") {
+      const firstMessages = Object.values(data.errors).flat();
+      if (firstMessages.length > 0) {
+        return firstMessages[0];
+      }
+    }
+
+    return data?.detail || data?.title || data?.message || "Something went wrong";
   }
 
   if (error.request) {

@@ -1,0 +1,86 @@
+{
+  "header": {
+    "greeting": "Good {{timeOfDay}}, {{role}} 👋",
+    "subtitle": "Here's what's happening in your inventory today.",
+    "exportReport": "Export Report",
+    "timeOfDay": {
+      "morning": "Morning",
+      "afternoon": "Afternoon",
+      "evening": "Evening"
+    }
+  },
+  "dateRange": {
+    "today": "Today",
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "customRange": "Custom Range",
+    "from": "From",
+    "to": "To",
+    "apply": "Apply",
+    "cancel": "Cancel"
+  },
+  "kpi": {
+    "totalRevenue": "Total Revenue",
+    "totalOrders": "Total Orders",
+    "totalProducts": "Total Products",
+    "totalStockQuantity": "Stock Quantity",
+    "pendingDeliveryOrders": "Pending Delivery Orders",
+    "orders": "orders",
+    "products": "products",
+    "units": "units",
+    "pendingOrders": "pending orders"
+  },
+  "alerts": {
+    "title": "Alerts & Notifications",
+    "lowStock": {
+      "warning": "{{count}} Products need restocking",
+      "ok": "All products are well-stocked",
+      "label": "Low Stock"
+    },
+    "outOfStock": {
+      "danger": "{{count}} Products out of stock",
+      "ok": "No out of stock products",
+      "label": "Out of Stock"
+    },
+    "pendingOrders": {
+      "warning": "{{count}} Pending purchase orders",
+      "ok": "No pending purchase orders",
+      "label": "Pending Orders"
+    },
+    "viewDetails": "View Details"
+  },
+  "charts": {
+    "title": "Analytics Overview",
+    "revenueOverview": "Revenue Overview",
+    "ordersVsReturns": "Orders vs Returns",
+    "refundAnalytics": "Refund Analytics",
+    "revenue": "Revenue",
+    "orders": "Orders",
+    "returns": "Returns",
+    "refundAmount": "Refund Amount",
+    "netRevenue": "Net Revenue",
+    "refundRate": "Refund Rate",
+    "noDataAvailable": "No analytics data available yet",
+    "noDataHint": "Data will appear here when analytics endpoints are connected"
+  },
+  "inventory": {
+    "title": "Inventory Insights",
+    "totalStockValue": "Total Stock Value",
+    "stockValueDesc": "Current inventory valuation",
+    "totalReturns": "Total Returns",
+    "returnsDesc": "Items returned in period",
+    "totalRefunds": "Total Refund Amount",
+    "refundsDesc": "Refunds processed in period"
+  },
+  "users": {
+    "title": "Team Activity",
+    "activeUsers": "Active Users",
+    "activeUsersDesc": "Currently active staff members",
+    "staffMembers": "staff members"
+  },
+  "errors": {
+    "loadFailed": "Failed to load dashboard data",
+    "retry": "Retry"
+  },
+  "currency": "EGP"
+}

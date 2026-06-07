@@ -1,0 +1,80 @@
+{
+  "sidebar": {
+    "returnOrders": "Return Orders"
+  },
+  "page": {
+    "title": "Return Orders",
+    "description": "Track and manage all return orders.",
+    "addOrder": "Add Return Order",
+    "filter": "Filter",
+    "noOrders": "No return orders found",
+    "noOrdersDesc": "Try adjusting your filters or check back later.",
+    "tryFilter": "Filter Orders",
+    "totalCount": "{{count}} returns",
+    "clearFilters": "Clear filters",
+    "filtered": "Filtered",
+    "recentOrders": "Return Orders"
+  },
+  "card": {
+    "originalOrder": "Order",
+    "refund": "Refund"
+  },
+  "filter": {
+    "title": "Filter Return Orders",
+    "subtitle": "Filter by date range.",
+    "dateRange": "Date Range",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "startDateRequired": "Start date is required",
+    "endDateRequired": "End date is required",
+    "endAfterStart": "End date must be after start date",
+    "search": "Apply",
+    "reset": "Reset",
+    "cancel": "Cancel"
+  },
+  "addModal": {
+    "title": "New Return Order",
+    "subtitle": "Create a new return order for an existing purchase.",
+    "originalOrderId": "Original Order ID",
+    "originalOrderPlaceholder": "Enter the original order ID",
+    "reason": "Reason (optional)",
+    "reasonPlaceholder": "e.g. Defective, Wrong item, Expired...",
+    "items": "Return Items",
+    "addItem": "Add Item",
+    "itemNumber": "Item #{{num}}",
+    "originalOrderItemId": "Order Item ID",
+    "quantity": "Quantity",
+    "newExpiryDate": "New Expiry Date",
+    "originalOrderRequired": "Original order ID is required",
+    "itemIdRequired": "Order item ID is required",
+    "quantityRequired": "Quantity is required (min 1)",
+    "expiryRequired": "Expiry date is required",
+    "cancel": "Cancel",
+    "submit": "Submit Return",
+    "submitFailed": "Failed to create return order. Please try again."
+  },
+  "details": {
+    "title": "Return Order",
+    "subtitle": "Full return order details and items.",
+    "loading": "Loading return order details...",
+    "backToList": "Back to Return Orders",
+    "orderInfo": "Return Order Information",
+    "id": "Return ID",
+    "originalOrderId": "Original Order ID",
+    "cashierId": "Cashier ID",
+    "returnDate": "Return Date",
+    "reason": "Reason",
+    "totalRefundAmount": "Total Refund",
+    "returnItems": "Return Items",
+    "noItems": "No items in this return order.",
+    "itemLabel": "Item",
+    "productId": "Product ID",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "refundAmount": "Refund Amount",
+    "newExpiryDate": "New Expiry Date"
+  },
+  "toasts": {
+    "fetchError": "Failed to load return orders"
+  }
+}

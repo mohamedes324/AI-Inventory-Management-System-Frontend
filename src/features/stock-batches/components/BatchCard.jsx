@@ -5,7 +5,7 @@
  * Quantity shown as "remaining / original" format.
  */
 import { useTranslation } from "react-i18next";
-import { ChevronDown, Hash, Calendar, DollarSign, Boxes, Package } from "lucide-react";
+import { ChevronDown, Hash, Calendar, DollarSign, Boxes, Package, Percent } from "lucide-react";
 import { formatDate } from "../utils/formatDate";
 import BatchStatusBadge from "./BatchStatusBadge";
 
@@ -23,7 +23,7 @@ function InfoCell({ icon: Icon, iconColor, label, value }) {
   );
 }
 
-export default function BatchCard({ batch, index, isOpen, onToggle }) {
+export default function BatchCard({ batch, index, isOpen, onToggle, supplierName = "" }) {
   const { t } = useTranslation("stockBatches");
 
   return (
@@ -87,16 +87,24 @@ export default function BatchCard({ batch, index, isOpen, onToggle }) {
       {/* ── Expandable Content ── */}
       <div className={`
         overflow-hidden transition-all duration-300 ease-in-out
-        ${isOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"}
+        ${isOpen ? "max-h-[350px] opacity-100" : "max-h-0 opacity-0"}
       `}>
         <div className="px-4 py-4 border-t border-border-primary/30 bg-background-app/30">
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Remaining / Original */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {/* Quantity */}
             <InfoCell
               icon={Package}
               iconColor="bg-primary-500/10 text-primary-500"
-              label={t("batch.quantity")}
-              value={`${batch.remainingQuantity} / ${batch.originalQuantity}`}
+              label={t("batch.originalQuantity")}
+              value={`${batch.originalQuantity} ${t("batch.units")}`}
+            />
+
+            {/* Remaining Quantity */}
+            <InfoCell
+              icon={Package}
+              iconColor="bg-primary-500/10 text-primary-500"
+              label={t("batch.remainingQuantity")}
+              value={`${batch.remainingQuantity} ${t("batch.units")}`}
             />
 
             {/* Unit Cost */}
@@ -105,14 +113,6 @@ export default function BatchCard({ batch, index, isOpen, onToggle }) {
               iconColor="bg-secondary-500/10 text-secondary-500"
               label={t("batch.unitCost")}
               value={`$${batch.unitCost?.toFixed(2) ?? "—"}`}
-            />
-
-            {/* Batch ID */}
-            <InfoCell
-              icon={Hash}
-              iconColor="bg-gray-500/10 text-gray-400"
-              label={t("batch.batchId")}
-              value={`#${batch.id}`}
             />
 
             {/* Purchase Date */}
@@ -131,12 +131,28 @@ export default function BatchCard({ batch, index, isOpen, onToggle }) {
               value={formatDate(batch.expireDate)}
             />
 
-            {/* Supplier ID */}
+            {/* Supplier */}
             <InfoCell
               icon={Boxes}
               iconColor="bg-gray-500/10 text-gray-400"
               label={t("batch.supplier")}
-              value={batch.supplierId ? `#${batch.supplierId}` : "—"}
+              value={batch.supplier?.supplierName || batch.supplierName || supplierName || (batch.supplierId ? `#${batch.supplierId}` : "—")}
+            />
+
+            {/* Batch ID */}
+            <InfoCell
+              icon={Hash}
+              iconColor="bg-gray-500/10 text-gray-400"
+              label={t("batch.batchId")}
+              value={`#${batch.id}`}
+            />
+
+            {/* Discount Percentage */}
+            <InfoCell
+              icon={Percent}
+              iconColor="bg-secondary-500/10 text-secondary-500"
+              label={t("batch.discountPercentage")}
+              value={`${batch.discountPercentage ?? 0}%`}
             />
           </div>
         </div>

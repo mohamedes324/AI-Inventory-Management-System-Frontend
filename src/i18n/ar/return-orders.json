@@ -1,0 +1,80 @@
+{
+  "sidebar": {
+    "returnOrders": "المرتجعات"
+  },
+  "page": {
+    "title": "المرتجعات",
+    "description": "تتبع وإدارة جميع المرتجعات.",
+    "addOrder": "إضافة أمر إرجاع",
+    "filter": "تصفية",
+    "noOrders": "لا توجد مرتجعات",
+    "noOrdersDesc": "حاول تعديل الفلاتر أو تحقق لاحقاً.",
+    "tryFilter": "تصفية الطلبات",
+    "totalCount": "{{count}} إرجاع",
+    "clearFilters": "مسح الفلاتر",
+    "filtered": "مُصفّى",
+    "recentOrders": "المرتجعات"
+  },
+  "card": {
+    "originalOrder": "الطلب",
+    "refund": "استرداد"
+  },
+  "filter": {
+    "title": "تصفية المرتجعات",
+    "subtitle": "تصفية حسب نطاق التاريخ.",
+    "dateRange": "نطاق التاريخ",
+    "startDate": "تاريخ البداية",
+    "endDate": "تاريخ النهاية",
+    "startDateRequired": "تاريخ البداية مطلوب",
+    "endDateRequired": "تاريخ النهاية مطلوب",
+    "endAfterStart": "تاريخ النهاية يجب أن يكون بعد تاريخ البداية",
+    "search": "تطبيق",
+    "reset": "إعادة تعيين",
+    "cancel": "إلغاء"
+  },
+  "addModal": {
+    "title": "أمر إرجاع جديد",
+    "subtitle": "إنشاء أمر إرجاع جديد لطلب شراء موجود.",
+    "originalOrderId": "رقم الطلب الأصلي",
+    "originalOrderPlaceholder": "أدخل رقم الطلب الأصلي",
+    "reason": "السبب (اختياري)",
+    "reasonPlaceholder": "مثل: معيب، منتج خاطئ، منتهي الصلاحية...",
+    "items": "عناصر الإرجاع",
+    "addItem": "إضافة عنصر",
+    "itemNumber": "العنصر #{{num}}",
+    "originalOrderItemId": "رقم عنصر الطلب",
+    "quantity": "الكمية",
+    "newExpiryDate": "تاريخ انتهاء جديد",
+    "originalOrderRequired": "رقم الطلب الأصلي مطلوب",
+    "itemIdRequired": "رقم عنصر الطلب مطلوب",
+    "quantityRequired": "الكمية مطلوبة (الحد الأدنى 1)",
+    "expiryRequired": "تاريخ الانتهاء مطلوب",
+    "cancel": "إلغاء",
+    "submit": "إرسال الإرجاع",
+    "submitFailed": "فشل في إنشاء المرتجع. يرجى المحاولة مرة أخرى."
+  },
+  "details": {
+    "title": "المرتجع",
+    "subtitle": "تفاصيل المرتجع الكاملة والعناصر.",
+    "loading": "جاري تحميل تفاصيل المرتجع...",
+    "backToList": "العودة إلى المرتجعات",
+    "orderInfo": "معلومات المرتجع",
+    "id": "رقم الإرجاع",
+    "originalOrderId": "رقم الطلب الأصلي",
+    "cashierId": "رقم الكاشير",
+    "returnDate": "تاريخ الإرجاع",
+    "reason": "السبب",
+    "totalRefundAmount": "إجمالي الاسترداد",
+    "returnItems": "عناصر الإرجاع",
+    "noItems": "لا توجد عناصر في المرتجع هذا.",
+    "itemLabel": "العنصر",
+    "productId": "رقم المنتج",
+    "quantity": "الكمية",
+    "unitPrice": "سعر الوحدة",
+    "refundAmount": "مبلغ الاسترداد",
+    "newExpiryDate": "تاريخ انتهاء جديد"
+  },
+  "toasts": {
+    "fetchError": "فشل في تحميل المرتجعات"
+  }
+}

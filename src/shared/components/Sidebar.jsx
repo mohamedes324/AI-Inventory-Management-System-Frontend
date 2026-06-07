@@ -11,39 +11,52 @@ import {
   ShoppingCart,
   FolderOpen,
   Truck,
+  ClipboardList,
+  RotateCcw,
   X,
 } from "lucide-react";
 
 // ── Role-based navigation config ──
 const ADMIN_LINKS = [
   { path: "/dashboard",        icon: LayoutDashboard, labelKey: "sidebar.dashboard" },
-  { path: "/categories",       icon: FolderOpen,      labelKey: "sidebar.categories", ns: "categories" },
+  // { path: "/categories",       icon: FolderOpen,      labelKey: "sidebar.categories", ns: "categories" },
   { path: "/pending-accounts", icon: UserCheck,       labelKey: "sidebar.pendingAccounts" },
   { path: "/users-management", icon: Users,           labelKey: "sidebar.usersManagement" },
+  { path: "/orders",           icon: ShoppingCart,    labelKey: "sidebar.orders", ns: "orders" },
+  { path: "/return-orders",    icon: RotateCcw,       labelKey: "sidebar.returnOrders", ns: "returnOrders" },
   { path: "/create-user",      icon: UserPlus,        labelKey: "sidebar.createUser" },
 ];
 
 const MANAGER_LINKS = [
   { path: "/dashboard",        icon: LayoutDashboard, labelKey: "sidebar.dashboard" },
-  { path: "/categories",       icon: FolderOpen,      labelKey: "sidebar.categories", ns: "categories" },
+  // { path: "/categories",       icon: FolderOpen,      labelKey: "sidebar.categories", ns: "categories" },
   { path: "/products",         icon: Package,         labelKey: "sidebar.products" },
   { path: "/suppliers",        icon: Truck,           labelKey: "sidebar.suppliers", ns: "suppliers" },
+  { path: "/purchases",        icon: ClipboardList,   labelKey: "sidebar.purchases", ns: "purchaseOrders" },
+  { path: "/orders",           icon: ShoppingCart,    labelKey: "sidebar.orders", ns: "orders" },
+  { path: "/return-orders",    icon: RotateCcw,       labelKey: "sidebar.returnOrders", ns: "returnOrders" },
+  { path: "/delivery-orders",  icon: Truck,           labelKey: "sidebar.deliveryOrders", ns: "deliveryOrders" },
   { path: "/users-management", icon: Users,           labelKey: "sidebar.usersManagement" },
 ];
 
 const STAFF_LINKS = [
   { path: "/dashboard",        icon: LayoutDashboard, labelKey: "sidebar.dashboard" },
-  { path: "/categories", icon: FolderOpen,    labelKey: "sidebar.categories", ns: "categories" },
+  // { path: "/categories", icon: FolderOpen,    labelKey: "sidebar.categories", ns: "categories" },
   { path: "/products",   icon: Package,       labelKey: "sidebar.products" },
   { path: "/suppliers",  icon: Truck,         labelKey: "sidebar.suppliers", ns: "suppliers" },
-  { path: "/orders",     icon: ShoppingCart,   labelKey: "sidebar.orders" },
+  { path: "/purchases",  icon: ClipboardList, labelKey: "sidebar.purchases", ns: "purchaseOrders" },
+  { path: "/orders",     icon: ShoppingCart,   labelKey: "sidebar.orders", ns: "orders" },
+  { path: "/return-orders", icon: RotateCcw,  labelKey: "sidebar.returnOrders", ns: "returnOrders" },
+  // { path: "/orders",     icon: ShoppingCart,   labelKey: "sidebar.orders" },
 ];
 
 const CASHIER_LINKS = [
   { path: "/dashboard",        icon: LayoutDashboard, labelKey: "sidebar.dashboard" },
-  { path: "/categories", icon: FolderOpen,    labelKey: "sidebar.categories", ns: "categories" },
+  // { path: "/categories", icon: FolderOpen,    labelKey: "sidebar.categories", ns: "categories" },
   { path: "/products",   icon: Package,       labelKey: "sidebar.products" },
-  { path: "/orders",     icon: ShoppingCart,   labelKey: "sidebar.orders" },
+  { path: "/orders",     icon: ShoppingCart,   labelKey: "sidebar.orders", ns: "orders" },
+  { path: "/return-orders",    icon: RotateCcw,       labelKey: "sidebar.returnOrders", ns: "returnOrders" },
+  { path: "/delivery-orders",  icon: Truck,           labelKey: "sidebar.deliveryOrders", ns: "deliveryOrders" },
 ];
 
 // ── Tooltip for collapsed icons ──

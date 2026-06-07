@@ -112,5 +112,15 @@
   },
   "sidebar": {
     "products": "Products"
+  },
+  "topProducts": {
+    "title": "Top Selling Products",
+    "subtitle": "Best performing products in the last 30 days.",
+    "period": "Last 30 Days",
+    "unitsSold": "Units Sold",
+    "revenue": "Revenue",
+    "sold": "sold",
+    "empty": "No sales data available",
+    "emptyDesc": "Sales data will appear here once orders are processed."
   }
 }

@@ -1,0 +1,66 @@
+{
+  "sidebar": {
+    "deliveryOrders": "طلبات التوصيل"
+  },
+  "page": {
+    "title": "طلبات التوصيل",
+    "description": "تتبع وإدارة جميع طلبات التوصيل الجارية.",
+    "noOrders": "لا توجد طلبات توصيل",
+    "noOrdersDesc": "لا توجد طلبات قيد التوصيل حالياً.",
+    "totalCount": "{{count}} طلبات",
+    "outForDelivery": "قيد التوصيل"
+  },
+  "card": {
+    "total": "الإجمالي"
+  },
+  "details": {
+    "title": "طلب التوصيل",
+    "subtitle": "تفاصيل طلب التوصيل الكاملة والعناصر والتخصيصات.",
+    "loading": "جاري تحميل تفاصيل طلب التوصيل...",
+    "backToList": "العودة إلى طلبات التوصيل",
+    "orderInfo": "معلومات الطلب",
+    "id": "رقم الطلب",
+    "orderDate": "تاريخ الطلب",
+    "cashierName": "اسم الكاشير",
+    "status": "الحالة",
+    "type": "النوع",
+    "paymentMethod": "طريقة الدفع",
+    "financialSummary": "الملخص المالي",
+    "subTotal": "المجموع الفرعي",
+    "discountPercentage": "نسبة الخصم",
+    "discountAmount": "مبلغ الخصم",
+    "taxAmount": "مبلغ الضريبة",
+    "finalTotal": "الإجمالي النهائي",
+    "orderItems": "عناصر الطلب",
+    "noItems": "لا توجد عناصر في هذا الطلب.",
+    "itemLabel": "العنصر",
+    "productId": "رقم المنتج",
+    "productName": "اسم المنتج",
+    "quantity": "الكمية",
+    "unitPrice": "سعر الوحدة",
+    "totalPrice": "السعر الإجمالي",
+    "allocations": "تخصيصات دفعات المخزون",
+    "stockBatchId": "رقم الدفعة",
+    "finalPrice": "السعر النهائي",
+    "allocTotal": "الإجمالي"
+  },
+  "actions": {
+    "acceptDelivery": "قبول التوصيل",
+    "failDelivery": "فشل التوصيل",
+    "actionCompleted": "تم تنفيذ الإجراء بنجاح. تم تحديث حالة الطلب."
+  },
+  "modal": {
+    "acceptTitle": "تأكيد التوصيل",
+    "acceptMessage": "هل أنت متأكد أنك تريد تأكيد توصيل هذا الطلب؟",
+    "failTitle": "فشل التوصيل",
+    "failMessage": "هل أنت متأكد أنك تريد تسجيل فشل هذا التوصيل؟",
+    "confirmAccept": "تأكيد",
+    "confirmFail": "تأكيد",
+    "confirm": "تأكيد",
+    "cancel": "إلغاء",
+    "processing": "جاري المعالجة..."
+  },
+  "toasts": {
+    "fetchError": "فشل في تحميل طلبات التوصيل"
+  }
+}

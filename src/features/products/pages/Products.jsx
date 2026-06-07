@@ -1,33 +1,88 @@
 /**
  * @page Products
- * @description Main products listing page with live search, table, and CRUD modals.
- * Role-based: InventoryStaff can manage, Manager/Cashier can only view.
- * Search updates the table dynamically via the API.
+ * @description Top Selling Products — Sales Performance + Inventory Management.
+ * Combines business analytics (top 10 products, last 30 days) with
+ * operational tools (search, add product).
+ * Clicking a product navigates to the full ProductDetails page.
  */
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Package, Plus, RefreshCw } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  TrendingUp, Trophy, Package, RefreshCw, Crown,
+  Medal, Award, ArrowUpRight, ShoppingCart, DollarSign,
+  AlertTriangle, Plus,
+} from "lucide-react";
+
 import Layout from "@/shared/components/Layout";
-import { Button, EmptyState } from "@/shared/components/ui";
+import { Button } from "@/shared/components/ui";
+import RevealOnScroll from "@/shared/components/RevealOnScroll";
 import { usePermissions } from "@/shared/hooks/usePermissions";
 import { useRequest } from "@/shared/hooks/useRequest";
 import { toast } from "@/shared/store/toastStore";
+import { useTopSellingProducts } from "../hooks/useTopSellingProducts";
 
-import { getProducts } from "../api/getProducts";
 import { createProduct } from "../api/createProduct";
-import { updateProduct } from "../api/updateProduct";
-import { updateProductPrice } from "../api/updateProductPrice";
-import { updateReorderPoint } from "../api/updateReorderPoint";
-import { deleteProduct } from "../api/deleteProduct";
-
 import ProductSearchInput from "../components/ProductSearchInput";
-import ProductTable from "../components/ProductTable";
 import AddProductModal from "../components/AddProductModal";
-import EditProductModal from "../components/EditProductModal";
-import UpdatePriceModal from "../components/UpdatePriceModal";
-import UpdateReorderPointModal from "../components/UpdateReorderPointModal";
-import DeleteProductDialog from "../components/DeleteProductDialog";
+
+/** Rank badge component for top 3 positions */
+function RankBadge({ rank }) {
+  if (rank === 1) {
+    return (
+      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/25 shrink-0">
+        <Crown size={18} className="text-white" />
+      </div>
+    );
+  }
+  if (rank === 2) {
+    return (
+      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-gray-300 to-gray-500 flex items-center justify-center shadow-lg shadow-gray-400/20 shrink-0">
+        <Medal size={18} className="text-white" />
+      </div>
+    );
+  }
+  if (rank === 3) {
+    return (
+      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center shadow-lg shadow-amber-700/20 shrink-0">
+        <Award size={18} className="text-white" />
+      </div>
+    );
+  }
+  return (
+    <div className="w-9 h-9 rounded-xl bg-background-hover border border-border-primary flex items-center justify-center shrink-0">
+      <span className="text-sm font-bold text-text-muted">#{rank}</span>
+    </div>
+  );
+}
+
+/** Skeleton loader for the product list */
+function ProductsSkeleton() {
+  return (
+    <div className="space-y-3">
+      {[...Array(5)].map((_, i) => (
+        <div key={i} className="rounded-2xl border border-border-primary bg-background-card p-5 flex items-center gap-4">
+          <div className="w-9 h-9 rounded-xl animate-shimmer shrink-0" />
+          <div className="flex-1 min-w-0">
+            <div className="w-48 h-5 rounded-lg animate-shimmer mb-2" />
+            <div className="w-32 h-3.5 rounded animate-shimmer" />
+          </div>
+          <div className="hidden sm:flex items-center gap-6">
+            <div className="w-20 h-5 rounded animate-shimmer" />
+            <div className="w-20 h-5 rounded animate-shimmer" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Format currency */
+function formatValue(val) {
+  if (val == null) return "—";
+  return val.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 
 export default function Products() {
   const { t } = useTranslation("products");
@@ -35,113 +90,26 @@ export default function Products() {
   const { isInventoryStaff } = usePermissions();
   const canManage = isInventoryStaff;
 
-  // ── State ──
-  const [allProducts, setAllProducts] = useState([]);   // original full list
-  const [displayProducts, setDisplayProducts] = useState([]); // what the table shows
-  const [isSearchActive, setIsSearchActive] = useState(false);
+  // ── Top Products data ──
+  const { data, isLoading, isError, refetch } = useTopSellingProducts();
+  const products = Array.isArray(data) ? data : [];
+
+  // ── Add Product modal ──
   const [addOpen, setAddOpen] = useState(false);
-  const [editTarget, setEditTarget] = useState(null);
-  const [priceTarget, setPriceTarget] = useState(null);
-  const [reorderTarget, setReorderTarget] = useState(null);
-  const [deleteTarget, setDeleteTarget] = useState(null);
-
-  // ── Requests ──
-  const { execute: fetchProducts, loading: fetching } = useRequest(getProducts);
   const { execute: execCreate, loading: creating } = useRequest(createProduct);
-  const { execute: execUpdate, loading: updating } = useRequest(updateProduct);
-  const { execute: execUpdatePrice, loading: updatingPrice } = useRequest(updateProductPrice);
-  const { execute: execUpdateReorder, loading: updatingReorder } = useRequest(updateReorderPoint);
-  const { execute: execDelete, loading: deleting } = useRequest(deleteProduct);
 
-  const fetchRef = useRef(fetchProducts);
-  fetchRef.current = fetchProducts;
-
-  const refreshProducts = useCallback(async () => {
+  const handleCreate = async (formData) => {
     try {
-      const data = await fetchRef.current();
-      const list = Array.isArray(data) ? data : [];
-      setAllProducts(list);
-      setDisplayProducts(list);
-      setIsSearchActive(false);
-    } catch {
-      toast.error(t("toasts.fetchError"));
-    }
-  }, [t]);
-
-  useEffect(() => {
-    refreshProducts();
-  }, []);
-
-  // ── Search Callbacks ──
-  const handleSearchResults = useCallback((results) => {
-    setDisplayProducts(results);
-    setIsSearchActive(true);
-  }, []);
-
-  const handleSearchClear = useCallback(() => {
-    setDisplayProducts(allProducts);
-    setIsSearchActive(false);
-  }, [allProducts]);
-
-  // ── CRUD Handlers ──
-  const handleCreate = async (data) => {
-    try {
-      await execCreate(data);
+      await execCreate(formData);
       toast.success(t("toasts.createSuccess"));
       setAddOpen(false);
-      refreshProducts();
+      refetch();
     } catch {
       toast.error(t("toasts.createError"));
     }
   };
 
-  const handleUpdate = async (data) => {
-    if (!editTarget) return;
-    try {
-      await execUpdate(editTarget.id, data);
-      toast.success(t("toasts.updateSuccess"));
-      setEditTarget(null);
-      refreshProducts();
-    } catch {
-      toast.error(t("toasts.updateError"));
-    }
-  };
-
-  const handleUpdatePrice = async (price) => {
-    if (!priceTarget) return;
-    try {
-      await execUpdatePrice(priceTarget.id, price);
-      toast.success(t("toasts.priceSuccess"));
-      setPriceTarget(null);
-      refreshProducts();
-    } catch {
-      toast.error(t("toasts.priceError"));
-    }
-  };
-
-  const handleUpdateReorder = async (point) => {
-    if (!reorderTarget) return;
-    try {
-      await execUpdateReorder(reorderTarget.id, point);
-      toast.success(t("toasts.reorderSuccess"));
-      setReorderTarget(null);
-      refreshProducts();
-    } catch {
-      toast.error(t("toasts.reorderError"));
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await execDelete(id);
-      toast.success(t("toasts.deleteSuccess"));
-      setDeleteTarget(null);
-      refreshProducts();
-    } catch {
-      toast.error(t("toasts.deleteError"));
-    }
-  };
-
+  // ── Search handler — navigate to product details on select ──
   const handleSearchSelect = (product) => {
     navigate(`/products/${product.id}`);
   };
@@ -149,133 +117,202 @@ export default function Products() {
   return (
     <Layout>
       {/* ── Header ── */}
-      <header className="shrink-0 bg-background-card border-b border-border-primary px-4 sm:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm animate-fadeIn">
-        <div className="flex items-center gap-4">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white shadow-lg shadow-primary-500/25 shrink-0">
-            <Package size={22} />
+      <header className="shrink-0 bg-background-card border-b border-border-primary px-5 sm:px-8 py-5 animate-fadeIn">
+        <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-white shadow-lg shadow-amber-500/25 shrink-0">
+              <Trophy size={22} />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold text-text-primary tracking-tight">
+                {t("topProducts.title")}
+              </h1>
+              <p className="text-text-muted text-sm mt-0.5">
+                {t("topProducts.subtitle")}
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-xl font-bold text-text-primary tracking-tight">
-              {t("page.title")}
-            </h1>
-            <p className="text-text-muted text-sm mt-0.5">
-              {t("page.description")}
-            </p>
-          </div>
-        </div>
 
-        <div className="flex items-center w-full sm:w-auto gap-3">
-          {/* Product count */}
-          {displayProducts.length > 0 && !fetching && (
-            <span className="hidden sm:inline-flex items-center gap-1.5 bg-primary-500/10 border border-primary-500/20 text-primary-500 text-xs font-bold px-3 py-1.5 rounded-full">
-              {isSearchActive
-                ? t("page.searchCount", { count: displayProducts.length })
-                : t("page.totalCount", { count: displayProducts.length })
-              }
+          <div className="flex items-center gap-3">
+            {/* Period badge */}
+            <span className="hidden sm:inline-flex items-center gap-1.5 bg-primary-500/10 border border-primary-500/20 text-primary-400 text-xs font-semibold px-3 py-1.5 rounded-full">
+              <TrendingUp size={13} />
+              {t("topProducts.period")}
             </span>
-          )}
 
-          {/* Refresh */}
-          <button
-            onClick={refreshProducts}
-            disabled={fetching}
-            className="w-9 h-9 shrink-0 rounded-xl border border-border-primary bg-background-card flex items-center justify-center text-text-muted hover:text-primary-500 hover:border-primary-300 transition-all duration-200 disabled:opacity-50"
-            title={t("page.refresh")}
-          >
-            <RefreshCw size={16} className={fetching ? "animate-spin" : ""} />
-          </button>
+            {/* Refresh */}
+            <button
+              onClick={() => refetch()}
+              disabled={isLoading}
+              className="w-9 h-9 shrink-0 rounded-xl border border-border-primary bg-background-card flex items-center justify-center text-text-muted hover:text-primary-400 hover:border-primary-500/30 transition-all duration-200 disabled:opacity-50"
+              title={t("page.refresh")}
+            >
+              <RefreshCw size={16} className={isLoading ? "animate-spin" : ""} />
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* ── Actions Bar ── */}
-      <div className="px-4 sm:px-8 py-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 animate-fadeIn" style={{ animationDelay: "100ms" }}>
-        <ProductSearchInput
-          onSelect={handleSearchSelect}
-          onResults={handleSearchResults}
-          onClear={handleSearchClear}
-          className="flex-1 max-w-md"
-        />
+      {/* ── Actions Bar: Search + Add Product ── */}
+      <div className="px-5 sm:px-8 py-4 animate-fadeIn" style={{ animationDelay: "100ms" }}>
+        <div className="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <ProductSearchInput
+            onSelect={handleSearchSelect}
+            className="flex-1 max-w-md"
+          />
 
-        {canManage && (
-          <Button size="sm" onClick={() => setAddOpen(true)} className="shrink-0">
-            <Plus size={16} />
-            <span>{t("page.addProduct")}</span>
-          </Button>
-        )}
+          {canManage && (
+            <Button size="sm" onClick={() => setAddOpen(true)} className="shrink-0">
+              <Plus size={16} />
+              <span>{t("page.addProduct")}</span>
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* ── Content ── */}
-      <main className="flex-1 overflow-auto px-4 sm:px-8 pb-6">
-        {!fetching && displayProducts.length === 0 ? (
-          <div className="h-full flex items-center justify-center py-24 animate-fadeIn">
-            <EmptyState
-              icon={<Package size={36} className="text-text-muted" />}
-              message={isSearchActive ? t("page.noSearchResults") : t("page.noProducts")}
-              description={isSearchActive ? t("page.noSearchResultsDesc") : t("page.noProductsDesc")}
-              action={
-                isSearchActive ? null : (
-                  canManage ? (
-                    <Button size="sm" onClick={() => setAddOpen(true)}>
-                      <Plus size={14} className="me-1" />
-                      {t("page.addProduct")}
-                    </Button>
-                  ) : (
-                    <Button variant="ghost" size="sm" onClick={refreshProducts}>
-                      <RefreshCw size={14} className="me-2" />
-                      {t("page.refresh")}
-                    </Button>
-                  )
-                )
-              }
-            />
-          </div>
-        ) : (
-          <ProductTable
-            products={displayProducts}
-            loading={fetching}
-            canManage={canManage}
-            onEdit={setEditTarget}
-            onUpdatePrice={setPriceTarget}
-            onUpdateReorder={setReorderTarget}
-            onDelete={setDeleteTarget}
-          />
-        )}
+      <main className="flex-1 overflow-auto px-5 sm:px-8 pb-6">
+        <div className="max-w-[1440px] mx-auto">
+
+          {/* Loading */}
+          {isLoading && <ProductsSkeleton />}
+
+          {/* Error */}
+          {isError && !isLoading && (
+            <div className="flex flex-col items-center justify-center py-24 animate-fadeIn">
+              <div className="w-16 h-16 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-400 mb-5">
+                <AlertTriangle size={32} />
+              </div>
+              <h3 className="text-lg font-semibold text-text-primary mb-2">
+                {t("toasts.fetchError")}
+              </h3>
+              <Button variant="ghost" size="sm" onClick={() => refetch()} className="mt-3">
+                <RefreshCw size={16} />
+                {t("page.refresh")}
+              </Button>
+            </div>
+          )}
+
+          {/* Empty State */}
+          {!isLoading && !isError && products.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-24 animate-fadeIn">
+              <div className="w-16 h-16 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-400/60 mb-5 animate-float">
+                <Package size={32} />
+              </div>
+              <h3 className="text-lg font-semibold text-text-primary mb-1">
+                {t("topProducts.empty")}
+              </h3>
+              <p className="text-sm text-text-muted max-w-xs text-center">
+                {t("topProducts.emptyDesc")}
+              </p>
+            </div>
+          )}
+
+          {/* Product Rankings */}
+          {!isLoading && !isError && products.length > 0 && (
+            <div className="space-y-3">
+              {products.map((product, index) => {
+                const rank = index + 1;
+                const isTopThree = rank <= 3;
+
+                return (
+                  <RevealOnScroll key={product.productId || product.id || index} direction="up" delay={index * 60} distance={16}>
+                    <motion.button
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.995 }}
+                      onClick={() => navigate(`/products/${product.productId || product.id}`)}
+                      className={`
+                        w-full text-start rounded-2xl border transition-all duration-300
+                        p-4 sm:p-5 flex items-center gap-4 group cursor-pointer
+                        ${isTopThree
+                          ? "bg-background-card border-border-secondary shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-elevated)] hover:border-amber-500/30"
+                          : "bg-background-card border-border-primary hover:border-border-secondary hover:shadow-[var(--shadow-card)]"
+                        }
+                      `}
+                    >
+                      {/* Rank Badge */}
+                      <RankBadge rank={rank} />
+
+                      {/* Product Info */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className={`text-sm sm:text-base font-semibold truncate ${isTopThree ? "text-text-primary" : "text-text-secondary group-hover:text-text-primary"} transition-colors`}>
+                          {product.productName || product.name || "—"}
+                        </h3>
+                        {product.sku && (
+                          <p className="text-xs text-text-muted mt-0.5 truncate">
+                            SKU: {product.sku}
+                          </p>
+                        )}
+                        {product.categoryName && (
+                          <p className="text-xs text-text-muted mt-0.5 truncate">
+                            {product.categoryName}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Sales Metrics */}
+                      <div className="hidden sm:flex items-center gap-5">
+                        {/* Units Sold */}
+                        {product.totalQuantitySold != null && (
+                          <div className="text-end min-w-[80px]">
+                            <p className="text-xs text-text-muted mb-0.5">{t("topProducts.unitsSold")}</p>
+                            <div className="flex items-center justify-end gap-1.5">
+                              <ShoppingCart size={13} className="text-blue-400" />
+                              <span className="text-sm font-bold text-text-primary">
+                                {product.totalQuantitySold.toLocaleString()}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Revenue */}
+                        {product.totalRevenue != null && (
+                          <div className="text-end min-w-[100px]">
+                            <p className="text-xs text-text-muted mb-0.5">{t("topProducts.revenue")}</p>
+                            <div className="flex items-center justify-end gap-1.5">
+                              <DollarSign size={13} className="text-emerald-400" />
+                              <span className="text-sm font-bold text-emerald-400">
+                                {formatValue(product.totalRevenue)}
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Mobile metrics */}
+                      <div className="flex sm:hidden flex-col items-end gap-1 shrink-0">
+                        {product.totalQuantitySold != null && (
+                          <span className="text-xs font-semibold text-blue-400">
+                            {product.totalQuantitySold.toLocaleString()} {t("topProducts.sold")}
+                          </span>
+                        )}
+                        {product.totalRevenue != null && (
+                          <span className="text-xs font-semibold text-emerald-400">
+                            {formatValue(product.totalRevenue)}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Navigate arrow */}
+                      <ArrowUpRight
+                        size={18}
+                        className="text-text-muted/40 group-hover:text-primary-400 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0 rtl:-scale-x-100"
+                      />
+                    </motion.button>
+                  </RevealOnScroll>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </main>
 
-      {/* ── Modals ── */}
+      {/* ── Add Product Modal ── */}
       <AddProductModal
         isOpen={addOpen}
         onClose={() => setAddOpen(false)}
         onSubmit={handleCreate}
         loading={creating}
-      />
-      <EditProductModal
-        isOpen={Boolean(editTarget)}
-        onClose={() => setEditTarget(null)}
-        onSubmit={handleUpdate}
-        loading={updating}
-        product={editTarget}
-      />
-      <UpdatePriceModal
-        isOpen={Boolean(priceTarget)}
-        onClose={() => setPriceTarget(null)}
-        onSubmit={handleUpdatePrice}
-        loading={updatingPrice}
-        product={priceTarget}
-      />
-      <UpdateReorderPointModal
-        isOpen={Boolean(reorderTarget)}
-        onClose={() => setReorderTarget(null)}
-        onSubmit={handleUpdateReorder}
-        loading={updatingReorder}
-        product={reorderTarget}
-      />
-      <DeleteProductDialog
-        isOpen={Boolean(deleteTarget)}
-        onClose={() => setDeleteTarget(null)}
-        onConfirm={handleDelete}
-        loading={deleting}
-        product={deleteTarget}
       />
     </Layout>
   );

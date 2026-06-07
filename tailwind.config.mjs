@@ -43,10 +43,22 @@ export default {
           to: { opacity: "1" },
         },
 
+        /* ── Core: Fade Out ── */
+        fadeOut: {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+
         /* ── Core: Slide Up ── */
         slideUp: {
           from: { opacity: "0", transform: "translateY(var(--slide-distance))" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+
+        /* ── Core: Slide Down (reverse of slideUp) ── */
+        slideDown: {
+          from: { opacity: "1", transform: "translateY(0)" },
+          to: { opacity: "0", transform: "translateY(var(--slide-distance))" },
         },
 
         /* ── Core: Slide From Left ── */
@@ -124,7 +136,9 @@ export default {
          ══════════════════════════════════════════════════════════ */
       animation: {
         fadeIn: "fadeIn var(--anim-speed-normal) var(--anim-curve)",
+        fadeOut: "fadeOut var(--anim-speed-fast) var(--anim-curve) forwards",
         slideUp: "slideUp var(--anim-speed-normal) var(--anim-curve)",
+        slideDown: "slideDown var(--anim-speed-fast) var(--anim-curve) forwards",
         slideLeft: "slideLeft var(--anim-speed-normal) var(--anim-curve)",
         slideRight: "slideRight var(--anim-speed-normal) var(--anim-curve)",
         scaleIn: "scaleIn var(--anim-speed-fast) var(--anim-curve)",

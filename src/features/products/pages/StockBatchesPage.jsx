@@ -65,14 +65,15 @@ export default function StockBatchesPage() {
     });
   };
 
-  const handleUpdate = async (batchId, data) => {
+  const handleUpdate = async (batchId, data ) => {
     try {
       await execUpdate(batchId, data);
       toast.success(t("toasts.updateSuccess"));
       setEditTarget(null);
       loadData();
-    } catch {
-      toast.error(t("toasts.updateError"));
+    } catch (err) {
+      const serverMessage = err?.message || t("toasts.updateError");
+      toast.error(serverMessage);
     }
   };
 
@@ -82,8 +83,9 @@ export default function StockBatchesPage() {
       toast.success(t("toasts.deleteSuccess"));
       setDeleteTarget(null);
       loadData();
-    } catch {
-      toast.error(t("toasts.deleteError"));
+    } catch (err) {
+      const serverMessage = err?.message || t("toasts.deleteError");
+      toast.error(serverMessage);
     }
   };
 

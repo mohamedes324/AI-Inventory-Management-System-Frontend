@@ -13,6 +13,20 @@ import Products from "@/features/products/pages/Products";
 import ProductDetails from "@/features/products/pages/ProductDetails";
 import StockBatchesPage from "@/features/products/pages/StockBatchesPage";
 import Suppliers from "@/features/suppliers/pages/Suppliers";
+import SupplierDetails from "@/features/suppliers/pages/SupplierDetails";
+import PurchasesPage from "@/features/purchase-orders/pages/PurchasesPage";
+import AddPurchaseOrder from "@/features/purchase-orders/pages/AddPurchaseOrder";
+import PurchaseOrderDetails from "@/features/purchase-orders/pages/PurchaseOrderDetails";
+import ReturnOrdersPage from "@/features/return-orders/pages/ReturnOrdersPage";
+import ReturnOrderDetails from "@/features/return-orders/pages/ReturnOrderDetails";
+import LowStock from "@/features/reports/pages/LowStock";
+import OutOfStock from "@/features/reports/pages/OutOfStock";
+import TopReturnedProducts from "@/features/reports/pages/TopReturnedProducts";
+import PaymentMethodAnalytics from "@/features/reports/pages/PaymentMethodAnalytics";
+import OrdersPage from "@/features/orders/pages/OrdersPage";
+import OrderDetailsPage from "@/features/orders/pages/OrderDetailsPage";
+import AddOrderPage from "@/features/orders/pages/AddOrderPage";
+
 
 export const routeConfig = [
   {
@@ -98,30 +112,150 @@ export const routeConfig = [
     ],
     status: [STATUS.ACTIVE],
   },
+  {
+    path: "/suppliers/:id",
+    element: <SupplierDetails />,
+    roles: [
+      ROLES.MANAGER,
+      ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+
+  // Purchase Orders
+  {
+    path: "/purchases",
+    element: <PurchasesPage />,
+    roles: [
+      ROLES.MANAGER,
+      ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/purchases/new",
+    element: <AddPurchaseOrder />,
+    roles: [
+      ROLES.MANAGER,
+      ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/purchases/:id",
+    element: <PurchaseOrderDetails />,
+    roles: [
+      ROLES.MANAGER,
+      ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+
+  // Return Orders
+  {
+    path: "/return-orders",
+    element: <ReturnOrdersPage />,
+    roles: [
+      ROLES.ADMIN,
+      ROLES.CASHIER
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/return-orders/:id",
+    element: <ReturnOrderDetails />,
+    roles: [
+      ROLES.MANAGER,
+      ROLES.INVENTORY_STAFF,
+      ROLES.ADMIN,
+      ROLES.CASHIER
+    ],
+    status: [STATUS.ACTIVE],
+  },
+
+  // Orders
+  {
+    path: "/orders",
+    element: <OrdersPage />,
+    roles: [
+      ROLES.ADMIN,
+      ROLES.MANAGER,
+      ROLES.CASHIER,
+      ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/orders/new",
+    element: <AddOrderPage />,
+    roles: [
+      ROLES.CASHIER,
+      ROLES.MANAGER,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/orders/:id",
+    element: <OrderDetailsPage />,
+    roles: [
+      ROLES.ADMIN,
+      ROLES.MANAGER,
+      ROLES.CASHIER,
+      ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+
+
+  // Reports
+  {
+    path: "/reports/inventory/low-stock",
+    element: <LowStock />,
+    roles: [ROLES.ADMIN, ROLES.MANAGER, ROLES.INVENTORY_STAFF],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/reports/inventory/out-of-stock",
+    element: <OutOfStock />,
+    roles: [ROLES.ADMIN, ROLES.MANAGER, ROLES.INVENTORY_STAFF],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/reports/returns/top-products",
+    element: <TopReturnedProducts />,
+    roles: [ROLES.ADMIN, ROLES.MANAGER],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/reports/payment-methods",
+    element: <PaymentMethodAnalytics />,
+    roles: [ROLES.ADMIN, ROLES.MANAGER],
+    status: [STATUS.ACTIVE],
+  },
 
   // Onboarding
   {
     path: "/set-password",
     element: <SetPassword />,
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF , ROLES.MANAGER],
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF, ROLES.MANAGER],
     status: [STATUS.PENDING_CHANGE_PASSWORD],
   },
   {
     path: "/upload-documents",
     element: <UploadDocuments />,
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF , ROLES.MANAGER],
-    status: [STATUS.REJECTED , STATUS.PENDING_IDENTITY_UPLOAD],
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF, ROLES.MANAGER],
+    status: [STATUS.REJECTED, STATUS.PENDING_IDENTITY_UPLOAD],
   },
   {
     path: "/pending",
     element: <Pending />,
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF , ROLES.MANAGER],
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF, ROLES.MANAGER],
     status: [STATUS.PENDING_ADMIN_REVIEW],
   },
   {
     path: "/rejected",
     element: <Rejected />,
-    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF , ROLES.MANAGER],
+    roles: [ROLES.ADMIN, ROLES.CASHIER, ROLES.INVENTORY_STAFF, ROLES.MANAGER],
     status: [STATUS.REJECTED],
   },
 ];

@@ -15,6 +15,7 @@ export const usePermissions = () => {
   const canManageCategories = isAdmin || isManager;  // create categories
   const canEditCategories = isAdmin;                 // edit + delete categories
   const canManageProducts = isInventoryStaff;         // create/edit/delete products
+  const canCreatePurchaseOrders = isInventoryStaff;   // create purchase orders
 
   return {
     role,
@@ -28,5 +29,6 @@ export const usePermissions = () => {
     canManageCategories,
     canEditCategories,
     canManageProducts,
+    canCreatePurchaseOrders,
   };
 };

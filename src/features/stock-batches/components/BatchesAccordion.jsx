@@ -9,7 +9,7 @@ import { Boxes } from "lucide-react";
 import { Loader } from "@/shared/components/ui";
 import BatchCard from "./BatchCard";
 
-export default function BatchesAccordion({ batches = [], loading = false }) {
+export default function BatchesAccordion({ batches = [], loading = false, supplierName = "" }) {
   const { t } = useTranslation("stockBatches");
   // Multi-open: store a Set of open indices
   const [openIndices, setOpenIndices] = useState(new Set());
@@ -54,6 +54,7 @@ export default function BatchesAccordion({ batches = [], loading = false }) {
           index={idx}
           isOpen={openIndices.has(idx)}
           onToggle={() => handleToggle(idx)}
+          supplierName={supplierName}
         />
       ))}
     </div>

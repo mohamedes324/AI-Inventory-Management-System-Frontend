@@ -17,6 +17,18 @@ import enStockBatches from "@/i18n/en/stock-batches.json";
 import arStockBatches from "@/i18n/ar/stock-batches.json";
 import enSuppliers from "@/i18n/en/suppliers.json";
 import arSuppliers from "@/i18n/ar/suppliers.json";
+import enDashboard from "@/i18n/en/dashboard.json";
+import arDashboard from "@/i18n/ar/dashboard.json";
+import enReports from "@/i18n/en/reports.json";
+import arReports from "@/i18n/ar/reports.json";
+import enPurchaseOrders from "@/i18n/en/purchase-orders.json";
+import arPurchaseOrders from "@/i18n/ar/purchase-orders.json";
+import enReturnOrders from "@/i18n/en/return-orders.json";
+import arReturnOrders from "@/i18n/ar/return-orders.json";
+import enDeliveryOrders from "@/i18n/en/delivery-orders.json";
+import arDeliveryOrders from "@/i18n/ar/delivery-orders.json";
+import enOrders from "@/i18n/en/orders.json";
+import arOrders from "@/i18n/ar/orders.json";
 
 i18n
   .use(initReactI18next)
@@ -31,6 +43,12 @@ i18n
         products: enProducts,
         stockBatches: enStockBatches,
         suppliers: enSuppliers,
+        dashboard: enDashboard,
+        reports: enReports,
+        purchaseOrders: enPurchaseOrders,
+        returnOrders: enReturnOrders,
+        deliveryOrders: enDeliveryOrders,
+        orders: enOrders,
       },
       ar: {
         auth: arAuth,
@@ -41,6 +59,12 @@ i18n
         products: arProducts,
         stockBatches: arStockBatches,
         suppliers: arSuppliers,
+        dashboard: arDashboard,
+        reports: arReports,
+        purchaseOrders: arPurchaseOrders,
+        returnOrders: arReturnOrders,
+        deliveryOrders: arDeliveryOrders,
+        orders: arOrders,
       },
     },
     lng: localStorage.getItem("lang") || "ar",

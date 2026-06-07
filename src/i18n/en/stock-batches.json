@@ -16,12 +16,15 @@
     "label": "Batch #{{number}}",
     "units": "units",
     "quantity": "Quantity",
+    "originalQuantity": "Original Quantity",
+    "remainingQuantity": "Remaining Quantity",
     "unitCost": "Unit Cost",
     "batchId": "Batch ID",
     "purchaseDate": "Purchase Date",
     "expiryDate": "Expiry Date",
     "supplier": "Supplier",
-    "status": "Status"
+    "status": "Status",
+    "discountPercentage": "Discount Percentage"
   },
   "actions": {
     "edit": "Edit",
@@ -32,6 +35,7 @@
     "expiryDate": "Expiry Date",
     "remainingQuantity": "Remaining Quantity",
     "unitCost": "Unit Cost",
+    "discountPercentage": "Discount Percentage",
     "submit": "Save Changes"
   },
   "deleteDialog": {
@@ -42,7 +46,8 @@
   "validation": {
     "expiryRequired": "Expiry date is required",
     "quantityRequired": "Valid quantity is required",
-    "costRequired": "Valid unit cost is required"
+    "costRequired": "Valid unit cost is required",
+    "discountInvalid": "Discount must be between 0 and 100"
   },
   "common": {
     "cancel": "Cancel"

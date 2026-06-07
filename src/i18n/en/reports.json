@@ -1,0 +1,69 @@
+{
+  "returnedProducts": {
+    "title": "Most Returned Products",
+    "subtitle": "Products with highest return rates in the selected period.",
+    "productName": "Product",
+    "returnedQty": "Returned",
+    "refundAmount": "Refund Amount",
+    "units": "units",
+    "viewAll": "View Full Report",
+    "empty": "No returned products",
+    "emptyDesc": "No product returns recorded in this period.",
+    "pageTitle": "Top Returned Products Report",
+    "pageSubtitle": "Complete breakdown of product returns and refund losses."
+  },
+  "paymentMethods": {
+    "title": "Payment Method Analytics",
+    "subtitle": "How customers pay and revenue distribution.",
+    "method": "Method",
+    "orders": "Orders",
+    "revenue": "Revenue",
+    "viewAll": "View Full Analytics",
+    "empty": "No payment data",
+    "emptyDesc": "Payment analytics will appear once sales are recorded.",
+    "pageTitle": "Payment & Sales Analytics",
+    "pageSubtitle": "Detailed breakdown of payment methods, peak hours, and order types.",
+    "byPaymentMethod": "Sales by Payment Method",
+    "byOrderType": "Sales by Order Type",
+    "peakHours": "Peak Hours",
+    "peakHoursDesc": "Busiest hours by order volume",
+    "orderType": "Order Type",
+    "hour": "Hour",
+    "totalOrders": "Total Orders",
+    "totalRevenue": "Total Revenue",
+    "Cash": "Cash",
+    "Visa": "Visa",
+    "BankTransfer": "Bank Transfer",
+    "Delivery": "Delivery",
+    "InStore": "In-Store"
+  },
+  "lowStock": {
+    "title": "Low Stock Products",
+    "subtitle": "Products below reorder point that need restocking.",
+    "productName": "Product",
+    "currentQty": "Current Qty",
+    "reorderPoint": "Reorder Point",
+    "deficit": "Deficit",
+    "empty": "All products well-stocked",
+    "emptyDesc": "No products are currently below their reorder point. Great job!",
+    "searchPlaceholder": "Search low stock products..."
+  },
+  "outOfStock": {
+    "title": "Out of Stock Products",
+    "subtitle": "Products with zero inventory that need immediate attention.",
+    "productName": "Product",
+    "currentQty": "Current Qty",
+    "reorderPoint": "Reorder Point",
+    "empty": "No out-of-stock products",
+    "emptyDesc": "All products currently have available inventory. Everything looks good!",
+    "searchPlaceholder": "Search out of stock products...",
+    "urgent": "Urgent"
+  },
+  "common": {
+    "backToDashboard": "Back to Dashboard",
+    "refresh": "Refresh",
+    "loadError": "Failed to load report data",
+    "period": "Period",
+    "currency": "EGP"
+  }
+}

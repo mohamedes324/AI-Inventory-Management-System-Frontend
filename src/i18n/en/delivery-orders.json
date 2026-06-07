@@ -1,0 +1,66 @@
+{
+  "sidebar": {
+    "deliveryOrders": "Delivery Orders"
+  },
+  "page": {
+    "title": "Delivery Orders",
+    "description": "Track and manage all orders out for delivery.",
+    "noOrders": "No delivery orders found",
+    "noOrdersDesc": "There are no orders currently out for delivery.",
+    "totalCount": "{{count}} orders",
+    "outForDelivery": "Out for Delivery"
+  },
+  "card": {
+    "total": "Total"
+  },
+  "details": {
+    "title": "Delivery Order",
+    "subtitle": "Full delivery order details, items, and allocations.",
+    "loading": "Loading delivery order details...",
+    "backToList": "Back to Delivery Orders",
+    "orderInfo": "Order Information",
+    "id": "Order ID",
+    "orderDate": "Order Date",
+    "cashierName": "Cashier Name",
+    "status": "Status",
+    "type": "Type",
+    "paymentMethod": "Payment Method",
+    "financialSummary": "Financial Summary",
+    "subTotal": "Sub Total",
+    "discountPercentage": "Discount %",
+    "discountAmount": "Discount Amount",
+    "taxAmount": "Tax Amount",
+    "finalTotal": "Final Total",
+    "orderItems": "Order Items",
+    "noItems": "No items in this order.",
+    "itemLabel": "Item",
+    "productId": "Product ID",
+    "productName": "Product Name",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "totalPrice": "Total Price",
+    "allocations": "Stock Batch Allocations",
+    "stockBatchId": "Batch ID",
+    "finalPrice": "Final Price",
+    "allocTotal": "Total"
+  },
+  "actions": {
+    "acceptDelivery": "Accept Delivery",
+    "failDelivery": "Fail Delivery",
+    "actionCompleted": "Action completed successfully. The order status has been updated."
+  },
+  "modal": {
+    "acceptTitle": "Confirm Delivery",
+    "acceptMessage": "Are you sure you want to mark this order as delivered?",
+    "failTitle": "Fail Delivery",
+    "failMessage": "Are you sure you want to mark this delivery as failed?",
+    "confirmAccept": "Confirm",
+    "confirmFail": "Confirm",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "processing": "Processing..."
+  },
+  "toasts": {
+    "fetchError": "Failed to load delivery orders"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "header": {
+    "greeting": "مساء الخير، {{role}} 👋",
+    "subtitle": "إليك ما يحدث في مخزونك اليوم.",
+    "exportReport": "تصدير التقرير",
+    "timeOfDay": {
+      "morning": "صباح الخير",
+      "afternoon": "مساء الخير",
+      "evening": "مساء الخير"
+    }
+  },
+  "dateRange": {
+    "today": "اليوم",
+    "last7Days": "آخر 7 أيام",
+    "last30Days": "آخر 30 يوم",
+    "customRange": "نطاق مخصص",
+    "from": "من",
+    "to": "إلى",
+    "apply": "تطبيق",
+    "cancel": "إلغاء"
+  },
+  "kpi": {
+    "totalRevenue": "إجمالي الإيرادات",
+    "totalOrders": "إجمالي الطلبات",
+    "totalProducts": "إجمالي المنتجات",
+    "totalStockQuantity": "كمية المخزون",
+    "pendingDeliveryOrders": "طلبات التوصيل المعلقة",
+    "orders": "طلب",
+    "products": "منتج",
+    "units": "وحدة",
+    "pendingOrders": "طلبات معلقة"
+  },
+  "alerts": {
+    "title": "التنبيهات والإشعارات",
+    "lowStock": {
+      "warning": "{{count}} منتجات تحتاج إعادة تخزين",
+      "ok": "جميع المنتجات متوفرة بشكل جيد",
+      "label": "مخزون منخفض"
+    },
+    "outOfStock": {
+      "danger": "{{count}} منتجات نفدت من المخزون",
+      "ok": "لا يوجد منتجات نافدة",
+      "label": "نفاد المخزون"
+    },
+    "pendingOrders": {
+      "warning": "{{count}} طلبات شراء معلقة",
+      "ok": "لا يوجد طلبات شراء معلقة",
+      "label": "طلبات معلقة"
+    },
+    "viewDetails": "عرض التفاصيل"
+  },
+  "charts": {
+    "title": "نظرة تحليلية",
+    "revenueOverview": "نظرة عامة على الإيرادات",
+    "ordersVsReturns": "الطلبات مقابل المرتجعات",
+    "refundAnalytics": "تحليل المرتجعات",
+    "revenue": "الإيرادات",
+    "orders": "الطلبات",
+    "returns": "المرتجعات",
+    "refundAmount": "مبلغ الاسترداد",
+    "netRevenue": "صافي الإيرادات",
+    "refundRate": "معدل الاسترداد",
+    "noDataAvailable": "لا تتوفر بيانات تحليلية حالياً",
+    "noDataHint": "ستظهر البيانات هنا عند ربط نقاط التحليل"
+  },
+  "inventory": {
+    "title": "رؤى المخزون",
+    "totalStockValue": "إجمالي قيمة المخزون",
+    "stockValueDesc": "التقييم الحالي للمخزون",
+    "totalReturns": "إجمالي المرتجعات",
+    "returnsDesc": "العناصر المرتجعة في الفترة",
+    "totalRefunds": "إجمالي مبلغ الاسترداد",
+    "refundsDesc": "المبالغ المستردة في الفترة"
+  },
+  "users": {
+    "title": "نشاط الفريق",
+    "activeUsers": "المستخدمون النشطون",
+    "activeUsersDesc": "أعضاء الفريق النشطون حالياً",
+    "staffMembers": "أعضاء الفريق"
+  },
+  "errors": {
+    "loadFailed": "فشل في تحميل بيانات لوحة التحكم",
+    "retry": "إعادة المحاولة"
+  },
+  "currency": "ج.م"
+}

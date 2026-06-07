@@ -30,7 +30,9 @@
   },
   "actions": {
     "delete": "Delete",
-    "restore": "Restore"
+    "restore": "Restore",
+    "deleting": "Deleting...",
+    "restoring": "Restoring..."
   },
   "addModal": {
     "title": "Add Supplier",
@@ -65,5 +67,37 @@
     "deleteError": "Failed to delete supplier",
     "restoreSuccess": "Supplier restored successfully!",
     "restoreError": "Failed to restore supplier"
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "details": {
+    "notFound": "Supplier not found",
+    "backToSuppliers": "Back to Suppliers",
+    "infoTitle": "Supplier Information",
+    "infoSubtitle": "Complete supplier profile and contact details.",
+    "totalRating": "Total Rating",
+    "ratingCount": "Rating Count",
+    "avgRating": "Average Rating"
+  },
+  "purchaseOrders": {
+    "title": "Purchase Orders",
+    "subtitle": "All orders associated with this supplier.",
+    "orderLabel": "Order #{{id}}",
+    "orderId": "Order ID",
+    "orderDate": "Order Date",
+    "status": "Status",
+    "finalTotal": "Total",
+    "supplierName": "Supplier",
+    "noOrders": "No purchase orders found for this supplier.",
+    "noItems": "No items in this order.",
+    "items": {
+      "product": "Product",
+      "quantity": "Qty",
+      "unitCost": "Unit Cost",
+      "expiryDate": "Expiry Date",
+      "total": "Total"
+    }
   }
 }
