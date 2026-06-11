@@ -82,5 +82,108 @@
     "loadFailed": "فشل في تحميل بيانات لوحة التحكم",
     "retry": "إعادة المحاولة"
   },
-  "currency": "ج.م"
+  "currency": "ج.م",
+  "cashier": {
+    "title": "لوحة تحكم الكاشير",
+    "subtitle": "إليك نظرة عامة على العمليات اليومية.",
+    "newOrder": "طلب جديد",
+    "viewAll": "عرض الكل",
+    "stats": {
+      "draftOrders": "طلبات المسودة",
+      "drafts": "مسودات",
+      "pendingDeliveries": "التسليمات المعلقة",
+      "outForDelivery": "خارج للتوصيل",
+      "completedToday": "المكتملة اليوم",
+      "today": "اليوم",
+      "ordersThisMonth": "طلبات هذا الشهر",
+      "thisMonth": "هذا الشهر"
+    },
+    "sections": {
+      "draftOrders": "طلبات المسودة الخاصة بي",
+      "pendingDeliveries": "التسليمات المعلقة",
+      "recentOrders": "الطلبات الأخيرة",
+      "monthlyPerformance": "الأداء الشهري",
+      "monthlySubtitle": "ملخص الأداء الخاص بك لهذا الشهر"
+    },
+    "empty": {
+      "drafts": "لا توجد طلبات مسودة. انقر على 'طلب جديد' للبدء.",
+      "deliveries": "لا توجد تسليمات معلقة في الوقت الحالي.",
+      "recent": "لا توجد طلبات حديثة لعرضها."
+    },
+    "performance": {
+      "ordersMonth": "طلبات هذا الشهر",
+      "completedMonth": "المكتملة هذا الشهر",
+      "cancelledMonth": "الملغاة هذا الشهر",
+      "pendingMonth": "التسليمات المعلقة"
+    }
+  },
+  "inventoryStaff": {
+    "title": "لوحة تحكم موظف المخزون",
+    "subtitle": "إليك نظرة عامة على حالة المخزون ونشاط الشراء اليوم.",
+    "stats": {
+      "totalProducts": "إجمالي المنتجات",
+      "lowStock": "مخزون منخفض",
+      "outOfStock": "نفاد المخزون",
+      "purchasesThisMonth": "مشتريات هذا الشهر",
+      "products": "منتجات",
+      "purchases": "عمليات شراء"
+    },
+    "sections": {
+      "lowStockProducts": "منتجات مخزونها منخفض",
+      "outOfStockProducts": "منتجات نفدت من المخزون",
+      "recentPurchases": "عمليات الشراء الأخيرة"
+    },
+    "empty": {
+      "lowStock": "كل المنتجات متوفرة بشكل جيد.",
+      "outOfStock": "لا توجد منتجات نافدة من المخزون.",
+      "recentPurchases": "لا توجد عمليات شراء حديثة."
+    },
+    "viewAll": "عرض الكل",
+    "refresh": "تحديث",
+    "urgent": "عاجل"
+  },
+  "admin": {
+    "title": "لوحة تحكم المسؤول",
+    "subtitle": "نظرة عامة على إدارة المستخدمين والإجراءات السريعة.",
+    "refresh": "تحديث",
+    "stats": {
+      "totalUsers": "إجمالي المستخدمين",
+      "users": "مستخدمين",
+      "pendingAccounts": "الحسابات المعلقة",
+      "pending": "قيد المراجعة",
+      "activeAccounts": "الحسابات النشطة",
+      "active": "نشط"
+    },
+    "sections": {
+      "usersByRole": "المستخدمون حسب الدور",
+      "usersByRoleDesc": "توزيع المستخدمين عبر الأدوار المختلفة",
+      "quickActions": "الإجراءات السريعة"
+    },
+    "roles": {
+      "Admin": "مسؤول",
+      "Manager": "مدير",
+      "Cashier": "كاشير",
+      "InventoryStaff": "موظف مخزون"
+    },
+    "quickActions": {
+      "createUser": "إنشاء مستخدم",
+      "createUserDesc": "إضافة مستخدم جديد إلى النظام"
+    }
+  },
+  "mlClusters": {
+    "sectionTitle": "تحليلات الذكاء الاصطناعي",
+    "sectionSubtitle": "تصنيف المنتجات المدعوم بالذكاء الاصطناعي وتحليل الشرائح.",
+    "emptyTitle": "لا تتوفر بيانات مجموعات",
+    "emptyDesc": "ستظهر تصنيفات الذكاء الاصطناعي هنا بمجرد تشغيل نماذج التقسيم.",
+    "products": "منتج",
+    "selected": "محدد",
+    "distribution": "توزيع المجموعات",
+    "totalProducts": "إجمالي المنتجات",
+    "names": {
+      "Top Performers": "الأفضل أداءً",
+      "Premium Products": "المنتجات المميزة",
+      "Steady Sellers": "المبيعات الثابتة",
+      "Slow Movers": "المنتجات بطيئة الحركة"
+    }
+  }
 }

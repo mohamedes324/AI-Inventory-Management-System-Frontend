@@ -26,6 +26,8 @@ import PaymentMethodAnalytics from "@/features/reports/pages/PaymentMethodAnalyt
 import OrdersPage from "@/features/orders/pages/OrdersPage";
 import OrderDetailsPage from "@/features/orders/pages/OrderDetailsPage";
 import AddOrderPage from "@/features/orders/pages/AddOrderPage";
+import CashierDraftOrdersPage from "@/features/dashboard/pages/CashierDraftOrdersPage";
+import CashierPendingDeliveriesPage from "@/features/dashboard/pages/CashierPendingDeliveriesPage";
 
 
 export const routeConfig = [
@@ -202,6 +204,24 @@ export const routeConfig = [
       ROLES.MANAGER,
       ROLES.CASHIER,
       ROLES.INVENTORY_STAFF,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/cashier/draft-orders",
+    element: <CashierDraftOrdersPage />,
+    roles: [
+      ROLES.CASHIER,
+      ROLES.MANAGER,
+    ],
+    status: [STATUS.ACTIVE],
+  },
+  {
+    path: "/cashier/pending-deliveries",
+    element: <CashierPendingDeliveriesPage />,
+    roles: [
+      ROLES.CASHIER,
+      ROLES.MANAGER,
     ],
     status: [STATUS.ACTIVE],
   },

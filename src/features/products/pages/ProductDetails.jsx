@@ -19,12 +19,16 @@ import { updateProduct } from "../api/updateProduct";
 import { updateProductPrice } from "../api/updateProductPrice";
 import { updateReorderPoint } from "../api/updateReorderPoint";
 import { deleteProduct } from "../api/deleteProduct";
+import { getForecast } from "../api/getForecast";
+import { getRecommendations } from "../api/getRecommendations";
 
 import { getStockBatches } from "@/features/stock-batches/api/getStockBatches";
 import BatchesPreview from "../components/BatchesPreview";
 
 import ProductStatusBadge from "../components/ProductStatusBadge";
 import ProductInfoCard from "../components/ProductInfoCard";
+import DemandForecastChart from "../components/DemandForecastChart";
+import RecommendedProducts from "../components/RecommendedProducts";
 import EditProductModal from "../components/EditProductModal";
 import UpdatePriceModal from "../components/UpdatePriceModal";
 import UpdateReorderPointModal from "../components/UpdateReorderPointModal";
@@ -40,6 +44,8 @@ export default function ProductDetails() {
   // ── State ──
   const [product, setProduct] = useState(null);
   const [batches, setBatches] = useState([]);
+  const [forecast, setForecast] = useState(null);
+  const [recommendations, setRecommendations] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
   const [priceOpen, setPriceOpen] = useState(false);
   const [reorderOpen, setReorderOpen] = useState(false);
@@ -52,6 +58,8 @@ export default function ProductDetails() {
   const { execute: execUpdatePrice, loading: updatingPrice } = useRequest(updateProductPrice);
   const { execute: execUpdateReorder, loading: updatingReorder } = useRequest(updateReorderPoint);
   const { execute: execDelete, loading: deleting } = useRequest(deleteProduct);
+  const { execute: fetchForecast, loading: loadingForecast } = useRequest(getForecast);
+  const { execute: fetchRecommendations, loading: loadingRecommendations } = useRequest(getRecommendations);
 
   const loadProduct = useCallback(async () => {
     try {
@@ -71,10 +79,38 @@ export default function ProductDetails() {
     }
   }, [id]);
 
+  // Load forecast when product data is available (need SKU)
+  const loadForecast = useCallback(async (sku) => {
+    try {
+      const data = await fetchForecast(sku);
+      setForecast(data);
+    } catch {
+      setForecast(null);
+    }
+  }, []);
+
+  // Load recommendations when product data is available (need SKU)
+  const loadRecommendations = useCallback(async (sku) => {
+    try {
+      const data = await fetchRecommendations(sku);
+      setRecommendations(data);
+    } catch {
+      setRecommendations({ recommendations: [] });
+    }
+  }, []);
+
   useEffect(() => {
     loadProduct();
     loadBatches();
   }, [id]);
+
+  // Fetch forecast + recommendations once product (and its SKU) is available
+  useEffect(() => {
+    if (product?.sku) {
+      loadForecast(product.sku);
+      loadRecommendations(product.sku);
+    }
+  }, [product?.sku]);
 
   // ── Handlers ──
   const handleUpdate = async (data) => {
@@ -223,23 +259,35 @@ export default function ProductDetails() {
           </div>
         </div>
 
-        {/* ── Two-Column Layout ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* ── Two-Column Layout (equal height) ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
           {/* Product Info */}
-          <div className="animate-slideUp" style={{ animationDelay: "100ms" }}>
-            <ProductInfoCard product={product} />
+          <div className="animate-slideUp flex" style={{ animationDelay: "100ms" }}>
+            <div className="w-full flex flex-col">
+              <ProductInfoCard product={product} className="flex-1" />
+            </div>
           </div>
 
           {/* Stock Batches Preview — uses new stock-batches feature */}
-          <div className="animate-slideUp" style={{ animationDelay: "200ms" }}>
-            <BatchesPreview
-              batches={batches}
-              loading={loadingBatches}
-              productId={id}
-              canManage={canManage}
-              onRefresh={loadBatches}
-            />
+          <div className="animate-slideUp flex" style={{ animationDelay: "200ms" }}>
+            <div className="w-full flex flex-col">
+              <BatchesPreview
+                batches={batches}
+                loading={loadingBatches}
+                productId={id}
+                canManage={canManage}
+                onRefresh={loadBatches}
+                className="flex-1"
+              />
+            </div>
           </div>
+        </div>
+
+        {/* ── Machine Learning Insights Section ── */}
+        <div className="animate-slideUp" style={{ animationDelay: "300ms" }}>
+          <DemandForecastChart data={forecast} loading={loadingForecast}>
+            <RecommendedProducts data={recommendations} loading={loadingRecommendations} />
+          </DemandForecastChart>
         </div>
       </div>
 

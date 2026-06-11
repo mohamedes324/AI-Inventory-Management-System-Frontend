@@ -123,9 +123,13 @@ export default function OrderDetailsPage() {
     if (!id) return;
     execute(id)
       .then((data) => setOrder(data))
-      .catch((err) =>
-        setError(err?.message || t("details.error")),
-      );
+      .catch((err) => {
+        if (err?.status === 403) {
+          setError(t("details.unauthorized", "You are not authorized to view this order."));
+        } else {
+          setError(err?.message || t("details.error"));
+        }
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 

@@ -19,7 +19,7 @@ import {
   DashboardSkeleton, DashboardError,
   StatCard, AlertCard, AnalyticsCard,
 } from "./shared";
-import { RefundChart } from "./charts";
+import { RefundChart, ClusterInsights } from "./charts";
 import { ReturnedProductsPreview, PaymentMethodsPreview } from "./previews";
 
 /** Format large currency values */
@@ -56,10 +56,6 @@ export default function ManagerView() {
     setDateRange({ key, startDate, endDate });
   }, []);
 
-  const handleExport = useCallback(() => {
-    console.log("Export report:", dateRange);
-  }, [dateRange]);
-
   if (isLoading) return <DashboardSkeleton />;
   if (isError) return <DashboardError onRetry={refetch} />;
 
@@ -73,7 +69,6 @@ export default function ManagerView() {
         role="Manager"
         dateRange={dateRange.key}
         onDateRangeChange={handleDateRangeChange}
-        onExport={handleExport}
       />
 
       {/* ── 2. KPI Cards ── */}
@@ -103,9 +98,7 @@ export default function ManagerView() {
 
       {/* ── 4. Refund Overview (uses already-fetched summary data, no extra API call) ── */}
       <DashboardSection delay={150}>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <RefundChart totalRevenue={summary.totalRevenue || 0} totalRefundAmount={summary.totalRefundAmount || 0} />
-        </div>
+        <RefundChart totalRevenue={summary.totalRevenue || 0} totalRefundAmount={summary.totalRefundAmount || 0} />
       </DashboardSection>
 
       {/* ── 5. Lightweight Navigation Previews (no API fetching) ── */}
@@ -125,10 +118,10 @@ export default function ManagerView() {
         </DashboardGrid>
       </DashboardSection>
 
-      {/* ── 7. Active Users ── */}
-      <DashboardSection title={t("users.title")} delay={300}>
-        <AnalyticsCard title={t("users.activeUsers")} value={`${summary.activeUsers || 0}`} description={t("users.activeUsersDesc")} icon={<Users size={24} />} color="blue" className="max-w-md" />
-      </DashboardSection>
+
+
+      {/* ── 8. Machine Learning Insights ── */}
+      <ClusterInsights />
     </div>
   );
 }

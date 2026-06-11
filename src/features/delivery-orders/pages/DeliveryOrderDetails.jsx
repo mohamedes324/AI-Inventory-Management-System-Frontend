@@ -32,6 +32,7 @@ import { useRequest } from "@/shared/hooks/useRequest";
 import { getDeliveryOrderById } from "../api/getDeliveryOrderById";
 import { acceptDelivery, failDelivery } from "../api/deliveryActions";
 import ConfirmationModal from "../components/ConfirmationModal";
+import { getUserIdFromToken } from "@/shared/utils/jwt";
 
 /** Format date */
 function formatDate(dateStr) {
@@ -92,7 +93,13 @@ export default function DeliveryOrderDetails() {
     if (!id) return;
     execute(id)
       .then((data) => setOrder(data))
-      .catch((err) => setError(err?.message || t("toasts.fetchError")));
+      .catch((err) => {
+        if (err?.status === 403) {
+          setError(t("details.unauthorized", "You are not authorized to access this delivery order."));
+        } else {
+          setError(err?.message || t("toasts.fetchError"));
+        }
+      });
   }, [id]);
 
   /** Handle accept delivery */
@@ -168,6 +175,9 @@ export default function DeliveryOrderDetails() {
 
   const items = order.items || [];
   const isOutForDelivery = order.status === "OutForDelivery";
+  const loggedInUserId = getUserIdFromToken();
+  const isOwner = order.cashierId === loggedInUserId;
+
 
   return (
     <Layout>
@@ -198,7 +208,7 @@ export default function DeliveryOrderDetails() {
             </div>
 
             {/* ── Action Buttons (top-right) ── */}
-            {isOutForDelivery && !actionDone && (
+            {isOutForDelivery && !actionDone && isOwner && (
               <div className="hidden sm:flex items-center gap-3">
                 <Button
                   variant="ghost"
@@ -602,7 +612,7 @@ export default function DeliveryOrderDetails() {
             </div>
 
             {/* ── Mobile Action Buttons ── */}
-            {isOutForDelivery && !actionDone && (
+            {isOutForDelivery && !actionDone && isOwner && (
               <div
                 className="sm:hidden flex items-center gap-3 animate-fadeIn"
                 style={{ animationDelay: "300ms" }}

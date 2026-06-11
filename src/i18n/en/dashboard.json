@@ -82,5 +82,108 @@
     "loadFailed": "Failed to load dashboard data",
     "retry": "Retry"
   },
-  "currency": "EGP"
+  "currency": "EGP",
+  "cashier": {
+    "title": "Cashier Dashboard",
+    "subtitle": "Here's your daily operations overview.",
+    "newOrder": "New Order",
+    "viewAll": "View All",
+    "stats": {
+      "draftOrders": "Draft Orders",
+      "drafts": "drafts",
+      "pendingDeliveries": "Pending Deliveries",
+      "outForDelivery": "out for delivery",
+      "completedToday": "Completed Today",
+      "today": "today",
+      "ordersThisMonth": "Orders This Month",
+      "thisMonth": "this month"
+    },
+    "sections": {
+      "draftOrders": "My Draft Orders",
+      "pendingDeliveries": "Pending Deliveries",
+      "recentOrders": "Recent Orders",
+      "monthlyPerformance": "Monthly Performance",
+      "monthlySubtitle": "Your performance summary for this month"
+    },
+    "empty": {
+      "drafts": "No draft orders. Click 'New Order' to get started.",
+      "deliveries": "No pending deliveries at the moment.",
+      "recent": "No recent orders to show."
+    },
+    "performance": {
+      "ordersMonth": "Orders This Month",
+      "completedMonth": "Completed This Month",
+      "cancelledMonth": "Cancelled This Month",
+      "pendingMonth": "Pending Deliveries"
+    }
+  },
+  "inventoryStaff": {
+    "title": "Inventory Staff Dashboard",
+    "subtitle": "Here's your inventory status and purchasing activity overview.",
+    "stats": {
+      "totalProducts": "Total Products",
+      "lowStock": "Low Stock",
+      "outOfStock": "Out of Stock",
+      "purchasesThisMonth": "Purchases This Month",
+      "products": "products",
+      "purchases": "purchases"
+    },
+    "sections": {
+      "lowStockProducts": "Low Stock Products",
+      "outOfStockProducts": "Out of Stock Products",
+      "recentPurchases": "Recent Purchases"
+    },
+    "empty": {
+      "lowStock": "All products are well-stocked.",
+      "outOfStock": "No out of stock products.",
+      "recentPurchases": "No recent purchases."
+    },
+    "viewAll": "View All",
+    "refresh": "Refresh",
+    "urgent": "Urgent"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "User management overview and quick actions.",
+    "refresh": "Refresh",
+    "stats": {
+      "totalUsers": "Total Users",
+      "users": "users",
+      "pendingAccounts": "Pending Accounts",
+      "pending": "pending review",
+      "activeAccounts": "Active Accounts",
+      "active": "active"
+    },
+    "sections": {
+      "usersByRole": "Users by Role",
+      "usersByRoleDesc": "Distribution of users across different roles",
+      "quickActions": "Quick Actions"
+    },
+    "roles": {
+      "Admin": "Admin",
+      "Manager": "Manager",
+      "Cashier": "Cashier",
+      "InventoryStaff": "Inventory Staff"
+    },
+    "quickActions": {
+      "createUser": "Create User",
+      "createUserDesc": "Add a new user to the system"
+    }
+  },
+  "mlClusters": {
+    "sectionTitle": "Machine Learning Insights",
+    "sectionSubtitle": "AI-powered product clustering and segment analysis.",
+    "emptyTitle": "No cluster data available",
+    "emptyDesc": "ML groupings will appear here once the segmentation models are executed.",
+    "products": "Products",
+    "selected": "Selected",
+    "distribution": "Cluster Distribution",
+    "totalProducts": "Total Products",
+    "names": {
+      "Top Performers": "Top Performers",
+      "Premium Products": "Premium Products",
+      "Steady Sellers": "Steady Sellers",
+      "Slow Movers": "Slow Movers"
+    }
+  }
 }

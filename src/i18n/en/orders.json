@@ -64,7 +64,9 @@
     "next": "Next"
   },
   "toasts": {
-    "fetchError": "Failed to load orders"
+    "fetchError": "Failed to load orders",
+    "productAdded": "Product Added"
+
   },
   "details": {
     "title": "Order Details",
@@ -94,7 +96,8 @@
     "finalPrice": "Final Price",
     "loading": "Loading order details...",
     "notFound": "Order not found",
-    "error": "Something went wrong"
+    "error": "Something went wrong",
+    "unauthorized": "You are not authorized to view this order."
   },
   "addOrder": {
     "title": "New Order",
@@ -136,6 +139,28 @@
     "confirmSuccessDesc": "Your order has been confirmed and processed.",
     "viewOrder": "View Order",
     "newOrder": "New Order",
-    "redirecting": "Redirecting in {{seconds}}s..."
+    "redirecting": "Redirecting in {{seconds}}s...",
+    "noProductsFound": "No products found"
+
+  },
+  "cashierPages": {
+    "draftOrders": {
+      "title": "My Draft Orders",
+      "description": "Continue editing your unfinished orders",
+      "empty": "No draft orders found",
+      "emptyDesc": "You don't have any unfinished orders."
+    },
+    "pendingDeliveries": {
+      "title": "Pending Deliveries",
+      "description": "Orders currently out for delivery",
+      "empty": "No pending deliveries",
+      "emptyDesc": "You don't have any orders out for delivery."
+    },
+    "myOrders": {
+      "title": "My Orders",
+      "description": "All orders you've handled",
+      "empty": "No orders found",
+      "emptyDesc": "You haven't handled any orders yet."
+    }
   }
 }

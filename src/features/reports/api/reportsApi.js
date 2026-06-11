@@ -32,3 +32,9 @@ export const fetchOutOfStock = async () => {
   const { data } = await api.get("/reports/inventory/out-of-stock");
   return data;
 };
+
+/** Fetch user status breakdown (GET /api/reports/users/status-breakdown) */
+export const fetchUserStatusBreakdown = async () => {
+  const { data } = await api.get("/reports/users/status-breakdown");
+  return data;
+};

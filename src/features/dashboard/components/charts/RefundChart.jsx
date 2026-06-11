@@ -8,7 +8,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 const COLORS = ["#22C55E", "#EF4444"];
 
-const CustomTooltip = ({ active, payload }) => {
+const CustomTooltip = ({ active, payload, t }) => {
   if (!active || !payload?.length) return null;
   return (
     <div className="bg-background-elevated border border-border-primary rounded-lg px-3 py-2 shadow-[var(--shadow-elevated)]">
@@ -16,7 +16,7 @@ const CustomTooltip = ({ active, payload }) => {
         <span className="w-2 h-2 rounded-full" style={{ background: payload[0].payload.fill }} />
         <span className="text-text-secondary">{payload[0].name}:</span>
         <span className="font-semibold text-text-primary">
-          {payload[0].value.toLocaleString()} EGP
+          {payload[0].value.toLocaleString()} {t("currency")}
         </span>
       </div>
     </div>
@@ -45,10 +45,11 @@ export default function RefundChart({ totalRevenue = 0, totalRefundAmount = 0, l
       </h3>
 
       {loading ? (
-        <div className="w-full h-[260px] rounded-xl animate-shimmer" />
+        <div className="w-full h-[180px] rounded-xl animate-shimmer" />
       ) : (
-        <div className="flex flex-col sm:flex-row items-center gap-6">
-          <div className="w-[180px] h-[180px] relative">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
+          {/* Left: Donut Chart */}
+          <div className="w-[180px] h-[180px] shrink-0 relative mx-auto md:mx-0">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie data={data} cx="50%" cy="50%" innerRadius={55} outerRadius={80} paddingAngle={3} dataKey="value" startAngle={90} endAngle={-270} stroke="none">
@@ -56,7 +57,7 @@ export default function RefundChart({ totalRevenue = 0, totalRefundAmount = 0, l
                     <Cell key={i} fill={COLORS[i]} />
                   ))}
                 </Pie>
-                <Tooltip content={<CustomTooltip />} />
+                <Tooltip content={<CustomTooltip t={t} />} />
               </PieChart>
             </ResponsiveContainer>
             {/* Center label */}
@@ -66,21 +67,39 @@ export default function RefundChart({ totalRevenue = 0, totalRefundAmount = 0, l
             </div>
           </div>
 
-          {/* Legend */}
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-emerald-500" />
-              <div>
-                <p className="text-sm text-text-secondary">{t("charts.netRevenue")}</p>
-                <p className="text-base font-semibold text-text-primary">{netRevenue.toLocaleString()} EGP</p>
+          {/* Right: Detailed horizontal stats grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1 w-full">
+            {/* Total Sales / Revenue */}
+            <div className="bg-background-hover/40 border border-border-primary/50 rounded-xl p-4 flex flex-col justify-between">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0" />
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">{t("kpi.totalRevenue")}</span>
               </div>
+              <p className="text-lg font-bold text-text-primary mt-1">
+                {totalRevenue.toLocaleString()} <span className="text-xs font-normal text-text-muted">{t("currency")}</span>
+              </p>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-red-500" />
-              <div>
-                <p className="text-sm text-text-secondary">{t("charts.refundAmount")}</p>
-                <p className="text-base font-semibold text-text-primary">{totalRefundAmount.toLocaleString()} EGP</p>
+
+            {/* Net Revenue */}
+            <div className="bg-background-hover/40 border border-border-primary/50 rounded-xl p-4 flex flex-col justify-between">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">{t("charts.netRevenue")}</span>
               </div>
+              <p className="text-lg font-bold text-text-primary mt-1">
+                {netRevenue.toLocaleString()} <span className="text-xs font-normal text-text-muted">{t("currency")}</span>
+              </p>
+            </div>
+
+            {/* Refund Amount */}
+            <div className="bg-background-hover/40 border border-border-primary/50 rounded-xl p-4 flex flex-col justify-between">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0" />
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">{t("charts.refundAmount")}</span>
+              </div>
+              <p className="text-lg font-bold text-text-primary mt-1">
+                {totalRefundAmount.toLocaleString()} <span className="text-xs font-normal text-text-muted">{t("currency")}</span>
+              </p>
             </div>
           </div>
         </div>

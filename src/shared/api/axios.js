@@ -27,6 +27,7 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+    config.headers.AcceptLanguage = localStorage.getItem("lang") || "ar";
   return config;
 });
 

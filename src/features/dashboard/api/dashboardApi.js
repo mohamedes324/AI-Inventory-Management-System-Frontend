@@ -21,3 +21,12 @@ export const fetchDashboardSummary = async ({ startDate, endDate } = {}) => {
   const { data } = await api.get("/dashboard/summary", { params });
   return data;
 };
+
+/**
+ * Fetch ML product clusters.
+ * @returns {Promise<Object>} Clusters payload with { clusters: [...] }
+ */
+export const fetchClusters = async () => {
+  const { data } = await api.get("/ML/clusters");
+  return data;
+};

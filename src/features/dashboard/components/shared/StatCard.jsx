@@ -51,6 +51,13 @@ const colorMap = {
     glow: "group-hover:shadow-[0_0_30px_rgba(245,158,11,0.08)]",
     accent: "from-amber-500/10 to-transparent",
   },
+  red: {
+    iconBg: "bg-red-500/10",
+    iconText: "text-red-400",
+    iconRing: "ring-red-500/20",
+    glow: "group-hover:shadow-[0_0_30px_rgba(239,68,68,0.08)]",
+    accent: "from-red-500/10 to-transparent",
+  },
 };
 
 export default function StatCard({

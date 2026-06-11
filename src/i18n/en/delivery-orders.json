@@ -18,6 +18,7 @@
     "subtitle": "Full delivery order details, items, and allocations.",
     "loading": "Loading delivery order details...",
     "backToList": "Back to Delivery Orders",
+    "unauthorized": "You are not authorized to access this delivery order.",
     "orderInfo": "Order Information",
     "id": "Order ID",
     "orderDate": "Order Date",

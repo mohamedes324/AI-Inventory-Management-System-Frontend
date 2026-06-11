@@ -18,7 +18,7 @@ export const useCashierOptions = () => {
         // Normalize: the API returns { id, fullName, ... }
         const normalized = (data || []).map((c) => ({
           id: c.id ?? c.userId,
-          name: c.fullName ?? c.userName ?? c.name ?? "—",
+          name: c.name ?? "—",
           ...c,
         }));
         setCashiers(normalized);

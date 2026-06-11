@@ -45,12 +45,12 @@ function BatchRow({ batch, index }) {
   );
 }
 
-export default function BatchesPreview({ batches = [], loading = false, productId, canManage = false }) {
+export default function BatchesPreview({ batches = [], loading = false, productId, canManage = false, className = "" }) {
   const { t } = useTranslation("stockBatches");
   const navigate = useNavigate();
 
   return (
-    <div className="bg-background-card rounded-2xl border border-border-primary shadow-sm overflow-hidden">
+    <div className={`bg-background-card rounded-2xl border border-border-primary shadow-sm overflow-hidden flex flex-col ${className}`}>
       {/* ── Header ── */}
       <div className="px-5 py-4 border-b border-border-primary/50 flex items-center justify-between">
         <div className="flex items-center gap-3">

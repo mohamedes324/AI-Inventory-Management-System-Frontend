@@ -53,21 +53,23 @@ export default function DashboardHeader({
       <div className="flex items-center gap-3 flex-wrap">
         <DateRangePicker value={dateRange} onChange={onDateRangeChange} />
 
-        <button
-          onClick={onExport}
-          className="
-            inline-flex items-center gap-2 px-4 py-2.5
-            rounded-xl text-sm font-medium
-            bg-background-card border border-border-primary
-            text-text-secondary hover:text-text-primary
-            hover:border-border-secondary hover:bg-background-hover
-            transition-all duration-200
-            shadow-[var(--shadow-card)]
-          "
-        >
-          <Download size={16} />
-          <span className="hidden sm:inline">{t("header.exportReport")}</span>
-        </button>
+        {onExport && (
+          <button
+            onClick={onExport}
+            className="
+              inline-flex items-center gap-2 px-4 py-2.5
+              rounded-xl text-sm font-medium
+              bg-background-card border border-border-primary
+              text-text-secondary hover:text-text-primary
+              hover:border-border-secondary hover:bg-background-hover
+              transition-all duration-200
+              shadow-[var(--shadow-card)]
+            "
+          >
+            <Download size={16} />
+            <span className="hidden sm:inline">{t("header.exportReport")}</span>
+          </button>
+        )}
       </div>
     </motion.div>
   );

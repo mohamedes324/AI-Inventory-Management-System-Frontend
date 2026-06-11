@@ -231,7 +231,7 @@ export default function FilterModal({ isOpen, onClose, onApply, activeFilters })
                 onChange={(e) =>
                   updateFilter(
                     "CashierId",
-                    e.target.value ? Number(e.target.value) : null
+                    e.target.value || null
                   )
                 }
                 className="w-full rounded-xl border border-border-primary bg-background-input px-4 py-3 text-sm text-text-primary outline-none transition-all duration-200 focus:border-primary-400 focus:ring-4 focus:ring-primary-500/8 shadow-[inset_0_1px_2px_rgba(0,0,0,0.15)] appearance-none cursor-pointer"

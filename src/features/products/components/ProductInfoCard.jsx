@@ -20,12 +20,12 @@ function InfoRow({ icon: Icon, iconColor, label, value }) {
   );
 }
 
-export default function ProductInfoCard({ product }) {
+export default function ProductInfoCard({ product, className = "" }) {
   const { t } = useTranslation("products");
   if (!product) return null;
 
   return (
-    <div className="bg-background-card rounded-2xl border border-border-primary shadow-sm overflow-hidden">
+    <div className={`bg-background-card rounded-2xl border border-border-primary shadow-sm overflow-hidden ${className}`}>
       <div className="px-6 py-4 border-b border-border-primary/50">
         <h3 className="text-base font-bold text-text-primary">{t("details.infoTitle")}</h3>
         <p className="text-xs text-text-muted mt-0.5">{t("details.infoSubtitle")}</p>

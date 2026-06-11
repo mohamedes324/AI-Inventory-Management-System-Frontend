@@ -38,6 +38,24 @@ export default function OrdersPage() {
     changePage,
   } = useOrders(10);
 
+  const handleOrderClick = (order) => {
+    if (order.status === "Draft") {
+      navigate("/orders/new", {
+        state: {
+          draftOrderId: order.orderId ?? order.id,
+        },
+      });
+      return;
+    }
+
+    if (order.status === "OutForDelivery") {
+      navigate(`/delivery-orders/${order.id}`);
+      return;
+    }
+
+    navigate(`/orders/${order.orderId ?? order.id}`);
+  };
+
   return (
     <Layout>
       {/* ── Header ── */}
@@ -85,11 +103,7 @@ export default function OrdersPage() {
       >
         <div className="flex items-center gap-3">
           {/* Filter / Search Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setFilterOpen(true)}
-          >
+          <Button variant="ghost" size="sm" onClick={() => setFilterOpen(true)}>
             <Filter size={16} />
             <span>{t("page.searchFilter")}</span>
           </Button>
@@ -130,7 +144,7 @@ export default function OrdersPage() {
             <OrderTable
               orders={orders}
               loading={loading}
-              onOrderClick={(order) => navigate(`/orders/${order.orderId ?? order.id}`)}
+              onOrderClick={handleOrderClick}
             />
 
             {/* ── Pagination ── */}
@@ -188,7 +202,7 @@ export default function OrdersPage() {
                       key={order.orderId || idx}
                       order={order}
                       delay={idx * 60}
-                      onClick={() => navigate(`/orders/${order.orderId ?? order.id}`)}
+                      onClick={() => handleOrderClick(order)}
                     />
                   ))}
                 </div>

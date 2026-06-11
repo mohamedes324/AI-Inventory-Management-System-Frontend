@@ -14,7 +14,7 @@
  * - Confirm order modal integration
  */
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   ArrowLeft,
@@ -36,6 +36,7 @@ import Layout from "@/shared/components/Layout";
 import { Button } from "@/shared/components/ui";
 import { useRequest } from "@/shared/hooks/useRequest";
 import { createDraftOrder } from "../api/createDraftOrder";
+import { getOrderById } from "../api/getOrderById";
 import { addOrderItem } from "../api/addOrderItem";
 import { updateOrderItem } from "../api/updateOrderItem";
 import { deleteOrderItem } from "../api/deleteOrderItem";
@@ -126,6 +127,8 @@ function ErrorModal({ message, onClose }) {
 export default function AddOrderPage() {
   const { t } = useTranslation("orders");
   const navigate = useNavigate();
+  const location = useLocation();
+  const draftOrderIdFromState = location.state?.draftOrderId;
   const scannerRef = useRef(null);
 
   // ── Draft state ──
@@ -151,32 +154,51 @@ export default function AddOrderPage() {
 
   // ── Hooks ──
   const { execute: execCreateDraft, loading: creatingDraft } = useRequest(createDraftOrder);
+  const { execute: execGetOrder, loading: loadingOrder } = useRequest(getOrderById);
   const { execute: execAddItem } = useRequest(addOrderItem);
   const { execute: execUpdateItem } = useRequest(updateOrderItem);
   const { execute: execDeleteItem } = useRequest(deleteOrderItem);
   const { execute: execConfirmOrder } = useRequest(confirmOrder);
 
-  // ── Create draft on mount ──
+  // ── Create or load draft on mount ──
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const draft = await execCreateDraft();
-        if (cancelled) return;
-        setOrderId(draft.orderId ?? draft.id);
-        setRowVersion(draft.rowVersion);
-        setOrder(draft);
-        // Focus scanner after draft created
-        setTimeout(() => scannerRef.current?.focus(), 100);
+        if (draftOrderIdFromState) {
+          // Flow B: Load existing draft order
+          const draft = await execGetOrder(draftOrderIdFromState);
+          if (cancelled) return;
+          setOrderId(draft.orderId ?? draft.id);
+          setRowVersion(draft.rowVersion);
+          setOrder(draft);
+          // Set lastAddedItem if items exist
+          if (draft.items && draft.items.length > 0) {
+            setLastAddedItem(draft.items[draft.items.length - 1]);
+          }
+          // Focus scanner after order loaded
+          setTimeout(() => scannerRef.current?.focus(), 100);
+        } else {
+          // Flow A: Create brand new draft order
+          const draft = await execCreateDraft();
+          if (cancelled) return;
+          setOrderId(draft.orderId ?? draft.id);
+          setRowVersion(draft.rowVersion);
+          setOrder(draft);
+          // Focus scanner after draft created
+          setTimeout(() => scannerRef.current?.focus(), 100);
+        }
       } catch (err) {
-        if (!cancelled) setInitError(err?.message || t("addOrder.draftError"));
+        if (!cancelled) {
+          setInitError(err?.message || (draftOrderIdFromState ? "Failed to load draft order" : t("addOrder.draftError")));
+        }
       }
     })();
     return () => {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [draftOrderIdFromState]);
 
   // ── Sync lastAddedLocalQty ──
   useEffect(() => {
@@ -391,8 +413,8 @@ export default function AddOrderPage() {
   const finalTotal = order?.finalTotal ?? 0;
   const isOrderValid = orderId && items.length > 0;
 
-  // ── Loading (creating draft) ──
-  if (creatingDraft && !orderId) {
+  // ── Loading (creating draft / loading order) ──
+  if ((creatingDraft || loadingOrder) && !orderId) {
     return (
       <Layout>
         <div className="flex-1 flex items-center justify-center p-8">
@@ -401,7 +423,7 @@ export default function AddOrderPage() {
               <Loader2 size={28} className="animate-spin text-primary-500" />
             </div>
             <p className="text-sm text-text-muted font-medium">
-              {t("addOrder.creatingDraft")}
+              {draftOrderIdFromState ? "Loading draft order..." : t("addOrder.creatingDraft")}
             </p>
           </div>
         </div>

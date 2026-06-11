@@ -122,5 +122,29 @@
     "sold": "sold",
     "empty": "No sales data available",
     "emptyDesc": "Sales data will appear here once orders are processed."
+  },
+  "ml": {
+    "sectionTitle": "Machine Learning Insights",
+    "sectionSubtitle": "AI-powered demand predictions for the next 30 days.",
+    "chartTitle": "Demand Forecast",
+    "forecastDemand": "Forecast Demand",
+    "lowerBound": "Lower Bound",
+    "upperBound": "Upper Bound",
+    "forecast": "Forecast",
+    "minimum": "Minimum",
+    "maximum": "Maximum",
+    "units": "units",
+    "avgDemand": "Avg Demand",
+    "peakLabel": "Peak",
+    "noData": "No forecast data available",
+    "noDataHint": "ML predictions will appear here once the model generates forecasts for this product.",
+    "fetchError": "Failed to load forecast data",
+    "recommendations": {
+      "title": "Recommended Products",
+      "subtitle": "Products frequently purchased together with this item.",
+      "skuLabel": "SKU",
+      "score": "Score",
+      "noData": "No recommendations available for this product."
+    }
   }
 }
